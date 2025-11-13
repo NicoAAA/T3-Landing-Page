@@ -1,35 +1,38 @@
 ---
 // src/components/Navbar.astro
-// Importamos solo los pesos necesarios (Bold para el estilo Gotham)
 import '@fontsource/montserrat/700.css';
 ---
-<header class="w-full bg-[#fdfbf7] text-[#1c1c2e] border-b border-[#1c1c2e]/10 relative z-50">
+
+<header 
+    class="absolute top-0 w-full z-50 transition-all duration-500 ease-in-out hover:bg-[#fdfbf7] hover:shadow-md group h-20 md:h-24 flex items-center"
+>
     
-    <nav class="w-full max-w-[90rem] mx-auto px-6 h-20 md:h-24 grid grid-cols-3 items-center">
+    <nav class="w-full max-w-[90rem] mx-auto px-6 grid grid-cols-3 items-center">
         
         <div class="flex justify-start items-center">
             <div class="md:hidden">
-                <button id="hamburger-btn" class="text-[#1c1c2e] focus:outline-none">
+                <button id="hamburger-btn" class="text-white group-hover:text-[#1c1c2e] focus:outline-none transition-colors duration-300 ease-in-out">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
                     </svg>
                 </button>
             </div>
 
-            <div class="hidden md:flex items-center gap-4 md:text-[10px] lg:text-xs lg:gap-8 font-brand uppercase tracking-widest font-bold">
-                <a href="#feature" class="hover:text-gray-500 transition-colors">Nosotros</a>
-                <a href="#pricing" class="hover:text-gray-500 transition-colors">T3 Fashion News</a>
-                <a href="#contact" class="hover:text-gray-500 transition-colors">Historia</a>
+            <div class="hidden md:flex items-center gap-4 md:text-[10px] lg:text-xs lg:gap-8 font-brand uppercase tracking-widest font-bold text-white group-hover:text-[#1c1c2e] transition-colors duration-300 ease-in-out">
+                <a href="#feature" class="hover:text-gray-500 transition-colors duration-300">Nosotros</a>
+                <a href="#pricing" class="hover:text-gray-500 transition-colors duration-300">T3 Fashion News</a>
+                <a href="#contact" class="hover:text-gray-500 transition-colors duration-300">Historia</a>
             </div>
         </div>
 
         <div></div>
         
-        <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold">
-            <a href="#" class="hidden md:block hover:text-gray-500 transition-colors">Politicas</a>
-            <a href="#" class="hidden md:block bg-[#1F2937] text-[#F9FAFB] px-6 py-3 hover:bg-[#1F2937] transition-colors">Contactanos</a>
+        <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold text-white group-hover:text-[#1c1c2e] transition-colors duration-300 ease-in-out">
+            <a href="#" class="hidden md:block hover:text-gray-500 transition-colors duration-300">Politicas</a>
+            
+            <a href="#" class="hidden md:block bg-[#1F2937] text-[#F9FAFB] px-6 py-3 hover:bg-gray-700 transition-colors duration-300 ease-in-out">Contactanos</a>
 
-             <a href="#" class="md:hidden block">
+             <a href="#" class="md:hidden block hover:text-gray-500 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>                  
@@ -38,19 +41,22 @@ import '@fontsource/montserrat/700.css';
     </nav>
 
     <a href="/" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-        <img src="/images/LOGOT3.svg" alt="Logo" class="hidden md:block h-28 drop-shadow-sm transition-transform hover:scale-105">
-        <img src="/images/LOGOT3.svg" alt="Logo" class="block md:hidden h-16 drop-shadow-sm transition-transform hover:scale-105">
+        <img 
+            src="/images/LOGOT3.svg" 
+            alt="Logo" 
+            class="h-16 md:h-28 transition-all duration-500 ease-in-out brightness-0 invert group-hover:brightness-100 group-hover:invert-0 drop-shadow-md group-hover:drop-shadow-none"
+        >
     </a>
 
-    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#fdfbf7] border-b border-[#1c1c2e]/10 shadow-xl z-40">
-        <div class="flex flex-col p-6 gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold text-[#1c1c2e]">
-            <a href="#features" class="hover:text-gray-500 py-2">Nosotros</a>
-            <a href="#pricing" class="hover:text-gray-500 py-2">T3 Fashion News</a>
+    <div id="mobile-menu" class="hidden absolute top-[100%] left-0 w-full bg-[#fdfbf7] border-b border-[#1c1c2e]/10 shadow-xl z-40 text-[#1c1c2e]">
+        <div class="flex flex-col p-6 gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold">
+            <a href="#features" class="hover:text-gray-500 py-2 transition-colors duration-300">Nosotros</a>
+            <a href="#pricing" class="hover:text-gray-500 py-2 transition-colors duration-300">T3 Fashion News</a>
             
             <hr class="border-[#1c1c2e]/10 w-1/2 mx-auto my-1">
             
-            <a href="#" class="py-2">Politicas</a>
-            <a href="#" class="bg-[#1c1c2e] text-[#fdfbf7] w-full py-3 mt-2 hover:bg-gray-800 transition-colors">
+            <a href="#" class="py-2 transition-colors duration-300">Politicas</a>
+            <a href="#" class="bg-[#1c1c2e] text-[#fdfbf7] w-full py-3 mt-2 hover:bg-gray-800 transition-colors duration-300">
                 Contactanos
             </a>
         </div>
@@ -64,5 +70,15 @@ import '@fontsource/montserrat/700.css';
 
     hamburgerBtn.addEventListener("click", () => {
         mobileMenu.classList.toggle("hidden");
+        
+        // Forzamos estilos al abrir menú móvil para legibilidad
+        const header = document.querySelector('header');
+        if (!mobileMenu.classList.contains('hidden')) {
+            header.classList.add('bg-[#fdfbf7]', 'text-[#1c1c2e]');
+            header.classList.remove('text-white');
+        } else {
+            // Al cerrar, quitamos las clases forzadas para que vuelva a funcionar el hover
+            header.classList.remove('bg-[#fdfbf7]', 'text-[#1c1c2e]');
+        }
     });
 </script>

@@ -9,7 +9,7 @@
         stroke-width: 4px;
       }
       g {
-        fill: #a5bba7;
+        fill: #8b9e8d;
       }
       /* Estilo específico para aumentar el texto inferior */
       .texto-textiles {
