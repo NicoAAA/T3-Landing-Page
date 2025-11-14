@@ -29,7 +29,7 @@ export default {
       // 1. Definimos los keyframes (los pasos de la animación)
 			keyframes: {
 				scaleUp: {
-					'0%, 100%': { transform: 'scale(2)' },
+					'0%, 100%': { transform: 'scale(1)' },
 					'50%': { transform: 'scale(0.95)' },
 				}
 			},

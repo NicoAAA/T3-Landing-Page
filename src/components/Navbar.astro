@@ -11,10 +11,16 @@ import '@fontsource/montserrat/700.css';
         
         <div class="flex justify-start items-center">
             <div class="md:hidden">
-                <button id="hamburger-btn" class="text-white group-hover:text-[#1c1c2e] group-[.menu-open]:text-[#1c1c2e] focus:outline-none transition-colors duration-300 ease-in-out">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+                <button id="hamburger-btn" class="text-white group-hover:text-[#1c1c2e] group-[.menu-open]:text-[#1c1c2e] hover:!text-gray-500 focus:outline-none transition-colors duration-300 ease-in-out relative w-6 h-6">
+                    
+                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-300 transform group-[.menu-open]:opacity-0 group-[.menu-open]:rotate-90 group-[.menu-open]:scale-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
+
+                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-300 transform opacity-0 -rotate-90 scale-0 group-[.menu-open]:opacity-100 group-[.menu-open]:rotate-0 group-[.menu-open]:scale-100" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+
                 </button>
             </div>
 
@@ -78,17 +84,31 @@ import '@fontsource/montserrat/700.css';
     const mobileMenu = document.getElementById("mobile-menu");
     const header = document.querySelector('header');
 
-    hamburgerBtn.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-        
-        if (!mobileMenu.classList.contains('hidden')) {
+    const toggleMenu = () => {
+        const isHidden = mobileMenu.classList.contains("hidden");
+        if (isHidden) {
+            mobileMenu.classList.remove("hidden");
             header.classList.add('menu-open');
         } else {
+            mobileMenu.classList.add("hidden");
             header.classList.remove('menu-open');
+        }
+    };
+
+    hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!mobileMenu.classList.contains('hidden')) {
+            if (!mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add("hidden");
+                header.classList.remove('menu-open');
+            }
         }
     });
 
-    // Limpieza al redimensionar la ventana
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 768) {
             mobileMenu.classList.add("hidden");
