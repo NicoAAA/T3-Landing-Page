@@ -10,21 +10,13 @@ export default {
         brand: ['Montserrat', 'sans-serif'], 
       },
       colors: {
-        // Tus colores personalizados
-        brand: {
-          DEFAULT: '#a5bba7', // Tu color base (bg-brand)
-          light: '#c5d6c7',   // Para fondos muy suaves
-          dark: '#4a5e4d',    // Para textos sobre fondos claros o bordes
-        },
-        // Colores semánticos para el modo oscuro/claro
-        surface: {
-          light: '#ffffff',
-          dark: '#1f2937', // Gray-800
-        },
-        canvas: {
-          light: '#f9fafb', // Gray-50
-          dark: '#111827',  // Gray-900
-        },
+        // Paleta extraída de tu diseño original
+        t3: {
+          cream: '#fdfbf7',    // Fondo Navbar / Menú Móvil
+          dark: '#1c1c2e',     // Texto Principal / Iconos Dark
+          boton: '#183153',     // Botón Principal
+          sage: '#A5BBA7',     // Acento / Hover del Botón
+        }
       },
       // 1. Definimos los keyframes (los pasos de la animación)
 			keyframes: {
@@ -35,7 +27,7 @@ export default {
 			},
 			// 2. Creamos la utilidad de animación
 			animation: {
-				scaleUp: 'scaleUp 0.3s ease-in-out forwards',
+				scaleUp: 'scaleUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
 			}
     },
   },

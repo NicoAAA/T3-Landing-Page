@@ -4,27 +4,39 @@ import '@fontsource/montserrat/700.css';
 ---
 
 <header 
-    class="absolute top-0 w-full z-50 transition-all duration-500 ease-in-out hover:bg-[#fdfbf7] hover:shadow-md [&.menu-open]:bg-[#fdfbf7] [&.menu-open]:shadow-md group h-20 md:h-24 flex items-center"
+    id="main-header"
+    class="fixed top-0 w-full z-50 h-20 md:h-24 flex items-center
+           transition-transform duration-500 ease-silk will-change-transform
+           group"
 >
+    <div class="absolute inset-0 bg-[#fdfbf7] opacity-0 transition-opacity duration-500 ease-out
+                group-hover:opacity-100 group-hover:delay-75
+                group-[.is-active]:opacity-100 
+                group-[.menu-open]:opacity-100 shadow-sm">
+    </div>
     
-    <nav class="w-full max-w-[90rem] mx-auto px-6 grid grid-cols-3 items-center">
+    <nav class="relative w-full max-w-[90rem] mx-auto px-6 grid grid-cols-3 items-center z-10">
         
         <div class="flex justify-start items-center">
             <div class="md:hidden">
-                <button id="hamburger-btn" class="text-white group-hover:text-[#1c1c2e] group-[.menu-open]:text-[#1c1c2e] hover:!text-gray-500 focus:outline-none transition-colors duration-300 ease-in-out relative w-6 h-6">
-                    
-                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-300 transform group-[.menu-open]:opacity-0 group-[.menu-open]:rotate-90 group-[.menu-open]:scale-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <button id="hamburger-btn" class="relative w-6 h-6 text-white transition-colors duration-200 ease-in-out
+                                                  group-hover:text-[#1c1c2e] 
+                                                  group-[.is-active]:text-[#1c1c2e] 
+                                                  group-[.menu-open]:text-[#1c1c2e]">
+                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-500 ease-silk transform group-[.menu-open]:opacity-0 group-[.menu-open]:rotate-90" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
-
-                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-300 transform opacity-0 -rotate-90 scale-0 group-[.menu-open]:opacity-100 group-[.menu-open]:rotate-0 group-[.menu-open]:scale-100" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg class="w-6 h-6 absolute top-0 left-0 transition-all duration-500 ease-silk transform opacity-0 -rotate-90 group-[.menu-open]:opacity-100 group-[.menu-open]:rotate-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-
                 </button>
             </div>
 
-            <div class="hidden md:flex items-center gap-4 md:text-[10px] lg:text-xs lg:gap-8 font-brand uppercase tracking-widest font-bold text-white group-hover:text-[#1c1c2e] group-[.menu-open]:text-[#1c1c2e] transition-colors duration-300 ease-in-out">
+            <div class="hidden md:flex items-center gap-4 md:text-[10px] lg:text-xs lg:gap-8 font-brand uppercase tracking-widest font-bold 
+                        text-white transition-colors duration-200 ease-in-out
+                        group-hover:text-[#1c1c2e] 
+                        group-[.is-active]:text-[#1c1c2e] 
+                        group-[.menu-open]:text-[#1c1c2e]">
                 <a href="#feature" class="hover:text-gray-500 transition-colors duration-300">Nosotros</a>
                 <a href="#pricing" class="hover:text-gray-500 transition-colors duration-300">T3 Fashion News</a>
                 <a href="#contact" class="hover:text-gray-500 transition-colors duration-300">Historia</a>
@@ -33,12 +45,17 @@ import '@fontsource/montserrat/700.css';
 
         <div></div>
         
-        <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold text-white group-hover:text-[#1c1c2e] group-[.menu-open]:text-[#1c1c2e] transition-colors duration-300 ease-in-out">
+        <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold 
+                    text-white transition-colors duration-200 ease-in-out
+                    group-hover:text-[#1c1c2e] 
+                    group-[.is-active]:text-[#1c1c2e] 
+                    group-[.menu-open]:text-[#1c1c2e]">
+            
             <a href="#" class="hidden md:block hover:text-gray-500 transition-colors duration-300">Politicas</a>
             
-            <a href="#" class="hidden md:flex relative overflow-hidden rounded-[5px] bg-[#183153] shadow-[0px_6px_24px_0px_rgba(0,0,0,0.2)] group/button justify-center items-center cursor-pointer border-none">
-                <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-in-out group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
-                <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 ease-in-out group-hover/button:text-[#1c1c2e] group-hover/button:animate-scaleUp">
+            <a href="#" class="hidden md:flex relative overflow-hidden rounded-[5px] bg-[#183153] shadow-lg group/button justify-center items-center cursor-pointer">
+                <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-silk group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
+                <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 group-hover/button:text-[#1c1c2e]">
                     CONTACTANOS
                 </span>
             </a>
@@ -51,68 +68,36 @@ import '@fontsource/montserrat/700.css';
         </div>
     </nav>
 
-    <a href="/" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+    <a href="/" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
         <img 
             src="/images/LOGOT3.svg" 
             alt="Logo" 
-            class="h-16 md:h-28 transition-all duration-500 ease-in-out brightness-0 invert group-hover:brightness-100 group-hover:invert-0 group-[.menu-open]:brightness-100 group-[.menu-open]:invert-0 drop-shadow-md group-hover:drop-shadow-none"
+            class="h-16 md:h-28 transition-all duration-200 ease-in-out
+                   brightness-0 invert drop-shadow-md
+                   group-hover:brightness-100 group-hover:invert-0 group-hover:drop-shadow-none
+                   group-[.is-active]:brightness-100 group-[.is-active]:invert-0 group-[.is-active]:drop-shadow-none
+                   group-[.menu-open]:brightness-100 group-[.menu-open]:invert-0"
         >
     </a>
 
-    <div id="mobile-menu" class="hidden md:hidden absolute top-[100%] left-0 w-full bg-[#fdfbf7] border-b border-[#1c1c2e]/10 shadow-xl z-40 text-[#1c1c2e]">
-        <div class="flex flex-col p-6 gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold">
+    <div 
+        id="mobile-menu" 
+        class="md:hidden absolute top-0 left-0 w-full bg-[#fdfbf7] pt-24 pb-10 px-6 border-b border-[#1c1c2e]/10 shadow-xl -z-10
+               transition-all duration-500 ease-silk transform origin-top
+               opacity-0 invisible -translate-y-10
+               group-[.menu-open]:opacity-100 group-[.menu-open]:visible group-[.menu-open]:translate-y-0"
+    >
+        <div class="flex flex-col gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold text-[#1c1c2e]">
             <a href="#features" class="hover:text-gray-500 py-2 transition-colors duration-300">Nosotros</a>
             <a href="#pricing" class="hover:text-gray-500 py-2 transition-colors duration-300">T3 Fashion News</a>
-            
             <hr class="border-[#1c1c2e]/10 w-1/2 mx-auto my-1">
-            
             <a href="#" class="hover:text-gray-500 py-2 transition-colors duration-300">Politicas</a>
-            
-            <a href="#" class="relative w-full overflow-hidden rounded-[5px] bg-[#183153] shadow-md group/mobilebtn mt-4 flex justify-center items-center cursor-pointer border-none">
-                <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-in-out group-hover/mobilebtn:w-full group-hover/mobilebtn:left-0 group-hover/mobilebtn:right-auto"></span>
-                <span class="relative z-20 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 ease-in-out group-hover/mobilebtn:text-[#1c1c2e] group-hover/mobilebtn:animate-scaleUp">
-                    CONTACTANOS
-                </span>
-            </a>
-
+             <a href="#" class="w-full bg-[#183153] text-white py-4 rounded mt-2">CONTACTANOS</a>
         </div>
     </div>
 </header>
 
-<script is:inline>
-    const hamburgerBtn = document.getElementById("hamburger-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const header = document.querySelector('header');
-
-    const toggleMenu = () => {
-        const isHidden = mobileMenu.classList.contains("hidden");
-        if (isHidden) {
-            mobileMenu.classList.remove("hidden");
-            header.classList.add('menu-open');
-        } else {
-            mobileMenu.classList.add("hidden");
-            header.classList.remove('menu-open');
-        }
-    };
-
-    hamburgerBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleMenu();
-    });
-
-    document.addEventListener('click', (event) => {
-        if (!mobileMenu.classList.contains('hidden')) {
-            if (!mobileMenu.contains(event.target)) {
-                mobileMenu.classList.add("hidden");
-                header.classList.remove('menu-open');
-            }
-        }
-    });
-
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
-            mobileMenu.classList.add("hidden");
-            header.classList.remove('menu-open');
-        }
-    });
+<script>
+    import { initNavbar } from '../scripts/navbar-logic.js';
+    initNavbar();
 </script>
