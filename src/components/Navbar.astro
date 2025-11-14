@@ -30,9 +30,15 @@ import '@fontsource/montserrat/700.css';
         <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold text-white group-hover:text-[#1c1c2e] transition-colors duration-300 ease-in-out">
             <a href="#" class="hidden md:block hover:text-gray-500 transition-colors duration-300">Politicas</a>
             
-            <a href="#" class="hidden md:block bg-[#1F2937] text-[#F9FAFB] px-6 py-3 hover:bg-gray-700 transition-colors duration-300 ease-in-out">Contactanos</a>
+            <a href="#" class="hidden md:flex relative overflow-hidden rounded-[5px] bg-[#183153] shadow-[0px_6px_24px_0px_rgba(0,0,0,0.2)] group/button justify-center items-center cursor-pointer border-none">
+                
+                <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-in-out group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
 
-             <a href="#" class="md:hidden block hover:text-gray-500 transition-colors duration-300">
+                <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 ease-in-out group-hover/button:text-[#183153] group-hover/button:animate-scaleUp">
+                    CONTACTANOS
+                </span>
+            </a>
+            <a href="#" class="md:hidden block hover:text-gray-500 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>                  
@@ -48,7 +54,7 @@ import '@fontsource/montserrat/700.css';
         >
     </a>
 
-    <div id="mobile-menu" class="hidden absolute top-[100%] left-0 w-full bg-[#fdfbf7] border-b border-[#1c1c2e]/10 shadow-xl z-40 text-[#1c1c2e]">
+    <div id="mobile-menu" class="hidden md:hidden absolute top-[100%] left-0 w-full bg-[#fdfbf7] border-b border-[#1c1c2e]/10 shadow-xl z-40 text-[#1c1c2e]">
         <div class="flex flex-col p-6 gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold">
             <a href="#features" class="hover:text-gray-500 py-2 transition-colors duration-300">Nosotros</a>
             <a href="#pricing" class="hover:text-gray-500 py-2 transition-colors duration-300">T3 Fashion News</a>
@@ -56,9 +62,16 @@ import '@fontsource/montserrat/700.css';
             <hr class="border-[#1c1c2e]/10 w-1/2 mx-auto my-1">
             
             <a href="#" class="py-2 transition-colors duration-300">Politicas</a>
-            <a href="#" class="bg-[#1c1c2e] text-[#fdfbf7] w-full py-3 mt-2 hover:bg-gray-800 transition-colors duration-300">
-                Contactanos
+            
+            <a href="#" class="relative w-full overflow-hidden rounded-[5px] bg-[#183153] shadow-md group/mobilebtn mt-4 flex justify-center items-center cursor-pointer border-none">
+                
+                <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-in-out group-hover/mobilebtn:w-full group-hover/mobilebtn:left-0 group-hover/mobilebtn:right-auto"></span>
+
+                <span class="relative z-20 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 ease-in-out group-hover/mobilebtn:text-[#183153] group-hover/mobilebtn:animate-scaleUp">
+                    CONTACTANOS
+                </span>
             </a>
+
         </div>
     </div>
     
@@ -67,17 +80,29 @@ import '@fontsource/montserrat/700.css';
 <script is:inline>
     const hamburgerBtn = document.getElementById("hamburger-btn");
     const mobileMenu = document.getElementById("mobile-menu");
+    const header = document.querySelector('header');
 
+    // Función para abrir/cerrar menú
     hamburgerBtn.addEventListener("click", () => {
         mobileMenu.classList.toggle("hidden");
         
-        // Forzamos estilos al abrir menú móvil para legibilidad
-        const header = document.querySelector('header');
         if (!mobileMenu.classList.contains('hidden')) {
+            // Menú ABIERTO: Fondo sólido y texto oscuro
             header.classList.add('bg-[#fdfbf7]', 'text-[#1c1c2e]');
-            header.classList.remove('text-white');
         } else {
-            // Al cerrar, quitamos las clases forzadas para que vuelva a funcionar el hover
+            // Menú CERRADO: Limpiamos estilos forzados
+            header.classList.remove('bg-[#fdfbf7]', 'text-[#1c1c2e]');
+        }
+    });
+
+    // Escuchamos si el usuario cambia el tamaño de la ventana
+    window.addEventListener('resize', () => {
+        // Si la pantalla es mayor o igual a 768px (breakpoint md de Tailwind)
+        if (window.innerWidth >= 768) {
+            // 1. Cerramos el menú móvil a la fuerza
+            mobileMenu.classList.add("hidden");
+            
+            // 2. Reseteamos los colores del header a su estado original (transparente)
             header.classList.remove('bg-[#fdfbf7]', 'text-[#1c1c2e]');
         }
     });

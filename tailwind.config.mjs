@@ -24,8 +24,19 @@ export default {
         canvas: {
           light: '#f9fafb', // Gray-50
           dark: '#111827',  // Gray-900
-        }
+        },
       },
+      // 1. Definimos los keyframes (los pasos de la animación)
+			keyframes: {
+				scaleUp: {
+					'0%, 100%': { transform: 'scale(2)' },
+					'50%': { transform: 'scale(0.95)' },
+				}
+			},
+			// 2. Creamos la utilidad de animación
+			animation: {
+				scaleUp: 'scaleUp 0.3s ease-in-out forwards',
+			}
     },
   },
   plugins: [],
