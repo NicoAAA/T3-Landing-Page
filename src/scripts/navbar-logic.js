@@ -18,7 +18,7 @@ export const initNavbar = () => {
   const toggleMenu = () => {
     elements.header.classList.toggle('menu-open');
     // Bloquear scroll del body cuando el menú está abierto (Mejor UX)
-    document.body.classList.toggle('overflow-hidden', elements.header.classList.contains('menu-open'));
+    //document.body.classList.toggle('overflow-hidden', elements.header.classList.contains('menu-open'));
   };
 
   const closeMenu = () => {
