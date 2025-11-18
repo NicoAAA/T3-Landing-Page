@@ -6,8 +6,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Creamos una clase nueva 'font-brand' solo para items en el navbar
-        brand: ['Montserrat', 'sans-serif'], 
+        // Clase nueva 'font-titulo' solo para títulos (Montserrat)
+        titulo: ['Montserrat', 'sans-serif'], 
+        // Clase para cuerpo y Lectura (Lato)
+        body: ['Lato', 'sans-serif'],
       },
       colors: {
         // Paleta extraída de tu diseño original
