@@ -3,7 +3,8 @@
     
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-y-10 md:gap-x-4 lg:gap-8 mb-12 items-start">
 
-      <div class="order-1 md:col-span-5 lg:col-span-3 flex flex-col items-start">
+      <!-- 1. LOGO Y REDES -->
+      <div class="order-1 md:order-1 md:col-span-5 lg:col-span-3 flex flex-col items-start">
         <div class="w-32 mb-6">
            <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 585.32 594.95" class="w-full h-auto">
             <defs>
@@ -39,7 +40,8 @@
         </div>
       </div>
 
-      <div class="order-2 md:order-3 md:col-span-2 lg:col-span-2 lg:col-start-4 md:flex md:items-center md:gap-4 lg:block">
+      <!-- 2. NOSOTROS -->
+      <div class="order-2 md:order-3 lg:order-2 md:col-span-6 lg:col-span-2 lg:col-start-4 md:flex md:items-center md:gap-4 lg:block">
         <h3 class="text-white font-titulo font-bold text-lg mb-4 md:mb-0 lg:mb-6 whitespace-nowrap">Nosotros</h3>
         <ul class="space-y-4 md:space-y-0">
           <li>
@@ -48,16 +50,23 @@
         </ul>
       </div>
 
-      <div class="order-3 md:order-4 md:col-span-5 lg:col-span-2 lg:col-start-6 md:flex md:items-center md:gap-4 lg:block">
+      <!-- 3. LEGAL -->
+      <div class="order-3 md:order-4 lg:order-3 md:col-span-6 lg:col-span-2 lg:col-start-6 md:flex md:items-center md:gap-4 lg:block">
         <h3 class="text-white font-titulo font-bold text-lg mb-4 md:mb-0 lg:mb-6 whitespace-nowrap">Legal</h3>
         <ul class="space-y-4 md:space-y-0">
           <li>
-            <a href="#" class="text-slate-300 hover:text-gray-400 font-light transition-colors duration-200 whitespace-nowrap">Política de tratamiento de datos</a>
+            <!-- 
+              CORRECCIÓN AQUÍ: 
+              Cambié 'whitespace-nowrap' por 'md:whitespace-nowrap lg:whitespace-normal'.
+              Esto permite que el texto baje de línea SOLO en escritorio, evitando que choque con el teléfono.
+            -->
+            <a href="#" class="text-slate-300 hover:text-gray-400 font-light transition-colors duration-200 md:whitespace-nowrap lg:whitespace-normal">Política de tratamiento de datos</a>
           </li>
         </ul>
       </div>
 
-      <div class="order-4 md:order-2 md:col-span-7 lg:col-span-5 lg:col-start-8 lg:order-4">
+      <!-- 4. CONTACTO -->
+      <div class="order-4 md:order-2 lg:order-4 md:col-span-7 lg:col-span-5 lg:col-start-8">
         <h3 class="text-white font-titulo font-bold text-lg mb-6">Contacto</h3>
         
         <ul class="space-y-4 font-light text-gray-400 w-full md:grid md:grid-cols-9 md:gap-x-4 md:space-y-0 lg:block lg:space-y-4">
