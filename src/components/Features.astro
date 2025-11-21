@@ -4,35 +4,59 @@
 <section id="nosotros" class="bg-[#F9FAFB] py-16 lg:py-24 overflow-hidden">
   <div class="container mx-auto px-6 max-w-7xl">
     
-    <h2 class="text-3xl md:text-4xl font-titulo font-bold text-center text-[#183153] mb-16 lg:mb-24">
+    <h2 class="text-3xl md:text-4xl font-titulo font-bold text-center text-[#183153] mb-16 lg:mb-24 ">
       ¿Qué puedes esperar de nosotros?
     </h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center relative">
 
-      <div class="order-1 flex flex-col gap-12 lg:gap-24 w-full">
+      <!-- ========================================== -->
+      <!-- BLOQUE SUPERIOR (Tablet) / IZQUIERDA (PC) -->
+      <!-- ========================================== -->
+      <div class="order-1 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-24">
         
-        <div class="group flex items-center lg:justify-end relative">
-          <div class="text-left lg:text-right max-w-xs lg:pr-4">
+        <!-- 1. AGILIDAD -->
+        <div class="group flex items-center justify-center lg:justify-end relative">
+          <!-- Texto z-10 -->
+          <div class="text-center lg:text-right max-w-xs lg:pr-4 relative z-10">
             <h3 class="text-lg font-titulo font-bold text-[#183153] mb-2">Agilidad</h3>
             <p class="font-body text-gray-600 text-sm leading-relaxed">
               Somos una compañía atenta e informada, reaccionamos rápido para adaptarnos.
             </p>
           </div>
-          <div class="hidden lg:flex items-center absolute -right-12 top-1/2 -translate-y-1/2 translate-x-2">
+
+          <!-- CONECTOR TABLET (Sin cambios) -->
+          <div class="hidden md:block lg:hidden absolute top-full right-[15%] w-[40%] h-32 pointer-events-none z-0">
+             <div class="w-full h-full border-l border-b border-[#8b9e8d]"></div>
+             <div class="absolute bottom-0 -right-[4px] w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
+          </div>
+          
+          <!-- CONECTOR DESKTOP (CORREGIDO) -->
+          <!-- top-3 para alinear con título, -right-16 para separar del texto -->
+          <div class="hidden lg:flex items-center absolute -right-16 top-3 translate-x-2">
              <div class="w-16 h-[1px] bg-[#8b9e8d]"></div>
              <div class="w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
           </div>
         </div>
 
-        <div class="group flex items-center lg:justify-end relative">
-          <div class="text-left lg:text-right max-w-xs lg:pr-4">
+        <!-- 2. VANGUARDISMO -->
+        <div class="group flex items-center justify-center lg:justify-end relative">
+          <div class="text-center lg:text-right max-w-xs lg:pr-4 relative z-10">
             <h3 class="text-lg font-titulo font-bold text-[#183153] mb-2">Vanguardismo</h3>
             <p class="font-body text-gray-600 text-sm leading-relaxed">
               Somos modernos y tratamos de ir siempre un paso adelante en tendencias.
             </p>
           </div>
-           <div class="hidden lg:flex items-center absolute -right-12 top-1/2 -translate-y-1/2 translate-x-2">
+
+           <!-- CONECTOR TABLET (Sin cambios) -->
+           <div class="hidden md:block lg:hidden absolute top-full left-[15%] w-[40%] h-32 pointer-events-none z-0">
+             <div class="w-full h-full border-r border-b border-[#8b9e8d]"></div>
+             <div class="absolute bottom-0 -left-[4px] w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
+           </div>
+
+           <!-- CONECTOR DESKTOP (CORREGIDO) -->
+           <!-- top-3 para alinear con título, -right-16 para separar del texto -->
+           <div class="hidden lg:flex items-center absolute -right-16 top-3 translate-x-2">
              <div class="w-16 h-[1px] bg-[#8b9e8d]"></div>
              <div class="w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
           </div>
@@ -40,23 +64,49 @@
 
       </div>
 
-      <div class="order-2 flex justify-center relative z-10 py-8 lg:py-0">
-        <div class="relative w-64 h-80 lg:w-80 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-            <img src="/images/TelaNosotros.png" 
-               alt="Rollos de tela" 
-               class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out" />
+      <!-- ========================================== -->
+      <!-- BLOQUE CENTRAL (Video) -->
+      <!-- ========================================== -->
+      <div class="order-2 flex justify-center relative z-20 py-4 lg:py-0">
+        <div class="relative w-64 h-80 lg:w-80 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+            <video
+              src="/videos/tela_en_manos.mp4"
+              poster="/images/TelaNosotros.png"
+              playsinline
+              autoplay
+              muted
+              loop
+              preload="metadata"
+              class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
+              aria-label="Rollos de tela en movimiento">
+              Tu navegador no soporta la etiqueta de video.
+            </video>
             <div class="absolute inset-0 bg-[#8b9e8d]/10"></div>
         </div>
       </div>
 
-      <div class="order-3 flex flex-col gap-12 lg:gap-24 w-full">
+      <!-- ========================================== -->
+      <!-- BLOQUE INFERIOR (Tablet) / DERECHA (PC) -->
+      <!-- ========================================== -->
+      <div class="order-3 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-24">
         
-        <div class="group flex items-center lg:justify-start relative">
-           <div class="hidden lg:flex items-center absolute -left-12 top-1/2 -translate-y-1/2 -translate-x-2">
+        <!-- 3. RAPIDEZ -->
+        <div class="group flex items-center justify-center lg:justify-start relative">
+           
+           <!-- CONECTOR TABLET (Sin cambios) -->
+           <div class="hidden md:block lg:hidden absolute bottom-full right-[15%] w-[40%] h-32 pointer-events-none z-0">
+              <div class="w-full h-full border-l border-t border-[#8b9e8d]"></div>
+              <div class="absolute top-0 -right-[4px] w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
+           </div>
+
+           <!-- CONECTOR DESKTOP (CORREGIDO) -->
+           <!-- top-3 para alinear con título, -left-16 para separar del texto -->
+           <div class="hidden lg:flex items-center absolute -left-16 top-3 -translate-x-2">
              <div class="w-2 h-2 rounded-full bg-[#8b9e8d]"></div> 
              <div class="w-16 h-[1px] bg-[#8b9e8d]"></div> 
           </div>
-          <div class="text-left max-w-xs lg:pl-4">
+          
+          <div class="text-center lg:text-left max-w-xs lg:pl-4 relative z-10">
             <h3 class="text-lg font-titulo font-bold text-[#183153] mb-2">Rapidez</h3>
             <p class="font-body text-gray-600 text-sm leading-relaxed">
               Realiza tu pedido y recíbelo con la eficiencia logística que necesitas.
@@ -64,12 +114,23 @@
           </div>
         </div>
 
-        <div class="group flex items-center lg:justify-start relative">
-           <div class="hidden lg:flex items-center absolute -left-12 top-1/2 -translate-y-1/2 -translate-x-2">
+        <!-- 4. ARQUITECTURA SÓLIDA -->
+        <div class="group flex items-center justify-center lg:justify-start relative">
+           
+           <!-- CONECTOR TABLET (Sin cambios) -->
+           <div class="hidden md:block lg:hidden absolute bottom-full left-[15%] w-[40%] h-32 pointer-events-none z-0">
+              <div class="w-full h-full border-r border-t border-[#8b9e8d]"></div>
+              <div class="absolute top-0 -left-[4px] w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
+           </div>
+
+           <!-- CONECTOR DESKTOP (CORREGIDO) -->
+           <!-- top-3 para alinear con título, -left-16 para separar del texto -->
+           <div class="hidden lg:flex items-center absolute -left-16 top-3 -translate-x-2">
              <div class="w-2 h-2 rounded-full bg-[#8b9e8d]"></div>
              <div class="w-16 h-[1px] bg-[#8b9e8d]"></div>
           </div>
-          <div class="text-left max-w-xs lg:pl-4">
+          
+          <div class="text-center lg:text-left max-w-xs lg:pl-4 relative z-10">
             <h3 class="text-lg font-titulo font-bold text-[#183153] mb-2">Arquitectura Sólida</h3>
             <p class="font-body text-gray-600 text-sm leading-relaxed">
               Tienes a todo el equipo de T3 detrás tuyo para asegurar el éxito.

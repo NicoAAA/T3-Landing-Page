@@ -1,6 +1,5 @@
 /**
- * Inicializa el comportamiento del Navbar
- * Se exporta como función para control total sobre cuándo se ejecuta
+ * src/scripts/navbar-logic.js
  */
 export const initNavbar = () => {
   const elements = {
@@ -9,7 +8,6 @@ export const initNavbar = () => {
     mobileMenu: document.getElementById('mobile-menu'),
   };
 
-  // Si no existen los elementos, salimos para evitar errores
   if (!elements.header || !elements.hamburgerBtn) return;
 
   let lastScrollY = window.scrollY;
@@ -17,8 +15,6 @@ export const initNavbar = () => {
   // --- Funciones Auxiliares ---
   const toggleMenu = () => {
     elements.header.classList.toggle('menu-open');
-    // Bloquear scroll del body cuando el menú está abierto (Mejor UX)
-    //document.body.classList.toggle('overflow-hidden', elements.header.classList.contains('menu-open'));
   };
 
   const closeMenu = () => {
@@ -26,15 +22,26 @@ export const initNavbar = () => {
     document.body.classList.remove('overflow-hidden');
   };
 
+  // 1. NUEVA FUNCIÓN: Lógica aislada para el color/estado del navbar
+  // Esta función solo se encarga de ver si debe ser transparente o solido
+  const updateNavbarState = () => {
+    const currentScrollY = window.scrollY;
+    
+    // Estilo "Active" (fondo sólido e iconos oscuros)
+    if (currentScrollY > 50) {
+      elements.header.classList.add('is-active');
+    } else {
+      elements.header.classList.remove('is-active');
+    }
+  };
+
   // --- Event Listeners ---
   
-  // Click en Hamburguesa
   elements.hamburgerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMenu();
   });
 
-  // Click fuera del header para cerrar
   document.addEventListener('click', (event) => {
     if (elements.header.classList.contains('menu-open') && !elements.header.contains(event.target)) {
       closeMenu();
@@ -45,24 +52,37 @@ export const initNavbar = () => {
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
 
-    // Optimización: Evitar cálculos en micro-scrolls
+    // Ejecutamos nuestra función de estado de color
+    updateNavbarState();
+
+    // Optimización para el hide/show (evitar micro-scrolls)
     if (Math.abs(currentScrollY - lastScrollY) <= 10) return;
 
-    // Ocultar/Mostrar Header
+    // Ocultar/Mostrar Header (Lógica de movimiento)
     if (currentScrollY > lastScrollY && currentScrollY > 70) {
       elements.header.classList.add('-translate-y-full');
-      closeMenu(); // Cerrar menú si scrollea hacia abajo
+      closeMenu();
     } else {
       elements.header.classList.remove('-translate-y-full');
     }
 
-    // Estilo "Active" (fondo sólido)
-    if (currentScrollY > 50) {
-      elements.header.classList.add('is-active');
-    } else {
-      elements.header.classList.remove('is-active');
-    }
-
     lastScrollY = currentScrollY;
-  }, { passive: true }); // passive: true mejora el rendimiento del scroll
+  }, { passive: true });
+
+
+  // 2. Ejecutar al inicio: Para que si recargas la página a mitad de scroll, se vea bien.
+  updateNavbarState();
+
+  // 3. Evento 'visibilitychange': Detecta cuando vuelves a la pestaña
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      // Forzamos la actualización del estado visual sin esperar scroll
+      updateNavbarState();
+    }
+  });
+
+  // 4. Evento 'pageshow': Asegura que funcione si el usuario usa el botón "Atrás" del navegador
+  window.addEventListener('pageshow', () => {
+    updateNavbarState();
+  });
 };
