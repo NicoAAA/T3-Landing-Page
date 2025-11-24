@@ -1,25 +1,34 @@
 ---
 // src/components/Navbar.astro
 import '@fontsource/montserrat/700.css';
+
+// 1. Definimos las props que recibe el componente
+interface Props {
+  forceSolid?: boolean; // Es opcional, por defecto será false
+}
+
+const { forceSolid = false } = Astro.props;
 ---
 
 <header 
     id="main-header"
-    class="fixed top-0 w-full z-50 h-20 md:h-24 flex items-center
-           transition-transform duration-500 ease-silk will-change-transform
-           group"
+    data-force-solid={forceSolid ? "true" : undefined} 
+    class:list={[
+        "fixed top-0 w-full z-50 h-20 md:h-24 flex items-center transition-transform duration-500 ease-silk will-change-transform group",
+        // Si forceSolid es true, agregamos 'is-active' desde el renderizado del servidor para evitar parpadeos
+        { "is-active": forceSolid } 
+    ]}
 >
-    <div class="absolute inset-0 bg-[#fdfbf7] opacity-0 transition-opacity duration-500 ease-out
+   <div class="absolute inset-0 bg-[#fdfbf7] opacity-0 transition-opacity duration-500 ease-out
                 group-hover:opacity-100 group-hover:delay-75
                 group-[.is-active]:opacity-100 
                 group-[.menu-open]:opacity-100 shadow-sm">
     </div>
     
     <nav class="relative w-full max-w-[90rem] mx-auto px-6 grid grid-cols-3 items-center z-10">
-        
         <div class="flex justify-start items-center">
             <div class="md:hidden">
-                <button id="hamburger-btn" class="relative w-6 h-6 text-white transition-colors duration-200 ease-in-out
+                 <button id="hamburger-btn" class="relative w-6 h-6 text-white transition-colors duration-200 ease-in-out
                                                   group-hover:text-[#1c1c2e] 
                                                   group-[.is-active]:text-[#1c1c2e] 
                                                   group-[.menu-open]:text-[#1c1c2e]">
@@ -31,29 +40,28 @@ import '@fontsource/montserrat/700.css';
                     </svg>
                 </button>
             </div>
-
             <div class="hidden md:flex items-center gap-4 md:text-[10px] lg:text-xs lg:gap-8 font-brand uppercase tracking-widest font-bold 
                         text-white transition-colors duration-200 ease-in-out
                         group-hover:text-[#1c1c2e] 
                         group-[.is-active]:text-[#1c1c2e] 
                         group-[.menu-open]:text-[#1c1c2e]">
-                <a href="#nosostros" class="hover:text-gray-500 transition-colors duration-300">Nosotros</a>
-                <a href="#pricing" class="hover:text-gray-500 transition-colors duration-300">T3 Fashion News</a>
-                <a href="#historia" class="hover:text-gray-500 transition-colors duration-300">Historia</a>
+                <a href="/#nosostros" class="hover:text-gray-500 transition-colors duration-300">Nosotros</a>
+                <a href="/novedades" class="hover:text-gray-500 transition-colors duration-300">T3 Fashion News</a>
+                <a href="/#historia" class="hover:text-gray-500 transition-colors duration-300">Historia</a>
             </div>
         </div>
 
-        <div></div>
-        
+        <div></div> 
+
         <div class="flex justify-end items-center gap-6 font-brand uppercase tracking-[0.2em] text-xs font-bold 
                     text-white transition-colors duration-200 ease-in-out
                     group-hover:text-[#1c1c2e] 
                     group-[.is-active]:text-[#1c1c2e] 
                     group-[.menu-open]:text-[#1c1c2e]">
             
-            <a href="#" class="hidden md:block hover:text-gray-500 transition-colors duration-300">Politicas</a>
+            <a href="/politica-de-datos" class="hidden md:block hover:text-gray-500 transition-colors duration-300">Politicas</a>
             
-            <a href="#contact" class="hidden md:flex relative overflow-hidden rounded-[5px] bg-[#183153] shadow-lg group/button justify-center items-center cursor-pointer">
+            <a href="/#contact" class="hidden md:flex relative overflow-hidden rounded-[5px] bg-[#183153] shadow-lg group/button justify-center items-center cursor-pointer">
                 <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-silk group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
                 <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 group-hover/button:text-[#1c1c2e]">
                     CONTACTANOS
@@ -88,13 +96,13 @@ import '@fontsource/montserrat/700.css';
                group-[.menu-open]:opacity-100 group-[.menu-open]:visible group-[.menu-open]:translate-y-0"
     >
         <div class="flex flex-col gap-5 text-center font-brand uppercase tracking-[0.2em] text-xs font-bold text-[#1c1c2e]">
-            <a href="#nosostros" class="hover:text-gray-500 py-2 transition-colors duration-300">Nosotros</a>
-            <a href="#pricing" class="hover:text-gray-500 py-2 transition-colors duration-300">T3 Fashion News</a>
-            <a href="#historia" class="hover:text-gray-500 py-2 transition-colors duration-300">Historia</a>
+            <a href="/#nosostros" class="hover:text-gray-500 py-2 transition-colors duration-300">Nosotros</a>
+            <a href="/novedades" class="hover:text-gray-500 py-2 transition-colors duration-300">T3 Fashion News</a>
+            <a href="/#historia" class="hover:text-gray-500 py-2 transition-colors duration-300">Historia</a>
             <hr class="border-red w-1/2 mx-auto my-1">
-            <a href="#" class="hover:text-gray-500 py-2 transition-colors duration-300">Politicas</a>
+            <a href="/politica-de-datos" class="hover:text-gray-500 py-2 transition-colors duration-300">Politicas</a>
             
-            <a href="#contact" class="flex w-full relative overflow-hidden rounded-[5px] bg-[#183153] shadow-lg group/button justify-center items-center cursor-pointer mt-2">
+            <a href="/#contact" class="flex w-full relative overflow-hidden rounded-[5px] bg-[#183153] shadow-lg group/button justify-center items-center cursor-pointer mt-2">
                 <span class="absolute top-0 right-0 w-0 h-full bg-[#A5BBA7] transition-all duration-500 ease-silk group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
                 <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 group-hover/button:text-[#1c1c2e]">
                     CONTACTANOS

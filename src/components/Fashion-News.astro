@@ -1,0 +1,82 @@
+---
+// src/components/Fashion-News.astro
+import instagramData from '../data/instagram.json';
+
+// Definimos la estructura de los datos que vienen de Python
+interface InstaPost {
+  id: string;
+  caption?: string;
+  media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  media_url: string;
+  thumbnail_url?: string;
+  permalink: string;
+  timestamp: string;
+}
+
+// 1. Tomamos los datos reales (limitamos a los últimos 3 o 6 para que se vea bien en la grilla)
+const news = (instagramData as InstaPost[]).slice(0, 3); 
+
+// 2. Función auxiliar para formatear la fecha (Ej: 2024-11-24 -> 24 Nov 2024)
+const formatDate = (isoString: string) => {
+  const date = new Date(isoString);
+  return new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+};
+---
+
+<section class="py-20 bg-white min-h-screen">
+    <div class="container mx-auto px-6 max-w-7xl pt-24"> 
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-titulo font-bold text-[#1c1c2e] mb-4">T3 FASHION NEWS</h2>
+            <div class="w-24 h-1 bg-[#8b9e8d] mx-auto"></div>
+            <p class="mt-4 text-gray-600 font-body max-w-2xl mx-auto">
+                Mantente al día con las últimas tendencias, innovaciones y eventos de nuestra compañía directamente desde nuestro Instagram.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {news.map(item => (
+                <article class="group bg-[#fdfbf7] shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
+                    
+                    {/* Contenedor de Imagen */}
+                    <div class="relative overflow-hidden h-64">
+                        <img 
+                            src={item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url} 
+                            alt={item.caption ? item.caption.slice(0, 20) : 'T3 Textiles Post'} 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                        />
+                        <div class="absolute top-4 left-4 bg-[#183153] text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">
+                            Instagram
+                        </div>
+                    </div>
+
+                    {/* Contenido del Post */}
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-[#8b9e8d] text-xs font-bold tracking-widest uppercase mb-2 block">
+                            {formatDate(item.timestamp)}
+                        </span>
+                        
+                        {/* Como Instagram no tiene "Título", usamos el inicio del caption o un texto fijo */}
+                        <h3 class="text-xl font-titulo font-bold text-[#1c1c2e] mb-3 group-hover:text-[#8b9e8d] transition-colors line-clamp-1">
+                           {item.caption ? 'Novedades T3' : 'Nueva Publicación'}
+                        </h3>
+
+                        <p class="text-gray-600 font-body font-light text-sm mb-6 line-clamp-3 flex-grow">
+                            {item.caption || "Mira la foto completa en nuestro perfil para ver los detalles de esta tela."}
+                        </p>
+                        
+                        {/* Enlace al Post Real */}
+                        <a 
+                            href={item.permalink} 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-block text-[#183153] font-bold text-xs tracking-[0.2em] uppercase border-b-2 border-[#8b9e8d] pb-1 hover:text-[#8b9e8d] transition-colors w-max"
+                        >
+                            Ver en Instagram
+                        </a>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>

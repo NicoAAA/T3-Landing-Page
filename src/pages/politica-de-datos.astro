@@ -1,0 +1,33 @@
+---
+// src/pages/politica-de-datos.astro
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import DataPolicyContent from '../components/DataPolicyContent.astro';
+---
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/images/LOGOT3.svg" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>Política de Datos | T3 Textiles</title>
+</head>
+<body class="bg-[#f9fafb] text-[#1f2937]">
+
+    <Navbar forceSolid={true} />
+
+    <main>
+        <DataPolicyContent />
+    </main>
+
+    <Footer />
+
+</body>
+</html>

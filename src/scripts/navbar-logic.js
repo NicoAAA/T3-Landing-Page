@@ -22,13 +22,15 @@ export const initNavbar = () => {
     document.body.classList.remove('overflow-hidden');
   };
 
-  // 1. NUEVA FUNCIÓN: Lógica aislada para el color/estado del navbar
-  // Esta función solo se encarga de ver si debe ser transparente o solido
+  // ACTUALIZACIÓN AQUÍ: Lógica modificada para soportar páginas sin Hero
   const updateNavbarState = () => {
     const currentScrollY = window.scrollY;
     
-    // Estilo "Active" (fondo sólido e iconos oscuros)
-    if (currentScrollY > 50) {
+    // Verificamos si el header tiene el atributo para forzar el color sólido
+    const isForcedSolid = elements.header.hasAttribute('data-force-solid');
+
+    // Si está forzado O si hay scroll > 50, activamos el fondo sólido
+    if (isForcedSolid || currentScrollY > 50) {
       elements.header.classList.add('is-active');
     } else {
       elements.header.classList.remove('is-active');
@@ -36,7 +38,6 @@ export const initNavbar = () => {
   };
 
   // --- Event Listeners ---
-  
   elements.hamburgerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMenu();
@@ -48,17 +49,12 @@ export const initNavbar = () => {
     }
   });
 
-  // Lógica de Scroll
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
-
-    // Ejecutamos nuestra función de estado de color
     updateNavbarState();
 
-    // Optimización para el hide/show (evitar micro-scrolls)
     if (Math.abs(currentScrollY - lastScrollY) <= 10) return;
 
-    // Ocultar/Mostrar Header (Lógica de movimiento)
     if (currentScrollY > lastScrollY && currentScrollY > 70) {
       elements.header.classList.add('-translate-y-full');
       closeMenu();
@@ -69,19 +65,12 @@ export const initNavbar = () => {
     lastScrollY = currentScrollY;
   }, { passive: true });
 
-
-  // 2. Ejecutar al inicio: Para que si recargas la página a mitad de scroll, se vea bien.
   updateNavbarState();
 
-  // 3. Evento 'visibilitychange': Detecta cuando vuelves a la pestaña
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      // Forzamos la actualización del estado visual sin esperar scroll
-      updateNavbarState();
-    }
+    if (!document.hidden) updateNavbarState();
   });
 
-  // 4. Evento 'pageshow': Asegura que funcione si el usuario usa el botón "Atrás" del navegador
   window.addEventListener('pageshow', () => {
     updateNavbarState();
   });
