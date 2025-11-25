@@ -1,0 +1,43 @@
+---
+// src/components/CustomScroll.astro
+---
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/2.3.0/styles/overlayscrollbars.min.css" />
+
+<style is:global>
+  /* Personalización para T3 Textiles */
+  .os-theme-t3 {
+    --os-size: 10px; /* Ancho de la barra */
+    --os-padding-perpendicular: 0;
+    --os-padding-axis: 0;
+    --os-track-bg: transparent; /* RIEL 100% TRANSPARENTE */
+    --os-handle-bg: rgba(24, 49, 83, 0.6); /* TU AZUL NAVY SEMITRANSPARENTE */
+    --os-handle-bg-hover: #183153; /* AZUL SÓLIDO AL PASAR MOUSE */
+    --os-handle-bg-active: #8b9e8d; /* VERDE AL CLICKEAR */
+    --os-handle-border-radius: 10px;
+    --os-handle-interactive-area-offset: 4px;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/2.3.0/browser/overlayscrollbars.browser.es6.min.js" is:inline></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Verificamos si la librería cargó
+    if (window.OverlayScrollbarsGlobal) {
+      const { OverlayScrollbars } = window.OverlayScrollbarsGlobal;
+
+      // Aplicamos el scroll personalizado al BODY
+      OverlayScrollbars(document.body, {
+        scrollbars: {
+          theme: 'os-theme-t3', // Usamos tu tema personalizado
+          autoHide: 'move',     // Se oculta si no mueves el mouse (estilo móvil)
+          clickScroll: true,
+        },
+        nativeScrollbarsOverlaid: {
+          initialize: true 
+        }
+      });
+    }
+  });
+</script>

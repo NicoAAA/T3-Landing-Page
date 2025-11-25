@@ -7,6 +7,15 @@ import Features from '../components/Features.astro';
 import Footer from '../components/Footer.astro';
 import AboutUs from '../components/AboutUs.astro';
 import Contact from '../components/Contact.astro';
+
+// 2. Importamos el componente de WhatsApp flotante
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+
+
+// 3. Importamos los estilos globales
+import '../styles/global.css';
+
 ---
 
 <html lang="es">
@@ -32,6 +41,8 @@ import Contact from '../components/Contact.astro';
         <Features />
         <Contact />
     </main>
+
+    <WhatsAppFloat />
 
     <Footer />
 
