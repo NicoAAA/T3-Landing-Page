@@ -61,7 +61,20 @@
       </div>
 
       <div class="order-4 md:order-2 md:pt-5 md:col-span-8 lg:order-4 lg:col-span-5 lg:col-start-8 w-full">
-        <h3 class="text-white font-titulo font-bold text-lg mb-6">Contacto</h3>
+        
+
+        <!-- Creamos un contenedor Grid que replica el grid del <ul> de abajo -->
+        <!-- visible en MD, pero en LG vuelve a comportarse como bloque normal -->
+        <div class="md:grid md:grid-cols-9 md:gap-x-4 mb-6 lg:block">
+            <!-- Contacto ocupa las primeras 4 columnas en Tablet -->
+            <h3 class="text-white font-titulo font-bold text-lg md:col-span-4">Contacto</h3>
+            
+            <!-- Ubicación ocupa las 5 columnas restantes en Tablet -->
+            <!-- CLASES CLAVE: hidden md:block lg:hidden -->
+            <!-- Esto hace que solo aparezca en tablet (768px - 1023px) -->
+            <h3 class="hidden md:block lg:hidden text-white font-titulo font-bold text-lg md:col-start-5 md:col-span-5">Ubicación</h3>
+        </div>
+      
         
         <ul class="space-y-6 md:space-y-0 font-light text-gray-400 w-full md:grid md:grid-cols-9 md:gap-x-4 lg:block lg:space-y-4">
           
