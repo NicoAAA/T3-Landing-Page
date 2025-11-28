@@ -3,7 +3,8 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import FashionNews from '../components/Fashion-News.astro';
+import FashionNews from '../components/Fashion-News/Fashion-News.astro';
+import Hero from '../components/Fashion-News/Hero-fn.astro';
 
 import '../styles/global.css';
 ---
@@ -25,10 +26,11 @@ import '../styles/global.css';
 </head>
 <body class="bg-white text-[#1f2937]"> 
     <div class="fixed top-0 left-0 w-full z-50">
-        <Navbar forceSolid={true} />
+        <Navbar />
     </div>
 
     <main class="w-full">
+        <Hero />
         <div class="h-24 bg-white"></div>
 
         <FashionNews/>
