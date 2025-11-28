@@ -22,12 +22,7 @@ const NEWS_ITEMS = [
 
 <div class="relative bg-white font-body min-h-screen pb-20">
   
-  <div class="py-10 text-center">
-     <h2 class="text-xl md:text-2xl font-titulo font-bold text-[#1c1c2e] tracking-wider uppercase">
-       Fashion Feed
-     </h2>
-     <div class="w-16 h-0.5 bg-[#A5BBA7] mx-auto mt-2"></div>
-  </div>
+  
 
   <button id="mode-toggle-btn" 
     class="fixed bottom-6 left-3 md:left-6 z-50 bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-white/10" 
@@ -79,20 +74,22 @@ const NEWS_ITEMS = [
           </div>
       </div>
       
-      {/* VISTA INMERSIVA */}
-      <div class="immersive-view relative h-[250vh] md:h-[300vh]">
+      {/* VISTA INMERSIVA:
+         CAMBIO 1: Reducido a h-[120vh] en móvil. 
+         Esto es un scroll muy corto, casi inmediato.
+      */}
+      <div class="immersive-view relative h-[120vh] md:h-[150vh]">
          <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-white">
             <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
               
-              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-[40vh] md:h-auto">
+              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-4 md:py-0">
                 <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-[#1c1c2e] mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">
                   {item.title}
                 </h3>
                 
-                {/* Contenedor limpio para las líneas */}
-                <div class="h-32 sm:h-40 lg:h-64 relative overflow-y-hidden"> 
+                <div class="relative h-auto w-full"> 
                   <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-gray-50/50 p-2 md:p-4 rounded-r-lg">
-                    {/* JS inyectará el texto aquí */}
+                    {/* Texto aquí */}
                   </div>
                 </div>
 
@@ -119,8 +116,6 @@ const NEWS_ITEMS = [
 </div>
 
 <script>
-  // --- LÓGICA DE BOTONES ---
-  // Sintaxis: TypeScript (mantenida como pediste)
   const btn = document.getElementById('mode-toggle-btn') as HTMLElement | null;
   const btnText = document.getElementById('mode-text') as HTMLElement | null;
   const iconToStandard = document.getElementById('icon-to-standard') as HTMLElement | null;
@@ -142,7 +137,6 @@ const NEWS_ITEMS = [
         allSimpleViews.forEach(el => el.classList.add('hidden'));
         allImmersiveViews.forEach(el => el.classList.remove('hidden'));
         btnText.innerText = "Modo Inmersivo";
-        // Recalcular líneas
         setupLines(); 
       } else {
         allSimpleViews.forEach(el => el.classList.remove('hidden'));
@@ -173,11 +167,8 @@ const NEWS_ITEMS = [
     });
   }
 
-  // --- LÓGICA DE LÍNEAS POR SCROLL ---
-
   const articles = document.querySelectorAll('.news-article-wrapper');
 
-  // Función 1: Preparar el texto
   function setupLines() {
     articles.forEach(article => {
       const container = article.querySelector('.line-reveal-container') as HTMLElement | null;
@@ -186,49 +177,17 @@ const NEWS_ITEMS = [
       if (!container || container.dataset.ready === "true") return;
 
       const words = fullText.split(' ').map((word: string) => 
-        `<span class="word-span inline-block transition-opacity duration-300 opacity-0 mr-1">${word}</span>`
+        `<span class="word-span inline-block transition-opacity duration-600 opacity-0 mr-1">${word}</span>`
       ).join('');
       
       container.innerHTML = words;
       container.dataset.ready = "true";
-    });
-
-    setTimeout(calculateLineGroups, 100);
-  }
-
-  // Función 2: Calcular grupos de líneas
-  function calculateLineGroups() {
-    articles.forEach(article => {
-      const container = article.querySelector('.line-reveal-container') as HTMLElement | null;
-      if (!container) return;
-      
-      const spans = container.querySelectorAll('.word-span');
-      
-      let currentLineY = -1;
-      let lineIndex = -1;
-
-      spans.forEach((span) => {
-        const spanY = (span as HTMLElement).offsetTop;
-
-        if (spanY > currentLineY + 5) {
-          lineIndex++;
-          currentLineY = spanY;
-        }
-        
-        (span as HTMLElement).dataset.lineNumber = lineIndex.toString();
-      });
-      
-      container.dataset.totalLines = (lineIndex + 1).toString();
+      container.dataset.hasTyped = "false";
     });
   }
 
   setupLines();
-  window.addEventListener('resize', () => {
-     calculateLineGroups();
-  });
 
-
-  // Función 3: El Scroll
   window.addEventListener('scroll', () => {
     if (!isImmersiveMode) return;
 
@@ -248,48 +207,51 @@ const NEWS_ITEMS = [
       let progress = scrolledDistance / totalScrollableDistance;
       progress = Math.max(0, Math.min(1, progress));
 
-      // --- ANIMACIÓN ---
-      
       const imgWrapper = article.querySelector('.immersive-image-wrapper') as HTMLElement | null;
       const title = article.querySelector('.immersive-title') as HTMLElement | null;
       const btnElement = article.querySelector('.immersive-btn') as HTMLElement | null;
-      
-      // A. LÓGICA DE LÍNEAS
-      const typeStart = 0.1;
-      const typeEnd = 0.9;
-      
       const textContainer = article.querySelector('.line-reveal-container') as HTMLElement | null;
-      if (!textContainer) return;
       
-      const totalLines = parseInt(textContainer.dataset.totalLines || "1");
-      const allSpans = textContainer.querySelectorAll('.word-span');
-
-      if (progress > typeStart) {
-        const readProgress = (progress - typeStart) / (typeEnd - typeStart);
-        const visibleLineIndex = Math.floor(readProgress * totalLines);
-
-        allSpans.forEach(span => {
-            const spanLine = parseInt((span as HTMLElement).dataset.lineNumber || "0");
-            if (spanLine <= visibleLineIndex) {
-                (span as HTMLElement).style.opacity = "1";
-            } else {
-                // AQUÍ ESTÁ EL CAMBIO: Opacidad 0 (invisible)
-                (span as HTMLElement).style.opacity = "0"; 
+      // CAMBIO 2: Trigger casi inmediato (0.01 = 1%)
+      const triggerPoint = 0.01;
+      
+      if (textContainer) {
+        if (progress > triggerPoint) {
+            if (textContainer.dataset.hasTyped !== "true") {
+                textContainer.dataset.hasTyped = "true"; 
+                
+                const allSpans = textContainer.querySelectorAll('.word-span');
+                
+                allSpans.forEach((span, index) => {
+                    setTimeout(() => {
+                        if (textContainer.dataset.hasTyped === "true") {
+                            (span as HTMLElement).style.opacity = "1";
+                        }
+                    }, index * 25); 
+                });
             }
-        });
-      } else {
-         allSpans.forEach(span => (span as HTMLElement).style.opacity = "0");
+        } else if (progress < 0.005) { // Reset también inmediato arriba
+            if (textContainer.dataset.hasTyped === "true") {
+                textContainer.dataset.hasTyped = "false";
+                const allSpans = textContainer.querySelectorAll('.word-span');
+                allSpans.forEach(span => (span as HTMLElement).style.opacity = "0");
+            }
+        }
       }
 
-      // B. Otras animaciones
       if (imgWrapper) {
-        const imageOpacity = Math.min(1, progress * 3);
+        // Aceleramos la imagen (x5 en vez de x3) para que se aclare más rápido
+        const imageOpacity = Math.min(1, progress * 5);
         imgWrapper.style.opacity = imageOpacity.toString();
         imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
         imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
       }
-      if (title) title.style.opacity = Math.min(1, progress * 5).toString();
-      if (btnElement) btnElement.style.opacity = (progress > 0.8 ? 1 : 0).toString();
+      
+      // Título aparece inmediatamente (trigger * 20)
+      if (title) title.style.opacity = Math.min(1, progress * 20).toString();
+      
+      // CAMBIO 3: El botón aparece al 10% (casi inmediato), no hay que esperar
+      if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
     });
   });
 </script>
