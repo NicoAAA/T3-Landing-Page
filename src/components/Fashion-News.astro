@@ -1,113 +1,124 @@
 ---
 // src/components/Fashion-News.astro
 
-// 1. AHORA ES UN ARRAY DE NOTICIAS (Puedes agregar tantas como quieras aquí)
 const NEWS_ITEMS = [
   {
     title: "SUMMER COLLECTION '25",
     description: "Descubre la fusión entre la elegancia clásica y la comodidad moderna. Nuestra nueva colección redefine el lujo textil con fibras sostenibles y cortes arquitectónicos. Inspirada en los atardeceres del Mediterráneo.",
-    image: "/images/Telas_70.jpg", // Asegúrate de tener esta imagen
+    image: "/images/Telas_70.jpg",
   },
   {
     title: "URBAN TEXTURES",
     description: "La ciudad cobra vida en esta serie limitada. Telas resistentes, impermeables y con tecnología anti-desgarro pensadas para el ritmo urbano, sin perder la sofisticación que caracteriza a T3 Textiles.",
-    image: "/images/Telas_Bodega.jpg", // Cambia por tus imágenes reales
+    image: "/images/Telas_Bodega.jpg",
   },
   {
     title: "SUSTAINABLE FUTURE",
     description: "Presentamos nuestra línea 100% reciclada. Desde botellas de plástico hasta hilos de alta costura. Un compromiso con el planeta sin sacrificar la suavidad y la caída perfecta de nuestras telas.",
-    image: "/images/MaquinaDeCoserAntigua.jpg", // Cambia por tus imágenes reales
+    image: "/images/MaquinaDeCoserAntigua.jpg",
   }
 ];
 ---
 
-<section class="h-screen bg-[#1c1c2e] text-white flex items-center justify-center flex-col px-4 relative z-50">
-    <h1 class="text-4xl md:text-6xl font-titulo font-bold mb-4 text-center tracking-widest">T3 TEXTILES</h1>
-    <p class="text-gray-400 font-body text-center max-w-lg mb-8">
+<section class="h-[60vh] md:h-screen bg-[#1c1c2e] text-white flex items-center justify-center flex-col px-4 relative z-10">
+    <h1 class="text-3xl md:text-6xl font-titulo font-bold mb-4 text-center tracking-widest leading-tight">
+        T3 TEXTILES
+    </h1>
+    <p class="text-gray-400 font-body text-center max-w-lg mb-8 text-sm md:text-base">
         Novedades y Tendencias de la Temporada
     </p>
-    <div class="animate-bounce">
+    <div class="animate-bounce mt-4">
         <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
     </div>
 </section>
 
-<div class="relative bg-white font-body min-h-screen">
+<div class="relative bg-white font-body min-h-screen pb-20">
   
-  <div class="sticky top-16 md:absolute md:top-0 left-0 w-full z-40 py-6 bg-white/95 backdrop-blur-sm border-b border-gray-100 md:border-none shadow-sm">
-     <div class="container mx-auto px-6 max-w-7xl text-center">
-        <h2 class="text-2xl font-titulo font-bold text-[#1c1c2e] mb-2 tracking-wider">
-          FASHION FEED
-        </h2>
-        
-        <div class="flex justify-center">
-          <button id="toggle-view-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-[#A5BBA7] hover:text-[#A5BBA7] transition-colors text-xs font-bold uppercase tracking-widest text-gray-500 bg-white">
-            <span id="btn-icon" class="text-base">👁️</span>
-            <span id="btn-text">Activar Modo Inmersivo</span>
-          </button>
-        </div>
-     </div>
+  <div class="py-10 text-center">
+     <h2 class="text-xl md:text-2xl font-titulo font-bold text-[#1c1c2e] tracking-wider uppercase">
+       Fashion Feed
+     </h2>
+     <div class="w-16 h-0.5 bg-[#A5BBA7] mx-auto mt-2"></div>
   </div>
+
+  <button id="mode-toggle-btn" 
+    class="fixed bottom-6 left-3 md:left-6 z-50 bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-white/10" 
+    aria-label="Cambiar modo de vista">
+    
+    <div class="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
+        <svg id="icon-to-standard" class="w-6 h-6 absolute transition-all duration-500 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+        </svg>
+
+        <svg id="icon-to-immersive" class="w-6 h-6 absolute transition-all duration-500 opacity-0 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+        </svg>
+    </div>
+
+    <span id="mode-text" class="whitespace-nowrap font-bold uppercase text-xs tracking-widest pr-6 pl-2 opacity-0 transition-opacity duration-300">
+      Modo Estándar
+    </span>
+
+  </button>
+
 
   {NEWS_ITEMS.map((item, index) => (
     <article class="news-article-wrapper border-b border-gray-100 last:border-0" data-description={item.description}>
       
-      {/* VISTA SIMPLE (Visible por defecto) */}
-      <div class="simple-view container mx-auto px-6 max-w-7xl py-20">
-          <div class={`flex flex-col md:flex-row items-center gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-            
-            {/* Imagen */}
+      {/* VISTA SIMPLE */}
+      <div class="simple-view container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-20 hidden">
+          <div class={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
             <div class="w-full md:w-1/2">
-               <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group">
+               <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group rounded-sm">
                   <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                </div>
             </div>
-            
-            {/* Texto */}
-            <div class="w-full md:w-1/2">
-              <span class="text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">Novedad #{index + 1}</span>
-              <h3 class="text-3xl lg:text-4xl font-titulo font-bold text-[#1c1c2e] mb-6">{item.title}</h3>
-              <p class="text-lg text-gray-700 leading-relaxed font-body mb-8">{item.description}</p>
-              <button class="border-b-2 border-[#1c1c2e] text-[#1c1c2e] pb-1 hover:text-[#A5BBA7] hover:border-[#A5BBA7] transition-colors duration-300 font-bold uppercase tracking-widest text-sm">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+              <span class="text-[10px] md:text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">
+                Novedad #{index + 1}
+              </span>
+              <h3 class="text-2xl md:text-4xl font-titulo font-bold text-[#1c1c2e] mb-4 md:mb-6 leading-tight">
+                {item.title}
+              </h3>
+              <p class="text-sm md:text-lg text-gray-700 leading-relaxed font-body mb-6">
+                {item.description}
+              </p>
+              <button class="border-b-2 border-[#1c1c2e] text-[#1c1c2e] pb-1 hover:text-[#A5BBA7] hover:border-[#A5BBA7] transition-colors duration-300 font-bold uppercase tracking-widest text-xs md:text-sm">
                 Leer Más
               </button>
             </div>
-
           </div>
       </div>
       
-      {/* VISTA INMERSIVA (Oculta por defecto - Alto 300vh para scroll) */}
-      <div class="immersive-view relative h-[300vh] hidden">
+      {/* VISTA INMERSIVA */}
+      <div class="immersive-view relative h-[250vh] md:h-[300vh]">
          <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-white">
-            
-            <div class={`container mx-auto px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-12 mt-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+            <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
               
-              {/* Texto Animado */}
-              <div class="w-full md:w-1/2 flex flex-col justify-center z-10">
-                <h3 class="immersive-title text-4xl lg:text-6xl font-titulo font-bold text-[#1c1c2e] mb-6 opacity-0 transition-opacity duration-300">
+              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-[40vh] md:h-auto">
+                <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-[#1c1c2e] mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">
                   {item.title}
                 </h3>
-                
-                <div class="h-48 lg:h-64 relative"> 
-                  <p class="text-lg lg:text-2xl text-gray-700 leading-relaxed font-body border-l-4 border-[#A5BBA7] pl-6 bg-gray-50/50 p-4 rounded-r-lg">
+                <div class="h-32 sm:h-40 lg:h-64 relative overflow-y-hidden"> 
+                  <p class="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-gray-50/50 p-2 md:p-4 rounded-r-lg">
                     <span class="typewriter-text"></span>
                     <span class="animate-pulse text-[#A5BBA7] font-bold">|</span>
                   </p>
                 </div>
-
-                <div class="immersive-btn mt-8 opacity-0 transition-opacity duration-500">
-                  <button class="bg-[#183153] text-white px-8 py-3 hover:bg-[#A5BBA7] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-sm font-bold shadow-lg">
+                <div class="immersive-btn mt-4 md:mt-8 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start">
+                  <button class="bg-[#183153] text-white px-8 py-3 hover:bg-[#A5BBA7] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">
                     Ver Detalles
                   </button>
                 </div>
               </div>
 
-              {/* Imagen Animada */}
-              <div class="w-full md:w-1/2 h-[50vh] md:h-[70vh] relative flex items-center justify-center">
-                <div class="immersive-image-wrapper relative w-full h-full overflow-hidden shadow-2xl bg-gray-100 transition-transform duration-100 ease-out">
+              <div class="w-full md:w-1/2 h-[35vh] md:h-[60vh] relative flex items-center justify-center order-1 md:order-2">
+                <div class="immersive-image-wrapper relative w-full h-full overflow-hidden shadow-xl bg-gray-100 transition-transform duration-100 ease-out rounded-sm">
                   <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
-                  <div class="absolute inset-0 border border-white/20 m-4"></div>
+                  <div class="absolute inset-0 border border-white/20 m-2 md:m-4"></div>
                 </div>
               </div>
 
@@ -117,108 +128,108 @@ const NEWS_ITEMS = [
 
     </article>
   ))}
-  
-  <div class="h-32 bg-gray-50"></div>
-
 </div>
 
 <script>
-  // 1. LÓGICA DEL BOTÓN GLOBAL
-  const btn = document.getElementById('toggle-view-btn');
-  const btnText = document.getElementById('btn-text');
+  const btn = document.getElementById('mode-toggle-btn');
+  const btnText = document.getElementById('mode-text');
+  const iconToStandard = document.getElementById('icon-to-standard');
+  const iconToImmersive = document.getElementById('icon-to-immersive');
   
-  let isImmersiveMode = false;
+  let isImmersiveMode = true;
+  let isAnimating = false;
 
-  if (btn && btnText) {
+  if (btn && btnText && iconToStandard && iconToImmersive) {
     btn.addEventListener('click', () => {
+      if(isAnimating) return;
+      isAnimating = true;
+
       isImmersiveMode = !isImmersiveMode;
-      
-      // Seleccionamos TODAS las vistas simples e inmersivas
       const allSimpleViews = document.querySelectorAll('.simple-view');
       const allImmersiveViews = document.querySelectorAll('.immersive-view');
 
       if (isImmersiveMode) {
-        // Activar modo inmersivo para TODOS los artículos
         allSimpleViews.forEach(el => el.classList.add('hidden'));
         allImmersiveViews.forEach(el => el.classList.remove('hidden'));
-        btnText.innerText = "Desactivar Animación";
-        
-        // Resetear scroll al primer elemento inmersivo (opcional)
-        // window.scrollTo(0, allImmersiveViews[0].offsetTop);
+        btnText.innerText = "Modo Inmersivo";
       } else {
-        // Volver a modo simple
         allSimpleViews.forEach(el => el.classList.remove('hidden'));
         allImmersiveViews.forEach(el => el.classList.add('hidden'));
-        btnText.innerText = "Activar Modo Inmersivo";
+        btnText.innerText = "Modo Estándar";
       }
+
+      // CORRECCIÓN JS: Reducido de 240px a 210px
+      // Esto libera 30px, suficiente para que no choquen.
+      btn.style.width = "210px"; 
+      btnText.style.opacity = "1";
+
+      setTimeout(() => {
+        btn.style.width = "56px"; 
+        btnText.style.opacity = "0";
+
+        if (isImmersiveMode) {
+          iconToStandard.style.opacity = "1";
+          iconToStandard.style.transform = "rotate(0deg)";
+          
+          iconToImmersive.style.opacity = "0";
+          iconToImmersive.style.transform = "rotate(-90deg)";
+        } else {
+          iconToStandard.style.opacity = "0";
+          iconToStandard.style.transform = "rotate(90deg)";
+          
+          iconToImmersive.style.opacity = "1";
+          iconToImmersive.style.transform = "rotate(0deg)";
+        }
+        
+        isAnimating = false; 
+      }, 5000); 
     });
   }
 
-
-  // 2. LÓGICA DE ANIMACIÓN (INDEPENDIENTE PARA CADA ARTÍCULO)
   const articles = document.querySelectorAll('.news-article-wrapper');
 
   window.addEventListener('scroll', () => {
-    if (!isImmersiveMode) return; // No calcular nada si estamos en modo simple
+    if (!isImmersiveMode) return;
 
     articles.forEach((article) => {
       const immersiveContainer = article.querySelector('.immersive-view');
-      
-      // Si por alguna razón no tiene vista inmersiva, saltar
       if (!immersiveContainer) return;
 
       const rect = immersiveContainer.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const containerHeight = (immersiveContainer as HTMLElement).offsetHeight;
 
-      // Optimización: Si el elemento no está en pantalla, no calcular animaciones
       if (rect.bottom < 0 || rect.top > windowHeight) return;
 
-      // Calcular progreso (0 a 1) para ESTE artículo específico
       const totalScrollableDistance = containerHeight - windowHeight;
       const scrolledDistance = -rect.top;
       let progress = scrolledDistance / totalScrollableDistance;
       progress = Math.max(0, Math.min(1, progress));
 
-      // --- SELECCIONAR ELEMENTOS DENTRO DE ESTE ARTÍCULO ---
       const imgWrapper = article.querySelector('.immersive-image-wrapper') as HTMLElement;
       const title = article.querySelector('.immersive-title') as HTMLElement;
       const textSpan = article.querySelector('.typewriter-text') as HTMLElement;
       const btn = article.querySelector('.immersive-btn') as HTMLElement;
-      
-      // Obtenemos el texto completo desde el atributo data del HTML
       const fullText = (article as HTMLElement).dataset.description || "";
 
-      // A. Animación Imagen
       if (imgWrapper) {
         const imageOpacity = Math.min(1, progress * 3);
         imgWrapper.style.opacity = imageOpacity.toString();
-        imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 10}px) grayscale(${(1 - imageOpacity) * 100}%)`;
+        imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
         imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
       }
-
-      // B. Animación Título
-      if (title) {
-        title.style.opacity = Math.min(1, progress * 5).toString();
-      }
-
-      // C. Máquina de escribir
+      if (title) title.style.opacity = Math.min(1, progress * 5).toString();
       if (textSpan) {
         const typeStart = 0.1;
         const typeEnd = 0.9;
         let charIndex = 0;
-        
         if (progress > typeStart) {
           const typeProgress = (progress - typeStart) / (typeEnd - typeStart);
           charIndex = Math.floor(fullText.length * Math.min(1, typeProgress));
         }
         textSpan.innerText = fullText.substring(0, charIndex);
       }
-
-      // D. Botón
-      if (btn) {
-        btn.style.opacity = (progress > 0.8 ? 1 : 0).toString();
-      }
+      if (btn) btn.style.opacity = (progress > 0.8 ? 1 : 0).toString();
     });
   });
 </script>
