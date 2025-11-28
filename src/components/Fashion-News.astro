@@ -1,83 +1,224 @@
 ---
 // src/components/Fashion-News.astro
-import instagramData from '../data/instagram.json';
 
-// Definimos la estructura de los datos que vienen de Python
-interface InstaPost {
-  id: string;
-  caption?: string;
-  media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
-  media_url: string;
-  thumbnail_url?: string;
-  permalink: string;
-  timestamp: string;
-}
-
-// 1. Tomamos los datos reales (limitamos a los últimos 3 o 6 para que se vea bien en la grilla)
-const news = (instagramData as InstaPost[]).slice(0, 3); 
-
-// 2. Función auxiliar para formatear la fecha (Ej: 2024-11-24 -> 24 Nov 2024)
-const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
-  return new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
-};
+// 1. AHORA ES UN ARRAY DE NOTICIAS (Puedes agregar tantas como quieras aquí)
+const NEWS_ITEMS = [
+  {
+    title: "SUMMER COLLECTION '25",
+    description: "Descubre la fusión entre la elegancia clásica y la comodidad moderna. Nuestra nueva colección redefine el lujo textil con fibras sostenibles y cortes arquitectónicos. Inspirada en los atardeceres del Mediterráneo.",
+    image: "/images/Telas_70.jpg", // Asegúrate de tener esta imagen
+  },
+  {
+    title: "URBAN TEXTURES",
+    description: "La ciudad cobra vida en esta serie limitada. Telas resistentes, impermeables y con tecnología anti-desgarro pensadas para el ritmo urbano, sin perder la sofisticación que caracteriza a T3 Textiles.",
+    image: "/images/Telas_Bodega.jpg", // Cambia por tus imágenes reales
+  },
+  {
+    title: "SUSTAINABLE FUTURE",
+    description: "Presentamos nuestra línea 100% reciclada. Desde botellas de plástico hasta hilos de alta costura. Un compromiso con el planeta sin sacrificar la suavidad y la caída perfecta de nuestras telas.",
+    image: "/images/MaquinaDeCoserAntigua.jpg", // Cambia por tus imágenes reales
+  }
+];
 ---
 
-<section class="py-20 bg-white min-h-screen">
-    <div class="container mx-auto px-6 max-w-7xl pt-24"> 
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-titulo font-bold text-[#1c1c2e] mb-4">T3 FASHION NEWS</h2>
-            <div class="w-24 h-1 bg-[#8b9e8d] mx-auto"></div>
-            <p class="mt-4 text-gray-600 font-body max-w-2xl mx-auto">
-                Mantente al día con las últimas tendencias, innovaciones y eventos de nuestra compañía directamente desde nuestro Instagram.
-            </p>
-        </div>
-        
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {news.map(item => (
-                <article class="group bg-[#fdfbf7] shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-                    
-                    {/* Contenedor de Imagen */}
-                    <div class="relative overflow-hidden h-64">
-                        <img 
-                            src={item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url} 
-                            alt={item.caption ? item.caption.slice(0, 20) : 'T3 Textiles Post'} 
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            loading="lazy"
-                        />
-                        <div class="absolute top-4 left-4 bg-[#183153] text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">
-                            Instagram
-                        </div>
-                    </div>
-
-                    {/* Contenido del Post */}
-                    <div class="p-8 flex flex-col flex-grow">
-                        <span class="text-[#8b9e8d] text-xs font-bold tracking-widest uppercase mb-2 block">
-                            {formatDate(item.timestamp)}
-                        </span>
-                        
-                        {/* Como Instagram no tiene "Título", usamos el inicio del caption o un texto fijo */}
-                        <h3 class="text-xl font-titulo font-bold text-[#1c1c2e] mb-3 group-hover:text-[#8b9e8d] transition-colors line-clamp-1">
-                           {item.caption ? 'Novedades T3' : 'Nueva Publicación'}
-                        </h3>
-
-                        <p class="text-gray-600 font-body font-light text-sm mb-6 line-clamp-3 flex-grow">
-                            {item.caption || "Mira la foto completa en nuestro perfil para ver los detalles de esta tela."}
-                        </p>
-                        
-                        {/* Enlace al Post Real */}
-                        <a 
-                            href={item.permalink} 
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-block text-[#183153] font-bold text-xs tracking-[0.2em] uppercase border-b-2 border-[#8b9e8d] pb-1 hover:text-[#8b9e8d] transition-colors w-max"
-                        >
-                            Ver en Instagram
-                        </a>
-                    </div>
-                </article>
-            ))}
-        </div>
+<section class="h-screen bg-[#1c1c2e] text-white flex items-center justify-center flex-col px-4 relative z-50">
+    <h1 class="text-4xl md:text-6xl font-titulo font-bold mb-4 text-center tracking-widest">T3 TEXTILES</h1>
+    <p class="text-gray-400 font-body text-center max-w-lg mb-8">
+        Novedades y Tendencias de la Temporada
+    </p>
+    <div class="animate-bounce">
+        <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
     </div>
 </section>
+
+<div class="relative bg-white font-body min-h-screen">
+  
+  <div class="sticky top-16 md:absolute md:top-0 left-0 w-full z-40 py-6 bg-white/95 backdrop-blur-sm border-b border-gray-100 md:border-none shadow-sm">
+     <div class="container mx-auto px-6 max-w-7xl text-center">
+        <h2 class="text-2xl font-titulo font-bold text-[#1c1c2e] mb-2 tracking-wider">
+          FASHION FEED
+        </h2>
+        
+        <div class="flex justify-center">
+          <button id="toggle-view-btn" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:border-[#A5BBA7] hover:text-[#A5BBA7] transition-colors text-xs font-bold uppercase tracking-widest text-gray-500 bg-white">
+            <span id="btn-icon" class="text-base">👁️</span>
+            <span id="btn-text">Activar Modo Inmersivo</span>
+          </button>
+        </div>
+     </div>
+  </div>
+
+  {NEWS_ITEMS.map((item, index) => (
+    <article class="news-article-wrapper border-b border-gray-100 last:border-0" data-description={item.description}>
+      
+      {/* VISTA SIMPLE (Visible por defecto) */}
+      <div class="simple-view container mx-auto px-6 max-w-7xl py-20">
+          <div class={`flex flex-col md:flex-row items-center gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+            
+            {/* Imagen */}
+            <div class="w-full md:w-1/2">
+               <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group">
+                  <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+               </div>
+            </div>
+            
+            {/* Texto */}
+            <div class="w-full md:w-1/2">
+              <span class="text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">Novedad #{index + 1}</span>
+              <h3 class="text-3xl lg:text-4xl font-titulo font-bold text-[#1c1c2e] mb-6">{item.title}</h3>
+              <p class="text-lg text-gray-700 leading-relaxed font-body mb-8">{item.description}</p>
+              <button class="border-b-2 border-[#1c1c2e] text-[#1c1c2e] pb-1 hover:text-[#A5BBA7] hover:border-[#A5BBA7] transition-colors duration-300 font-bold uppercase tracking-widest text-sm">
+                Leer Más
+              </button>
+            </div>
+
+          </div>
+      </div>
+      
+      {/* VISTA INMERSIVA (Oculta por defecto - Alto 300vh para scroll) */}
+      <div class="immersive-view relative h-[300vh] hidden">
+         <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-white">
+            
+            <div class={`container mx-auto px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-12 mt-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+              
+              {/* Texto Animado */}
+              <div class="w-full md:w-1/2 flex flex-col justify-center z-10">
+                <h3 class="immersive-title text-4xl lg:text-6xl font-titulo font-bold text-[#1c1c2e] mb-6 opacity-0 transition-opacity duration-300">
+                  {item.title}
+                </h3>
+                
+                <div class="h-48 lg:h-64 relative"> 
+                  <p class="text-lg lg:text-2xl text-gray-700 leading-relaxed font-body border-l-4 border-[#A5BBA7] pl-6 bg-gray-50/50 p-4 rounded-r-lg">
+                    <span class="typewriter-text"></span>
+                    <span class="animate-pulse text-[#A5BBA7] font-bold">|</span>
+                  </p>
+                </div>
+
+                <div class="immersive-btn mt-8 opacity-0 transition-opacity duration-500">
+                  <button class="bg-[#183153] text-white px-8 py-3 hover:bg-[#A5BBA7] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-sm font-bold shadow-lg">
+                    Ver Detalles
+                  </button>
+                </div>
+              </div>
+
+              {/* Imagen Animada */}
+              <div class="w-full md:w-1/2 h-[50vh] md:h-[70vh] relative flex items-center justify-center">
+                <div class="immersive-image-wrapper relative w-full h-full overflow-hidden shadow-2xl bg-gray-100 transition-transform duration-100 ease-out">
+                  <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+                  <div class="absolute inset-0 border border-white/20 m-4"></div>
+                </div>
+              </div>
+
+            </div>
+         </div>
+      </div>
+
+    </article>
+  ))}
+  
+  <div class="h-32 bg-gray-50"></div>
+
+</div>
+
+<script>
+  // 1. LÓGICA DEL BOTÓN GLOBAL
+  const btn = document.getElementById('toggle-view-btn');
+  const btnText = document.getElementById('btn-text');
+  
+  let isImmersiveMode = false;
+
+  if (btn && btnText) {
+    btn.addEventListener('click', () => {
+      isImmersiveMode = !isImmersiveMode;
+      
+      // Seleccionamos TODAS las vistas simples e inmersivas
+      const allSimpleViews = document.querySelectorAll('.simple-view');
+      const allImmersiveViews = document.querySelectorAll('.immersive-view');
+
+      if (isImmersiveMode) {
+        // Activar modo inmersivo para TODOS los artículos
+        allSimpleViews.forEach(el => el.classList.add('hidden'));
+        allImmersiveViews.forEach(el => el.classList.remove('hidden'));
+        btnText.innerText = "Desactivar Animación";
+        
+        // Resetear scroll al primer elemento inmersivo (opcional)
+        // window.scrollTo(0, allImmersiveViews[0].offsetTop);
+      } else {
+        // Volver a modo simple
+        allSimpleViews.forEach(el => el.classList.remove('hidden'));
+        allImmersiveViews.forEach(el => el.classList.add('hidden'));
+        btnText.innerText = "Activar Modo Inmersivo";
+      }
+    });
+  }
+
+
+  // 2. LÓGICA DE ANIMACIÓN (INDEPENDIENTE PARA CADA ARTÍCULO)
+  const articles = document.querySelectorAll('.news-article-wrapper');
+
+  window.addEventListener('scroll', () => {
+    if (!isImmersiveMode) return; // No calcular nada si estamos en modo simple
+
+    articles.forEach((article) => {
+      const immersiveContainer = article.querySelector('.immersive-view');
+      
+      // Si por alguna razón no tiene vista inmersiva, saltar
+      if (!immersiveContainer) return;
+
+      const rect = immersiveContainer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const containerHeight = (immersiveContainer as HTMLElement).offsetHeight;
+
+      // Optimización: Si el elemento no está en pantalla, no calcular animaciones
+      if (rect.bottom < 0 || rect.top > windowHeight) return;
+
+      // Calcular progreso (0 a 1) para ESTE artículo específico
+      const totalScrollableDistance = containerHeight - windowHeight;
+      const scrolledDistance = -rect.top;
+      let progress = scrolledDistance / totalScrollableDistance;
+      progress = Math.max(0, Math.min(1, progress));
+
+      // --- SELECCIONAR ELEMENTOS DENTRO DE ESTE ARTÍCULO ---
+      const imgWrapper = article.querySelector('.immersive-image-wrapper') as HTMLElement;
+      const title = article.querySelector('.immersive-title') as HTMLElement;
+      const textSpan = article.querySelector('.typewriter-text') as HTMLElement;
+      const btn = article.querySelector('.immersive-btn') as HTMLElement;
+      
+      // Obtenemos el texto completo desde el atributo data del HTML
+      const fullText = (article as HTMLElement).dataset.description || "";
+
+      // A. Animación Imagen
+      if (imgWrapper) {
+        const imageOpacity = Math.min(1, progress * 3);
+        imgWrapper.style.opacity = imageOpacity.toString();
+        imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 10}px) grayscale(${(1 - imageOpacity) * 100}%)`;
+        imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
+      }
+
+      // B. Animación Título
+      if (title) {
+        title.style.opacity = Math.min(1, progress * 5).toString();
+      }
+
+      // C. Máquina de escribir
+      if (textSpan) {
+        const typeStart = 0.1;
+        const typeEnd = 0.9;
+        let charIndex = 0;
+        
+        if (progress > typeStart) {
+          const typeProgress = (progress - typeStart) / (typeEnd - typeStart);
+          charIndex = Math.floor(fullText.length * Math.min(1, typeProgress));
+        }
+        textSpan.innerText = fullText.substring(0, charIndex);
+      }
+
+      // D. Botón
+      if (btn) {
+        btn.style.opacity = (progress > 0.8 ? 1 : 0).toString();
+      }
+    });
+  });
+</script>
