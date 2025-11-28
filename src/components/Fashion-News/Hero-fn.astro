@@ -1,22 +1,127 @@
 ---
 // src/components/Fashion-News/Hero-fn.astro
----
-<section 
-  class="relative w-full h-[100vh] flex items-center justify-center bg-cover bg-center"
-  style="background-image: url('/images/foto-hero.jpg');"
->
-    <div class="absolute inset-0 bg-black/60"></div>
 
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-white">
-        <h1 class="text-4xl md:text-6xl font-titulo font-bold mb-6 tracking-tight">
-            Fashion News
-        </h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 font-body font-light">
-            Bienvenido a tu destino definitivo para la creatividad textil. Calidad inigualable 
-            para transformar tus ideas en realidad.
+const slides = [
+  {
+    img: '/images/Fashion-one.jpg',
+    credit: 'Foto de <a href="https://unsplash.com/es/@ahmed_assem?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ahmed Assem</a> en <a href="https://unsplash.com/es/fotos/un-par-de-mujeres-de-pie-una-al-lado-de-la-otra-SMhA_38B4aA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
+   
+  },
+  {
+    img: '/images/Fashion-two.jpg',
+     credit: 'Foto de <a href="https://unsplash.com/es/@smartins20" target="_blank" class="underline hover:text-white">Sergio Martins</a> en Unsplash'
+  },
+  {
+    img: '/images/Fashion-three.jpg',
+    credit: 'Foto de <a href="https://unsplash.com/es/@thevoncomplex?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mike Von</a> en <a href="https://unsplash.com/es/fotos/mujer-sosteniendo-sus-gafas-de-sol-bWUOx0SaSAk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
+  },
+    {
+        img: '/images/Fashion-four.jpg',
+        credit: 'Foto de <a href="https://unsplash.com/es/@smartins20?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergio Martins</a> en <a href="https://unsplash.com/es/fotos/modelo-mostrando-un-conjunto-de-moda-moderna-en-una-pasarela-mt7D979QkcE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
+    }
+];
+---
+
+<section class="relative w-full h-[100vh] flex items-center justify-center overflow-hidden bg-black" id="hero-carousel">
+    
+    {slides.map((slide, index) => (
+        <div
+            class={`carousel-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
+            style={`background-image: url('${slide.img}');`}
+        ></div>
+    ))}
+    
+    <div class="absolute inset-0 bg-black/50 z-10 pointer-events-none"></div>
+
+    <div class="relative z-20 text-center px-4 max-w-4xl mx-auto text-white">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Fashion News</h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light">
+            Bienvenido a tu destino definitivo para la creatividad textil.
         </p>
-        <a href="#contact" class="bg-[#8b9e8d] text-white font-title font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-[#69826c] transition-colors duration-300 uppercase tracking-widest text-sm">
+        <a href="#contact" class="bg-[#8b9e8d] text-white font-semibold px-8 py-4 rounded-lg hover:bg-[#69826c] transition-colors duration-300 uppercase tracking-widest text-sm">
             Empecemos
         </a>
     </div>
+
+    <div class="absolute bottom-4 right-4 z-30 text-xs text-gray-400 bg-black/40 p-2 rounded backdrop-blur-sm">
+        {slides.map((slide, index) => (
+            <div class={`carousel-credit ${index === 0 ? 'block' : 'hidden'}`}>
+               <span set:html={slide.credit} />
+            </div>
+        ))}
+    </div>
+
+    <button id="prev-btn" class="absolute left-0 top-0 h-full w-1/6 z-20 cursor-pointer group" aria-label="Anterior">
+        <span class="hidden group-hover:block text-white text-4xl ml-4 opacity-70">‹</span>
+    </button>
+    <button id="next-btn" class="absolute right-0 top-0 h-full w-1/6 z-20 cursor-pointer group flex justify-end items-center" aria-label="Siguiente">
+        <span class="hidden group-hover:block text-white text-4xl mr-4 opacity-70">›</span>
+    </button>
+
 </section>
+
+<script>
+    const slides = document.querySelectorAll('.carousel-slide');
+    const credits = document.querySelectorAll('.carousel-credit');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    let currentIndex = 0;
+    // CORRECCIÓN FINAL: Iniciamos en 0 para que TypeScript sepa que es un número
+    let interval = 0;
+
+    function showSlide(index:number) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('opacity-100', 'z-0');
+            slide.classList.add('opacity-0', '-z-10');
+            if (credits[i]) credits[i].classList.add('hidden');
+        });
+
+        if (slides[index]) {
+            slides[index].classList.remove('opacity-0', '-z-10');
+            slides[index].classList.add('opacity-100', 'z-0');
+        }
+        if (credits[index]) {
+            credits[index].classList.remove('hidden');
+        }
+        
+        currentIndex = index;
+    }
+
+    function nextSlide() {
+        let newIndex = (currentIndex + 1) % slides.length;
+        showSlide(newIndex);
+    }
+
+    function prevSlide() {
+        let newIndex = (currentIndex - 1 + slides.length) % slides.length;
+        showSlide(newIndex);
+    }
+
+    function startAutoPlay() {
+        // Usamos window.setInterval para asegurar que devuelve un número
+        interval = window.setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(interval);
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            nextSlide();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            prevSlide();
+        });
+    }
+
+    if (slides.length > 0) {
+        startAutoPlay();
+    }
+</script>
