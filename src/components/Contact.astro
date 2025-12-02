@@ -2,38 +2,48 @@
 // src/components/Contact.astro
 ---
 
-<section id="contact" class="bg-[#F9FAFB] py-16 lg:py-24 font-sans">
-  <div class="container mx-auto px-4 max-w-6xl">
+<section id="contact" class="bg-[#F9FAFB] py-16 lg:py-24 font-sans max-[425px]:py-0">
+  <!-- 
+    MODIFICACIÓN 1: 
+    max-[425px]:px-0 -> Elimina el espacio lateral en móviles.
+  -->
+  <div class="container mx-auto px-4 max-[425px]:px-0 max-w-6xl">
     
-
-    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
+    <!-- 
+      MODIFICACIÓN 2: 
+      max-[425px]:rounded-none -> Quita las curvas de las esquinas en móvil.
+      max-[425px]:shadow-none -> Quita la sombra en móvil para diseño plano.
+    -->
+    <div class="bg-white rounded-2xl max-[425px]:rounded-none shadow-2xl max-[425px]:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
 
       {/* Columna Izquierda con IMAGEN DE FONDO y OVERLAY */}
-      <div class="relative w-full lg:w-5/12 text-white p-10 lg:p-12 flex flex-col justify-between">
-        
+      <div class="relative w-full lg:w-5/12 text-white 
+                  p-10 lg:p-12 
+                  max-[374px]:p-5  
+                  flex flex-col justify-between">
         {/* Imagen de Fondo */}
         <div class="absolute inset-0 z-0">
-            <img src="public/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover">
-            {/* Overlay para oscurecer la imagen y mejorar la legibilidad del texto */}
+            <img src="/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/75"></div> 
         </div>
 
         {/* Contenido de la columna izquierda */}
-        <div class="relative z-10 h-full flex flex-col justify-center space-y-10">
+        <div class="relative z-10 h-full flex flex-col justify-center space-y-10 max-[374px]:space-y-6">
             
             <div>
-                <h2 class="text-3xl font-titulo font-bold mb-2 text-white">Información de Contacto</h2>
-                <p class="text-gray-200 font-body">Estamos aquí para asesorarte.</p>
+                <h2 class="text-3xl font-titulo font-bold mb-2 text-white max-[374px]:text-2xl">Información de Contacto</h2>
+                <p class="text-gray-200 font-body text-base max-[374px]:text-sm">Estamos aquí para asesorarte.</p>
             </div>
 
-            <div class="space-y-8 font-body">
+            <div class="space-y-8 font-body max-[374px]:space-y-6">
+              
               <div class="flex items-start group">
-                <div class="flex-shrink-0 w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center text-lg group-hover:bg-[#8b9e8d] transition-colors">
+                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <div class="ml-5">
-                  <h3 class="text-lg font-bold text-white mb-1">Dirección</h3>
-                  <a href="https://www.google.com/maps/place/Parque+Industrial+Terrapuerto/@4.7369609,-74.1464883,17z/data=!4m6!3m5!1s0x8e3f836cc7cb4ca7:0x6311da93e8df5cda!8m2!3d4.7348403!4d-74.1469011!16s%2Fg%2F11c49_f_d2?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="text-gray-300 text-sm hover:text-[#ffffff] transition-colors leading-relaxed block">
+                <div class="ml-5 max-[374px]:ml-3">
+                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Dirección</h3>
+                  <a href="https://www.google.com/maps/place/Parque+Industrial+Terrapuerto/@4.7369609,-74.1464883,17z/data=!4m6!3m5!1s0x8e3f836cc7cb4ca7:0x6311da93e8df5cda!8m2!3d4.7348403!4d-74.1469011!16s%2Fg%2F11c49_f_d2?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff] transition-colors leading-relaxed block">
                     Entrada Vía Parque La Florida Km 1.1 <br> Vía Siberia-Bogotá <br>
                     Terrapuerto Bodega 30, Cota.
                   </a>
@@ -41,32 +51,35 @@
               </div>
 
               <div class="flex items-start group">
-                <div class="flex-shrink-0 w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center text-lg group-hover:bg-[#8b9e8d] transition-colors">
+                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-phone-alt"></i>
                 </div>
-                <div class="ml-5">
-                  <h3 class="text-lg font-bold text-white mb-1">Teléfono</h3>
-                  <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug"> +57 300 123 4567</a>
+                <div class="ml-5 max-[374px]:ml-3">
+                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Teléfono</h3>
+                  <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs"> +57 300 123 4567</a>
                 </div>
               </div>
 
               <div class="flex items-start group">
-                <div class="flex-shrink-0 w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center text-lg group-hover:bg-[#8b9e8d] transition-colors">
+                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-envelope"></i>
                 </div>
-                <div class="ml-5">
-                  <h3 class="text-lg font-bold text-white mb-1">Email</h3>
-                  <p class="text-gray-300 text-sm break-all hover:text-[#ffffff]">coordinadoradmin@t3textiles.com.co</p>
+                <div class="ml-5 max-[374px]:ml-3 w-full"> 
+                   <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Email</h3>
+                  
+                  <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] pr-2">
+                    coordinadoradmin@t3textiles.com.co
+                  </p>
                 </div>
               </div>
 
               <div class="flex items-start group">
-                <div class="flex-shrink-0 w-10 h-10 bg-white/10 text-white rounded-full flex items-center justify-center text-lg group-hover:bg-[#8b9e8d] transition-colors">
+                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-clock"></i>
                 </div>
-                <div class="ml-5">
-                  <h3 class="text-lg font-bold text-white mb-1">Horario</h3>
-                  <p class="text-gray-300 text-sm hover:text-[#ffffff]">Lunes - Viernes: 7:00 AM - 4:45 PM</p>
+                <div class="ml-5 max-[374px]:ml-3">
+                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Horario</h3>
+                  <p class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff]">Lunes - Viernes: 7:00 AM - 4:45 PM</p>
                 </div>
               </div>
             </div>
@@ -120,7 +133,15 @@
 
           <div class="pt-2">
             <button type="submit"
-                    class="w-full sm:w-auto px-10 py-4 bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm">
+                    class="w-full sm:w-auto 
+                           px-10 py-4 
+                           max-[374px]:px-2 max-[374px]:py-3 
+                           bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg 
+                           hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 
+                           uppercase 
+                           tracking-widest max-[374px]:tracking-wider
+                           text-sm max-[374px]:text-xs
+                           whitespace-nowrap">
               Enviar Mensaje
             </button>
           </div>
