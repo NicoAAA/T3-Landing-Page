@@ -3,41 +3,33 @@
 ---
 
 <section id="contact" class="bg-[#F9FAFB] py-16 lg:py-24 font-sans max-[425px]:py-0">
-  <!-- 
-    MODIFICACIÓN 1: 
-    max-[425px]:px-0 -> Elimina el espacio lateral en móviles.
-  -->
   <div class="container mx-auto px-4 max-[425px]:px-0 max-w-6xl">
     
-    <!-- 
-      MODIFICACIÓN 2: 
-      max-[425px]:rounded-none -> Quita las curvas de las esquinas en móvil.
-      max-[425px]:shadow-none -> Quita la sombra en móvil para diseño plano.
-    -->
     <div class="bg-white rounded-2xl max-[425px]:rounded-none shadow-2xl max-[425px]:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
 
-      {/* Columna Izquierda con IMAGEN DE FONDO y OVERLAY */}
+      {/* Columna Izquierda (SIN CAMBIOS) */}
       <div class="relative w-full lg:w-5/12 text-white 
                   p-10 lg:p-12 
                   max-[374px]:p-5  
                   flex flex-col justify-between">
-        {/* Imagen de Fondo */}
+        
         <div class="absolute inset-0 z-0">
             <img src="/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/75"></div> 
         </div>
 
-        {/* Contenido de la columna izquierda */}
         <div class="relative z-10 h-full flex flex-col justify-center space-y-10 max-[374px]:space-y-6">
             
             <div>
                 <h2 class="text-3xl font-titulo font-bold mb-2 text-white max-[374px]:text-2xl">Información de Contacto</h2>
-                <p class="text-gray-200 font-body text-base max-[374px]:text-sm">Estamos aquí para asesorarte.</p>
+                <p class="text-gray-200 font-body text-base max-[374px]:hidden">
+                    Estamos aquí para asesorarte.
+                </p>
             </div>
 
-            <div class="space-y-8 font-body max-[374px]:space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 max-[374px]:gap-6 font-body">
               
-              <div class="flex items-start group">
+              <div class="flex items-start group md:col-start-1 md:row-start-1 lg:col-auto lg:row-auto">
                 <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-map-marker-alt"></i>
                 </div>
@@ -50,38 +42,53 @@
                 </div>
               </div>
 
-              <div class="flex items-start group">
+              <div class="flex items-start group md:col-start-1 md:row-start-2 lg:col-auto lg:row-auto">
                 <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-phone-alt"></i>
                 </div>
                 <div class="ml-5 max-[374px]:ml-3">
-                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Teléfono</h3>
-                  <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs"> +57 300 123 4567</a>
+                  <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Teléfonos</h3>
+                  <div class="flex flex-col space-y-1">
+                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
+                        +57 316 301 6821
+                      </a>
+                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
+                        +57 318 586 4340
+                      </a>
+                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
+                        +57 315 394 4402
+                      </a>
+                  </div>
                 </div>
               </div>
 
-              <div class="flex items-start group">
+              <div class="flex items-start group md:col-start-2 md:row-start-2 lg:col-auto lg:row-auto">
                 <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-envelope"></i>
                 </div>
                 <div class="ml-5 max-[374px]:ml-3 w-full"> 
-                   <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Email</h3>
-                  
-                  <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] pr-2">
-                    coordinadoradmin@t3textiles.com.co
-                  </p>
+                   <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Emails</h3>
+                   <div class="flex flex-col space-y-2">
+                      <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">
+                        coordinadoradmin@t3textiles.com.co
+                      </p>
+                      <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">
+                        cliente@t3textiles.com.co
+                      </p>
+                   </div>
                 </div>
               </div>
 
-              <div class="flex items-start group">
+              <div class="flex items-start group md:col-start-2 md:row-start-1 lg:col-auto lg:row-auto">
                 <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
                   <i class="fas fa-clock"></i>
                 </div>
                 <div class="ml-5 max-[374px]:ml-3">
                   <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Horario</h3>
-                  <p class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff]">Lunes - Viernes: 7:00 AM - 4:45 PM</p>
+                  <p class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff]">Lunes - Viernes: <br class="hidden md:block lg:hidden"/> 7:00 AM - 4:45 PM</p>
                 </div>
               </div>
+
             </div>
 
             <div class="pt-4">
@@ -131,20 +138,32 @@
                       class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#8b9e8d] focus:border-transparent outline-none transition-all text-[#183153] resize-none"></textarea>
           </div>
 
-          <div class="pt-2">
-            <button type="submit"
-                    class="w-full sm:w-auto 
-                           px-10 py-4 
-                           max-[374px]:px-2 max-[374px]:py-3 
-                           bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg 
-                           hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 
-                           uppercase 
-                           tracking-widest max-[374px]:tracking-wider
-                           text-sm max-[374px]:text-xs
-                           whitespace-nowrap">
-              Enviar Mensaje
-            </button>
+          <div class="pt-2 flex flex-col md:flex-row lg:flex-col gap-4 md:items-center lg:items-start">
+             
+             <div class="flex items-start gap-3">
+                <input type="checkbox" id="policy" name="policy" required
+                       class="mt-0.5 w-4 h-4 text-[#8b9e8d] bg-gray-50 border-gray-300 rounded focus:ring-[#8b9e8d] focus:ring-2 cursor-pointer accent-[#8b9e8d]" />
+                <label for="policy" class="text-xs text-gray-500 font-body cursor-pointer select-none">
+                    Acepto la <a href="/politica-de-datos" target="_blank" class="underline text-[#183153] hover:text-[#8b9e8d] transition-colors font-bold">política de tratamiento de datos</a>
+                </label>
+             </div>
+
+             <div class="w-full sm:w-auto">
+                <button type="submit"
+                        class="w-full sm:w-auto 
+                               px-10 py-4 
+                               max-[374px]:px-2 max-[374px]:py-3 
+                               bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg 
+                               hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 
+                               uppercase 
+                               tracking-widest max-[374px]:tracking-wider
+                               text-sm max-[374px]:text-xs
+                               whitespace-nowrap">
+                  Enviar Mensaje
+                </button>
+             </div>
           </div>
+          
         </form>
       </div>
 
