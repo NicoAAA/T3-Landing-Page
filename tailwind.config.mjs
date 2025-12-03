@@ -3,6 +3,7 @@ export default {
   content: [
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -13,12 +14,11 @@ export default {
       },
       colors: {
         // Paleta extraída de tu diseño original
-        t3: {
-          cream: '#fdfbf7',    // Fondo Navbar / Menú Móvil
-          dark: '#1c1c2e',     // Texto Principal / Iconos Dark
-          boton: '#183153',     // Botón Principal
-          sage: '#A5BBA7',     // Acento / Hover del Botón
-        }
+        surface: 'var(--color-surface)',
+				primary: 'var(--color-text-main)',
+				inverted: 'var(--color-text-inverted)',
+				action: 'var(--color-action)',
+				brand: 'var(--color-brand)',
       },
       // 1. Definimos los keyframes (los pasos de la animación)
 			keyframes: {

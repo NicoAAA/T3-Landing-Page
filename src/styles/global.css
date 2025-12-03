@@ -5,6 +5,30 @@
 @tailwind utilities;
 
 @layer base {
+  /* =========================================
+     1. NUEVO: SISTEMA DE COLOR (Variables)
+     ========================================= */
+  :root {
+    /* MODO CLARO (Tus colores originales) */
+    --color-surface: #fdfbf7;   /* Tu fondo Naranja claro */
+    --color-text-main: #1c1c2e; /* Tu texto oscuro principal */
+    --color-text-inverted: #ffffff;
+    --color-action: #183153;    /* Tu azul botón/scrollbar */
+    --color-brand: #A5BBA7;     /* Tu verde marca */
+  }
+
+  /* MODO OSCURO (Colores adaptados) */
+  .dark {
+    --color-surface: #0f172a;   /* Fondo oscuro profundo */
+    --color-text-main: #fdfbf7; /* Texto claro */
+    --color-text-inverted: #0f172a;
+    --color-action: #A5BBA7;    /* En modo oscuro, la acción pasa a ser el color de marca para resaltar */
+    --color-brand: #A5BBA7;
+  }
+
+  /* =========================================
+     2. Srollbar Personalizada
+     ========================================= */
   html {
     scroll-behavior: smooth;
     /* Intentamos el modo overlay para navegadores que lo soporten */
