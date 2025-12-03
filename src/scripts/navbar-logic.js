@@ -6,13 +6,48 @@ export const initNavbar = () => {
     header: document.getElementById('main-header'),
     hamburgerBtn: document.getElementById('hamburger-btn'),
     mobileMenu: document.getElementById('mobile-menu'),
+    // Seleccionamos TODOS los botones de tema (Desktop y Mobile)
+    themeToggles: document.querySelectorAll('.theme-toggle-btn'), 
   };
 
   if (!elements.header || !elements.hamburgerBtn) return;
 
+  // --- 1. LÓGICA MODO OSCURO (NUEVO) ---
+  const initTheme = () => {
+    // Revisar preferencia guardada o del sistema
+    const theme = (() => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    })();
+
+    // Aplicar clase inicial
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Event Listeners para los botones
+    elements.themeToggles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    });
+  };
+
+  // Inicializamos el tema
+  initTheme();
+
+
+  // --- 2. LÓGICA SCROLL Y MENÚ (TU LÓGICA EXISTENTE) ---
   let lastScrollY = window.scrollY;
 
-  // --- Funciones Auxiliares ---
   const toggleMenu = () => {
     elements.header.classList.toggle('menu-open');
   };
@@ -22,14 +57,10 @@ export const initNavbar = () => {
     document.body.classList.remove('overflow-hidden');
   };
 
-  // ACTUALIZACIÓN AQUÍ: Lógica modificada para soportar páginas sin Hero
   const updateNavbarState = () => {
     const currentScrollY = window.scrollY;
-    
-    // Verificamos si el header tiene el atributo para forzar el color sólido
     const isForcedSolid = elements.header.hasAttribute('data-force-solid');
 
-    // Si está forzado O si hay scroll > 50, activamos el fondo sólido
     if (isForcedSolid || currentScrollY > 50) {
       elements.header.classList.add('is-active');
     } else {
@@ -37,7 +68,6 @@ export const initNavbar = () => {
     }
   };
 
-  // --- Event Listeners ---
   elements.hamburgerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMenu();

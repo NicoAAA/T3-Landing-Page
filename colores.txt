@@ -1,0 +1,30 @@
+-- Color Navbar
+
+bg-[#fdfbf7] Naranja claro
+ 
+ - Hamburguer
+    text-[#1c1c2e]
+
+ - Items
+    text-white
+    text-[#1c1c2e]
+    hover:text-gray-500
+
+ - contact bottom
+    bg-[#183153]
+        
+        transition
+        bg-[#A5BBA7]
+
+        group-hover/button:text-[#1c1c2e]
+
+     text-white
+
+ - Logo
+    [#A5BBA7]
+    
+
+    
+
+
+    
