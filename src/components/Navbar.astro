@@ -104,7 +104,8 @@ const { forceSolid = false } = Astro.props;
 
     <div 
         id="mobile-menu" 
-        class="lg:hidden absolute top-0 left-0 w-full bg-surface pt-24 pb-10 px-6 border-b border-primary/10 shadow-xl -z-10
+        class="lg:hidden absolute top-0 left-0 w-full bg-surface pt-24 pb-10 px-6 
+               border-b border-primary/10 dark:border-transparent shadow-xl -z-10
                transition-all duration-500 ease-silk transform origin-top
                opacity-0 invisible -translate-y-10
                group-[.menu-open]:opacity-100 group-[.menu-open]:visible group-[.menu-open]:translate-y-0"
@@ -117,7 +118,8 @@ const { forceSolid = false } = Astro.props;
             <a href="/politica-de-datos" class="hover:text-gray-500 dark:hover:text-gray-300 py-2 transition-colors duration-300">Politicas</a>
             
             <a href="/#contact" class="flex w-full relative overflow-hidden rounded-[5px] shadow-lg group/button justify-center items-center cursor-pointer mt-2
-                                       bg-action dark:bg-[#243354]">
+                                       bg-action dark:bg-[#243354]
+                                       md:w-auto md:self-center md:min-w-[14rem]">
                 <span class="absolute top-0 right-0 w-0 h-full bg-brand transition-all duration-500 ease-silk group-hover/button:w-full group-hover/button:left-0 group-hover/button:right-auto"></span>
                 <span class="relative z-20 px-6 py-4 text-white font-bold tracking-[0.3em] transition-colors duration-300 group-hover/button:text-primary dark:text-white">
                     CONTACTANOS

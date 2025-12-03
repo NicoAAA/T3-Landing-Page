@@ -2,10 +2,12 @@
 // src/components/Contact.astro
 ---
 
-<section id="contact" class="bg-[#F9FAFB] py-16 lg:py-24 font-sans max-[425px]:py-0">
+<section id="contact" class="bg-theme py-16 lg:py-24 font-sans max-[425px]:py-0">
   <div class="container mx-auto px-4 max-[425px]:px-0 max-w-6xl">
     
-    <div class="bg-white rounded-2xl max-[425px]:rounded-none shadow-2xl max-[425px]:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
+    <div class="bg-primary dark:bg-theme rounded-2xl max-[425px]:rounded-none 
+            shadow-2xl shadow-action/40 
+            max-[425px]:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
 
       {/* Columna Izquierda (SIN CAMBIOS) */}
       <div class="relative w-full lg:w-5/12 text-white 
@@ -107,33 +109,33 @@
       </div>
 
       {/* Columna Derecha con Formulario */}
-      <div class="w-full lg:w-7/12 bg-white p-10 lg:p-16">
-        <h2 class="text-3xl font-titulo font-bold text-[#183153] mb-2">Envíanos un mensaje</h2>
-        <p class="text-gray-500 font-body mb-8">Estamos listos para escuchar tu proyecto.</p>
+      <div class="w-full lg:w-7/12 bg-theme p-10 lg:p-16">
+        <h2 class="text-3xl font-titulo font-bold text-button mb-2">Envíanos un mensaje</h2>
+        <p class="text-primary font-body mb-8">Estamos listos para escuchar tu proyecto.</p>
         
         <form class="space-y-6 font-body">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label for="name" class="block text-xs font-bold text-[#183153] uppercase tracking-wide mb-2">Nombre</label>
+                    <label for="name" class="block text-xs font-bold text-button uppercase tracking-wide mb-2">Nombre</label>
                     <input type="text" id="name" name="name" placeholder="Tu nombre"
                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#8b9e8d] focus:border-transparent outline-none transition-all text-[#183153]" />
                 </div>
                 
                 <div>
-                    <label for="phone" class="block text-xs font-bold text-[#183153] uppercase tracking-wide mb-2">Teléfono</label>
+                    <label for="phone" class="block text-xs font-bold text-button uppercase tracking-wide mb-2">Teléfono</label>
                     <input type="tel" id="phone" name="phone" placeholder="+57..."
                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#8b9e8d] focus:border-transparent outline-none transition-all text-[#183153]" />
                 </div>
             </div>
 
           <div>
-            <label for="email" class="block text-xs font-bold text-[#183153] uppercase tracking-wide mb-2">Correo</label>
+            <label for="email" class="block text-xs font-bold text-button uppercase tracking-wide mb-2">Correo</label>
             <input type="email" id="email" name="email" placeholder="ejemplo@empresa.com"
                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#8b9e5d] focus:border-transparent outline-none transition-all text-[#183153]" />
           </div>
 
           <div>
-            <label for="message" class="block text-xs font-bold text-[#183153] uppercase tracking-wide mb-2">Mensaje</label>
+            <label for="message" class="block text-xs font-bold text-button uppercase tracking-wide mb-2">Mensaje</label>
             <textarea id="message" name="message" rows="4" placeholder="¿En qué podemos ayudarte?"
                       class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#8b9e8d] focus:border-transparent outline-none transition-all text-[#183153] resize-none"></textarea>
           </div>
@@ -142,9 +144,9 @@
              
              <div class="flex items-start gap-3 md:order-2 lg:order-none">
                 <input type="checkbox" id="policy" name="policy" required
-                       class="mt-0.5 w-4 h-4 text-[#8b9e8d] bg-gray-50 border-gray-300 rounded focus:ring-[#8b9e8d] focus:ring-2 cursor-pointer accent-[#8b9e8d]" />
-                <label for="policy" class="text-xs text-gray-500 font-body cursor-pointer select-none">
-                    Acepto la <a href="/politica-de-datos" target="_blank" class="underline text-[#183153] hover:text-[#8b9e8d] transition-colors font-bold">política de tratamiento de datos</a>
+                       class="mt-0.5 w-4 h-4 text-[#8b9e8d] bg-gray-50 border-gray-300 rounded  focus:ring-2 cursor-pointer accent-[#8b9e8d]" />
+                <label for="policy" class="text-xs text-primary font-body cursor-pointer select-none">
+                    Acepto la <a href="/politica-de-datos" target="_blank" class="underline text-action hover:text-action transition-colors font-bold">política de tratamiento de datos</a>
                 </label>
              </div>
 

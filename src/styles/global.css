@@ -15,6 +15,13 @@
     --color-text-inverted: #ffffff;
     --color-action: #183153;    /* Tu azul botón/scrollbar */
     --color-brand: #A5BBA7;     /* Tu verde marca */
+    --color-theme: #f9fafb;     /* Color de tema principal (fondo de la pagina) */
+    --color-theme-text: #1f2937; /* Texto del color de tema */
+    --color-text-muted: #4b5563;
+    --color-button: #183153;
+    --color-second-theme: #F9FAFB; /* Segundo color de tema si es necesario */
+    --color-brand-inverted: #8b9e8d;
+
   }
 
   /* MODO OSCURO (Colores adaptados) */
@@ -24,12 +31,20 @@
     --color-text-inverted: #0f172a;
     --color-action: #A5BBA7;    /* En modo oscuro, la acción pasa a ser el color de marca para resaltar */
     --color-brand: #A5BBA7;
+    --color-theme: #1e293b;     /* Fondo de la pagina en modo oscuro */
+    --color-theme-text: #f1f5f9; /* Texto del color de tema en modo oscuro */
+    --color-text-muted: #9ca3af;
+    --color-button: #ffffff;
+    --color-second-theme: #1a2637; /* Segundo color de tema en modo oscuro */
+    --color-brand-inverted: #FFFFFF;
   }
 
   /* =========================================
      2. Srollbar Personalizada
      ========================================= */
   html {
+    background-color: var(--color-theme);
+    color: var(--color-theme-text);
     scroll-behavior: smooth;
     /* Intentamos el modo overlay para navegadores que lo soporten */
     overflow-y: overlay;

@@ -13,12 +13,18 @@ export default {
         body: ['Lato', 'sans-serif'],
       },
       colors: {
-        // Paleta extraída de tu diseño original
+        // Paleta de colores personalizada
         surface: 'var(--color-surface)',
 				primary: 'var(--color-text-main)',
 				inverted: 'var(--color-text-inverted)',
 				action: 'var(--color-action)',
 				brand: 'var(--color-brand)',
+        theme: 'var(--color-theme)',
+        themeText: 'var(--color-theme-text)',
+        muted: 'var(--color-text-muted)',
+        button: 'var(--color-button)',
+        secondTheme: 'var(--color-second-theme)',
+        brandInverted: 'var(--color-brand-inverted)',
       },
       // 1. Definimos los keyframes (los pasos de la animación)
 			keyframes: {
