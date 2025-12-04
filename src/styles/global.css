@@ -21,6 +21,8 @@
     --color-button: #183153;
     --color-second-theme: #F9FAFB; /* Segundo color de tema si es necesario */
     --color-brand-inverted: #8b9e8d;
+    --color-inverted-action: #8b9e8d;
+    --color-theme-inverted: #f4f4f4;
 
   }
 
@@ -37,6 +39,8 @@
     --color-button: #ffffff;
     --color-second-theme: #1a2637; /* Segundo color de tema en modo oscuro */
     --color-brand-inverted: #FFFFFF;
+    --color-inverted-action: #10223b;
+    --color-theme-inverted: #26344a;
   }
 
   /* =========================================

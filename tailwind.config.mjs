@@ -25,6 +25,8 @@ export default {
         button: 'var(--color-button)',
         secondTheme: 'var(--color-second-theme)',
         brandInverted: 'var(--color-brand-inverted)',
+        invertedAction: 'var(--color-inverted-action)',
+        themeInverted: 'var(--color-theme-inverted)',
       },
       // 1. Definimos los keyframes (los pasos de la animación)
 			keyframes: {
