@@ -20,11 +20,17 @@ const NEWS_ITEMS = [
 ];
 ---
 
-<div class="relative bg-theme font-body min-h-screen pb-20">
+<div class="relative bg-white font-body min-h-screen pb-20">
   
+  <div class="py-10 text-center">
+     <h2 class="text-xl md:text-2xl font-titulo font-bold text-[#1c1c2e] tracking-wider uppercase">
+       Fashion Feed
+     </h2>
+     <div class="w-16 h-0.5 bg-[#A5BBA7] mx-auto mt-2"></div>
+  </div>
 
   <button id="mode-toggle-btn" 
-    class="fixed bottom-6 left-3 md:left-6 z-50 bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-primary" 
+    class="fixed bottom-6 left-3 md:left-6 z-50 bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-white/10" 
     aria-label="Cambiar modo de vista">
     
     <div class="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
@@ -46,7 +52,7 @@ const NEWS_ITEMS = [
 
 
   {NEWS_ITEMS.map((item, index) => (
-    <article class="news-article-wrapper border-b border-theme last:border-0" data-description={item.description}>
+    <article class="news-article-wrapper border-b border-gray-100 last:border-0" data-description={item.description}>
       
       {/* VISTA SIMPLE */}
       <div class="simple-view container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-20 hidden">
@@ -60,40 +66,37 @@ const NEWS_ITEMS = [
               <span class="text-[10px] md:text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">
                 Novedad #{index + 1}
               </span>
-              <h3 class="text-2xl md:text-4xl font-titulo font-bold text-primary mb-4 md:mb-6 leading-tight">
+              <h3 class="text-2xl md:text-4xl font-titulo font-bold text-[#1c1c2e] mb-4 md:mb-6 leading-tight">
                 {item.title}
               </h3>
-              <p class="text-sm md:text-lg text-primary leading-relaxed font-body mb-6">
+              <p class="text-sm md:text-lg text-gray-700 leading-relaxed font-body mb-6">
                 {item.description}
               </p>
-              <button class="border-b-2 border-brand text-brand pb-1 hover:text-[#8b9e8d] hover:border-[#8b9e8d] transition-colors duration-300 font-bold uppercase tracking-widest text-xs md:text-sm">
+              <button class="border-b-2 border-[#1c1c2e] text-[#1c1c2e] pb-1 hover:text-[#A5BBA7] hover:border-[#A5BBA7] transition-colors duration-300 font-bold uppercase tracking-widest text-xs md:text-sm">
                 Leer Más
               </button>
             </div>
           </div>
       </div>
       
-      {/* VISTA INMERSIVA:
-         CAMBIO 1: Reducido a h-[120vh] en móvil. 
-         Esto es un scroll muy corto, casi inmediato.
-      */}
-      <div class="immersive-view relative h-[120vh] md:h-[150vh]">
-         <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme">
+      {/* VISTA INMERSIVA */}
+      <div class="immersive-view relative h-[110vh] md:h-[140vh]">
+         <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-white">
             <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
               
-              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-4 md:py-0">
-                <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-button mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">
+              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-0">
+                <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-[#1c1c2e] mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">
                   {item.title}
                 </h3>
                 
                 <div class="relative h-auto w-full"> 
-                  <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-themeInverted p-2 md:p-4 rounded-r-lg">
+                  <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-gray-50/50 p-2 md:p-4 rounded-r-lg">
                     {/* Texto aquí */}
                   </div>
                 </div>
 
                 <div class="immersive-btn mt-4 md:mt-8 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start">
-                  <button class="bg-action text-white px-8 py-3 hover:bg-[#8b9e8d] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">
+                  <button class="bg-[#183153] text-white px-8 py-3 hover:bg-[#A5BBA7] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">
                     Ver Detalles
                   </button>
                 </div>
@@ -175,8 +178,10 @@ const NEWS_ITEMS = [
       
       if (!container || container.dataset.ready === "true") return;
 
+      // CAMBIO 1: Aumentamos la duración del CSS a 700ms (era 600ms) y usamos 'ease-out'
+      // para que la entrada de cada palabra sea suave y no un golpe visual.
       const words = fullText.split(' ').map((word: string) => 
-        `<span class="word-span inline-block transition-opacity duration-600 opacity-0 mr-1">${word}</span>`
+        `<span class="word-span inline-block transition-opacity duration-700 ease-out opacity-0 mr-1">${word}</span>`
       ).join('');
       
       container.innerHTML = words;
@@ -211,8 +216,8 @@ const NEWS_ITEMS = [
       const btnElement = article.querySelector('.immersive-btn') as HTMLElement | null;
       const textContainer = article.querySelector('.line-reveal-container') as HTMLElement | null;
       
-      // CAMBIO 2: Trigger casi inmediato (0.01 = 1%)
-      const triggerPoint = 0.01;
+      // Trigger instantáneo
+      const triggerPoint = 0.00; 
       
       if (textContainer) {
         if (progress > triggerPoint) {
@@ -226,10 +231,12 @@ const NEWS_ITEMS = [
                         if (textContainer.dataset.hasTyped === "true") {
                             (span as HTMLElement).style.opacity = "1";
                         }
-                    }, index * 25); 
+                    // CAMBIO 2: Aumentamos el delay entre palabras a 30ms (era 10ms)
+                    // Esto hace que el texto fluya como agua, no como un rayo.
+                    }, index * 30); 
                 });
             }
-        } else if (progress < 0.005) { // Reset también inmediato arriba
+        } else if (progress < 0.00) { 
             if (textContainer.dataset.hasTyped === "true") {
                 textContainer.dataset.hasTyped = "false";
                 const allSpans = textContainer.querySelectorAll('.word-span');
@@ -239,18 +246,15 @@ const NEWS_ITEMS = [
       }
 
       if (imgWrapper) {
-        // Aceleramos la imagen (x5 en vez de x3) para que se aclare más rápido
-        const imageOpacity = Math.min(1, progress * 5);
+        const imageOpacity = Math.min(1, progress * 10);
         imgWrapper.style.opacity = imageOpacity.toString();
         imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
         imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
       }
       
-      // Título aparece inmediatamente (trigger * 20)
-      if (title) title.style.opacity = Math.min(1, progress * 20).toString();
+      if (title) title.style.opacity = Math.min(1, progress * 25).toString();
       
-      // CAMBIO 3: El botón aparece al 10% (casi inmediato), no hay que esperar
-      if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
+      if (btnElement) btnElement.style.opacity = (progress > 0.05 ? 1 : 0).toString();
     });
   });
 </script>
