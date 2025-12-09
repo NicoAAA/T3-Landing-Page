@@ -3,166 +3,205 @@
 
 const NEWS_ITEMS = [
   {
+    year: "2024",
     title: "SUMMER COLLECTION '25",
     description: "Descubre la fusión entre la elegancia clásica y la comodidad moderna. Nuestra nueva colección redefine el lujo textil con fibras sostenibles y cortes arquitectónicos. Inspirada en los atardeceres del Mediterráneo.",
     image: "/images/Telas_70.jpg",
   },
   {
+    year: "2025",
     title: "URBAN TEXTURES",
     description: "La ciudad cobra vida en esta serie limitada. Telas resistentes, impermeables y con tecnología anti-desgarro pensadas para el ritmo urbano, sin perder la sofisticación que caracteriza a T3 Textiles.",
     image: "/images/Telas_Bodega.jpg",
   },
   {
-    title: "SUSTAINABLE FUTURE",
-    description: "Presentamos nuestra línea 100% reciclada. Desde botellas de plástico hasta hilos de alta costura. Un compromiso con el planeta sin sacrificar la suavidad y la caída perfecta de nuestras telas.",
+    year: "2029", 
+    title: "VINTAGE REVIVAL",
+    description: "El retorno de los clásicos. Lorem Imput  sum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    image: "/images/Fashion-one.jpg", 
+  },
+  {
+    year: "2030",
+    title: "FUTURE VISION",
+    description: "Compromiso con el futuro. Explora nuestras telas inteligentes que regulan la temperatura y se adaptan a tus movimientos. Innovación y estilo en perfecta armonía.",
     image: "/images/MaquinaDeCoserAntigua.jpg",
   }
 ];
+
+const UNIQUE_YEARS = [...new Set(NEWS_ITEMS.map(item => item.year))].sort();
+
+const digitColumns = Array.from({ length: 4 }, (_, colIndex) => {
+  const strip = [];   
+  const mapping = []; 
+  let lastDigit = null;
+  let currentStripIndex = -1;
+
+  UNIQUE_YEARS.forEach((year) => {
+    const digit = String(year)[colIndex]; 
+    if (digit !== lastDigit) {
+      strip.push(digit);
+      currentStripIndex++;
+      lastDigit = digit;
+    }
+    mapping.push(currentStripIndex);
+  });
+
+  return { strip, mapping };
+});
+
+const clientMappings = digitColumns.map(col => col.mapping);
 ---
 
-<div class="relative bg-theme font-body min-h-screen pb-20">
-  
+<div id="fashion-news-container" class="relative bg-theme font-body min-h-screen">
 
-  <button id="mode-toggle-btn" 
-    class="fixed bottom-6 left-3 md:left-6 z-50 bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-primary" 
-    aria-label="Cambiar modo de vista">
-    
+  <button id="mode-toggle-btn" class="fixed bottom-6 left-3 md:left-6 z-[60] bg-[#1c1c2e]/90 backdrop-blur-sm text-white shadow-xl rounded-full flex items-center overflow-hidden transition-all duration-500 ease-in-out h-14 w-14 border border-primary">
     <div class="w-14 h-14 flex items-center justify-center flex-shrink-0 relative">
-        <svg id="icon-to-standard" class="w-6 h-6 absolute transition-all duration-500 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-        </svg>
-
-        <svg id="icon-to-immersive" class="w-6 h-6 absolute transition-all duration-500 opacity-0 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-        </svg>
+      <svg id="icon-to-standard" class="w-6 h-6 absolute transition-all opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+      <svg id="icon-to-immersive" class="w-6 h-6 absolute transition-all opacity-0 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
     </div>
-
-    <span id="mode-text" class="whitespace-nowrap font-bold uppercase text-xs tracking-widest pr-6 pl-2 opacity-0 transition-opacity duration-300">
-      Modo Estándar
-    </span>
-
+    <span id="mode-text" class="whitespace-nowrap font-bold uppercase text-xs tracking-widest pr-6 pl-2 opacity-0 transition-opacity duration-300">Modo Estándar</span>
   </button>
 
-
-  {NEWS_ITEMS.map((item, index) => (
-    <article class="news-article-wrapper border-b border-theme last:border-0" data-description={item.description}>
-      
-      {/* VISTA SIMPLE */}
-      <div class="simple-view container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-20 hidden">
-          <div class={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-            <div class="w-full md:w-1/2">
-               <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group rounded-sm">
-                  <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-               </div>
-            </div>
-            <div class="w-full md:w-1/2 text-center md:text-left">
-              <span class="text-[10px] md:text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">
-                Novedad #{index + 1}
-              </span>
-              <h3 class="text-2xl md:text-4xl font-titulo font-bold text-primary mb-4 md:mb-6 leading-tight">
-                {item.title}
-              </h3>
-              <p class="text-sm md:text-lg text-primary leading-relaxed font-body mb-6">
-                {item.description}
-              </p>
-              <button class="border-b-2 border-brand text-brand pb-1 hover:text-[#8b9e8d] hover:border-[#8b9e8d] transition-colors duration-300 font-bold uppercase tracking-widest text-xs md:text-sm">
-                Leer Más
-              </button>
-            </div>
-          </div>
-      </div>
-      
-      {/* VISTA INMERSIVA:
-         CAMBIO 1: Reducido a h-[120vh] en móvil. 
-         Esto es un scroll muy corto, casi inmediato.
-      */}
-      <div class="immersive-view relative h-[120vh] md:h-[150vh]">
-         <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme">
-            <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-              
-              <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-4 md:py-0">
-                <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-button mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">
-                  {item.title}
-                </h3>
-                
-                <div class="relative h-auto w-full"> 
-                  <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-themeInverted p-2 md:p-4 rounded-r-lg">
-                    {/* Texto aquí */}
-                  </div>
+  <div id="year-sticky-wrapper" class="sticky top-0 z-40 w-full bg-theme transition-[top] duration-500 ease-in-out overflow-hidden shadow-sm border-b border-theme hidden">
+    <div class="container mx-auto max-w-7xl flex justify-center items-center py-2 h-20 md:h-24">
+        
+        <div id="year-counter-container" class="h-16 md:h-20 w-auto relative flex justify-center gap-0.5 md:gap-0.5">
+            
+            {digitColumns.map((colData, index) => (
+                /* AJUSTE 3: Ancho de Columna en Desktop
+                   - md:w-[36px]: Reducido de 45px a 36px. Esto junta los números en pantalla grande.
+                */
+                <div class="h-16 md:h-20 overflow-hidden relative w-[28px] md:w-[36px] flex justify-center">
+                    
+                    <div class="digit-strip flex flex-col items-center transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+                         style={`transition-delay: ${(digitColumns.length - 1 - index) * 150}ms`}
+                         data-col-index={index}>
+                         
+                        {colData.strip.map((digit) => (
+                            /* AJUSTE 4: Tamaño de Fuente Desktop
+                               - md:text-5xl: Reducido ligeramente de 6xl para que se vea más refinado y compacto.
+                            */
+                            <div class="h-16 md:h-20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-4xl md:text-5xl font-titulo font-bold text-button tracking-tight drop-shadow-sm leading-none">
+                                    {digit}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+            ))}
 
-                <div class="immersive-btn mt-4 md:mt-8 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start">
-                  <button class="bg-action text-white px-8 py-3 hover:bg-[#8b9e8d] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">
-                    Ver Detalles
-                  </button>
+            <div class="absolute bottom-2 md:bottom-2 left-1/2 transform -translate-x-1/2 w-28 md:w-36 h-1 md:h-1.5 bg-[#8b9e8d] rounded-full opacity-90 z-10"></div>
+        </div>
+
+    </div>
+  </div>
+
+  <div class="relative z-10 pt-4">
+    {NEWS_ITEMS.map((item, index) => (
+        <article class="news-article-wrapper border-b border-theme last:border-0" data-description={item.description} data-year={item.year}>
+            <div class="simple-view container mx-auto px-4 md:px-6 max-w-7xl py-12 md:py-20 hidden">
+                <div class={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                    <div class="w-full md:w-1/2">
+                        <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group rounded-sm">
+                            <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <span class="text-[10px] md:text-xs font-bold text-[#A5BBA7] uppercase tracking-widest mb-2 block">Colección {item.year}</span>
+                        <h3 class="text-2xl md:text-4xl font-titulo font-bold text-primary mb-4 md:mb-6 leading-tight">{item.title}</h3>
+                        <p class="text-sm md:text-lg text-primary leading-relaxed font-body mb-6">{item.description}</p>
+                        <button class="border-b-2 border-brand text-brand pb-1 hover:text-[#8b9e8d] hover:border-[#8b9e8d] transition-colors duration-300 font-bold uppercase tracking-widest text-xs md:text-sm">Leer Más</button>
+                    </div>
                 </div>
-              </div>
-
-              <div class="w-full md:w-1/2 h-[35vh] md:h-[60vh] relative flex items-center justify-center order-1 md:order-2">
-                <div class="immersive-image-wrapper relative w-full h-full overflow-hidden shadow-xl bg-gray-100 transition-transform duration-100 ease-out rounded-sm">
-                  <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
-                  <div class="absolute inset-0 border border-white/20 m-2 md:m-4"></div>
-                </div>
-              </div>
-
             </div>
-         </div>
-      </div>
 
-    </article>
-  ))}
+            <div class="immersive-view relative h-[120vh] md:h-[150vh]">
+                <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme">
+                    <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                        <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-4 md:py-0">
+                            <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-button mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">{item.title}</h3>
+                            <div class="relative h-auto w-full">
+                                <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-themeInverted p-2 md:p-4 rounded-r-lg"></div>
+                            </div>
+                            <div class="immersive-btn mt-4 md:mt-8 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start">
+                                <button class="bg-action text-white px-8 py-3 hover:bg-[#8b9e8d] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">Ver Detalles</button>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 h-[35vh] md:h-[60vh] relative flex items-center justify-center order-1 md:order-2">
+                            <div class="immersive-image-wrapper relative w-full h-full overflow-hidden shadow-xl bg-gray-100 transition-transform duration-100 ease-out rounded-sm">
+                                <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    ))}
+  </div>
 </div>
 
-<script>
-  const btn = document.getElementById('mode-toggle-btn') as HTMLElement | null;
-  const btnText = document.getElementById('mode-text') as HTMLElement | null;
-  const iconToStandard = document.getElementById('icon-to-standard') as HTMLElement | null;
-  const iconToImmersive = document.getElementById('icon-to-immersive') as HTMLElement | null;
+<script define:vars={{ uniqueYears: UNIQUE_YEARS, clientMappings }}>
+  const btn = document.getElementById('mode-toggle-btn');
+  const btnText = document.getElementById('mode-text');
   
+  const yearWrapper = document.getElementById('year-sticky-wrapper');
+  const digitStrips = document.querySelectorAll('.digit-strip');
+  
+  let YEAR_HEIGHT = 80; 
+  let NAV_HEIGHT = '96px';
+
+  function updateDimensions() {
+    if (window.innerWidth < 768) {
+        YEAR_HEIGHT = 64; 
+        NAV_HEIGHT = '80px'; 
+    } else {
+        YEAR_HEIGHT = 80; // Altura interna escritorio
+        NAV_HEIGHT = '96px';
+    }
+  }
+
   let isImmersiveMode = true;
   let isAnimating = false;
+  let lastScrollTop = 0;
 
-  if (btn && btnText && iconToStandard && iconToImmersive) {
+  function checkMode() {
+    const allSimpleViews = document.querySelectorAll('.simple-view');
+    const allImmersiveViews = document.querySelectorAll('.immersive-view');
+
+    if (isImmersiveMode) {
+      allSimpleViews.forEach(el => el.classList.add('hidden'));
+      allImmersiveViews.forEach(el => el.classList.remove('hidden'));
+      if(yearWrapper) {
+          yearWrapper.classList.remove('hidden');
+          yearWrapper.style.display = 'block'; 
+      }
+      if(btnText) btnText.innerText = "Modo Inmersivo";
+      setupLines();
+    } else {
+      allSimpleViews.forEach(el => el.classList.remove('hidden'));
+      allImmersiveViews.forEach(el => el.classList.add('hidden'));
+      if(yearWrapper) {
+          yearWrapper.classList.add('hidden');
+          yearWrapper.style.display = 'none';
+      }
+      if(btnText) btnText.innerText = "Modo Estándar";
+    }
+  }
+
+  if (btn) {
     btn.addEventListener('click', () => {
       if(isAnimating) return;
       isAnimating = true;
-
       isImmersiveMode = !isImmersiveMode;
-      const allSimpleViews = document.querySelectorAll('.simple-view');
-      const allImmersiveViews = document.querySelectorAll('.immersive-view');
-
-      if (isImmersiveMode) {
-        allSimpleViews.forEach(el => el.classList.add('hidden'));
-        allImmersiveViews.forEach(el => el.classList.remove('hidden'));
-        btnText.innerText = "Modo Inmersivo";
-        setupLines(); 
-      } else {
-        allSimpleViews.forEach(el => el.classList.remove('hidden'));
-        allImmersiveViews.forEach(el => el.classList.add('hidden'));
-        btnText.innerText = "Modo Estándar";
-      }
-
-      btn.style.width = "210px"; 
+      checkMode();
+      btn.style.width = "210px";
       btnText.style.opacity = "1";
-
       setTimeout(() => {
-        btn.style.width = "56px"; 
+        btn.style.width = "56px";
         btnText.style.opacity = "0";
-
-        if (isImmersiveMode) {
-          iconToStandard.style.opacity = "1";
-          iconToStandard.style.transform = "rotate(0deg)";
-          iconToImmersive.style.opacity = "0";
-          iconToImmersive.style.transform = "rotate(-90deg)";
-        } else {
-          iconToStandard.style.opacity = "0";
-          iconToStandard.style.transform = "rotate(90deg)";
-          iconToImmersive.style.opacity = "1";
-          iconToImmersive.style.transform = "rotate(0deg)";
-        }
-        isAnimating = false; 
-      }, 5000); 
+        isAnimating = false;
+      }, 3000);
     });
   }
 
@@ -170,87 +209,106 @@ const NEWS_ITEMS = [
 
   function setupLines() {
     articles.forEach(article => {
-      const container = article.querySelector('.line-reveal-container') as HTMLElement | null;
-      const fullText = (article as HTMLElement).dataset.description || "";
-      
+      const container = article.querySelector('.line-reveal-container');
       if (!container || container.dataset.ready === "true") return;
-
-      const words = fullText.split(' ').map((word: string) => 
+      const fullText = article.dataset.description || "";
+      const words = fullText.split(' ').map(word => 
         `<span class="word-span inline-block transition-opacity duration-600 opacity-0 mr-1">${word}</span>`
       ).join('');
-      
       container.innerHTML = words;
       container.dataset.ready = "true";
       container.dataset.hasTyped = "false";
     });
   }
 
+  updateDimensions();
+  window.addEventListener('resize', () => {
+      updateDimensions();
+      if(digitStrips.length > 0) window.dispatchEvent(new Event('scroll'));
+  });
+
   setupLines();
+  checkMode(); 
 
+  // --- LÓGICA DE SCROLL ---
   window.addEventListener('scroll', () => {
-    if (!isImmersiveMode) return;
+    const currentScroll = window.scrollY || document.documentElement.scrollTop;
+    
+    let activeYearIndex = 0;
+    let maxVisibility = 0;
+    const windowHeight = window.innerHeight;
 
-    articles.forEach((article) => {
-      const immersiveContainer = article.querySelector('.immersive-view') as HTMLElement | null;
-      if (!immersiveContainer) return;
+    if (isImmersiveMode) {
+        articles.forEach((article) => {
+            const immersiveContainer = article.querySelector('.immersive-view');
+            if (!immersiveContainer) return;
 
-      const rect = immersiveContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const containerHeight = immersiveContainer.offsetHeight;
+            const rect = immersiveContainer.getBoundingClientRect();
+            const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+            const visibility = Math.max(0, visibleHeight / windowHeight);
 
-      if (rect.bottom < 0 || rect.top > windowHeight) return;
-
-      const totalScrollableDistance = containerHeight - windowHeight;
-      const scrolledDistance = -rect.top;
-      
-      let progress = scrolledDistance / totalScrollableDistance;
-      progress = Math.max(0, Math.min(1, progress));
-
-      const imgWrapper = article.querySelector('.immersive-image-wrapper') as HTMLElement | null;
-      const title = article.querySelector('.immersive-title') as HTMLElement | null;
-      const btnElement = article.querySelector('.immersive-btn') as HTMLElement | null;
-      const textContainer = article.querySelector('.line-reveal-container') as HTMLElement | null;
-      
-      // CAMBIO 2: Trigger casi inmediato (0.01 = 1%)
-      const triggerPoint = 0.01;
-      
-      if (textContainer) {
-        if (progress > triggerPoint) {
-            if (textContainer.dataset.hasTyped !== "true") {
-                textContainer.dataset.hasTyped = "true"; 
-                
-                const allSpans = textContainer.querySelectorAll('.word-span');
-                
-                allSpans.forEach((span, index) => {
-                    setTimeout(() => {
-                        if (textContainer.dataset.hasTyped === "true") {
-                            (span as HTMLElement).style.opacity = "1";
-                        }
-                    }, index * 25); 
-                });
+            if (visibility > maxVisibility) {
+                maxVisibility = visibility;
+                const currentYear = article.dataset.year;
+                activeYearIndex = uniqueYears.indexOf(currentYear);
             }
-        } else if (progress < 0.005) { // Reset también inmediato arriba
-            if (textContainer.dataset.hasTyped === "true") {
-                textContainer.dataset.hasTyped = "false";
-                const allSpans = textContainer.querySelectorAll('.word-span');
-                allSpans.forEach(span => (span as HTMLElement).style.opacity = "0");
+            
+            if (rect.bottom < 0 || rect.top > windowHeight) return;
+            const containerHeight = immersiveContainer.offsetHeight;
+            const totalScrollableDistance = containerHeight - windowHeight;
+            const scrolledDistance = -rect.top;
+            let progress = scrolledDistance / totalScrollableDistance;
+            progress = Math.max(0, Math.min(1, progress));
+
+            const imgWrapper = article.querySelector('.immersive-image-wrapper');
+            const title = article.querySelector('.immersive-title');
+            const btnElement = article.querySelector('.immersive-btn');
+            const textContainer = article.querySelector('.line-reveal-container');
+
+            // --- AQUÍ ESTÁ EL CAMBIO DE VELOCIDAD ---
+            if (textContainer) {
+                if (progress > 0.01 && textContainer.dataset.hasTyped !== "true") {
+                    textContainer.dataset.hasTyped = "true";
+                    const allSpans = textContainer.querySelectorAll('.word-span');
+                    allSpans.forEach((span, i) => {
+                        // AUMENTAMOS A 60ms (antes 25ms) PARA QUE SEA MÁS LENTO Y ELEGANTE
+                        setTimeout(() => { 
+                            if (textContainer.dataset.hasTyped === "true") span.style.opacity = "1"; 
+                        }, i * 75); 
+                    });
+                } else if (progress < 0.005 && textContainer.dataset.hasTyped === "true") {
+                    textContainer.dataset.hasTyped = "false";
+                    textContainer.querySelectorAll('.word-span').forEach(span => span.style.opacity = "0");
+                }
             }
+            // ----------------------------------------
+
+            if (imgWrapper) {
+                const imageOpacity = Math.min(1, progress * 5);
+                imgWrapper.style.opacity = imageOpacity;
+                imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
+                imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
+            }
+            if (title) title.style.opacity = Math.min(1, progress * 20).toString();
+            if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
+        });
+    }
+
+    if (isImmersiveMode && yearWrapper) {
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            yearWrapper.style.top = '0px';
+        } else {
+            yearWrapper.style.top = NAV_HEIGHT;
         }
-      }
+    }
+    
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 
-      if (imgWrapper) {
-        // Aceleramos la imagen (x5 en vez de x3) para que se aclare más rápido
-        const imageOpacity = Math.min(1, progress * 5);
-        imgWrapper.style.opacity = imageOpacity.toString();
-        imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
-        imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
-      }
-      
-      // Título aparece inmediatamente (trigger * 20)
-      if (title) title.style.opacity = Math.min(1, progress * 20).toString();
-      
-      // CAMBIO 3: El botón aparece al 10% (casi inmediato), no hay que esperar
-      if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
-    });
+    if (isImmersiveMode && activeYearIndex !== -1 && digitStrips.length > 0) {
+        digitStrips.forEach((strip, colIndex) => {
+            const targetStripIndex = clientMappings[colIndex][activeYearIndex];
+            strip.style.transform = `translateY(-${targetStripIndex * YEAR_HEIGHT}px)`;
+        });
+    }
   });
 </script>
