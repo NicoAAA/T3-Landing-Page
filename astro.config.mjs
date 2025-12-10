@@ -3,14 +3,20 @@ import tailwind from "@astrojs/tailwind"; // <-- El import CORRECTO
 
 import sanity from "@sanity/astro";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
+  output: 'server', 
+  adapter: vercel(),
   integrations: [
     tailwind(), 
     sanity({
       projectId: "9fioqt11",
       dataset: "production",
-      useCdn: true,
+      useCdn: false,
     })
-  ] 
+  ],
+
+  adapter: vercel()
 });
