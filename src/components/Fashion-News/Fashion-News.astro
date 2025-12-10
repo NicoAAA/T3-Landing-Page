@@ -65,14 +65,12 @@ const sortedYears = Object.keys(postsByYear).sort();
   <div id="standard-view-container" class="hidden pt-24 pb-20 container mx-auto px-4 md:px-6 max-w-7xl">
       {sortedYears.map((year) => (
           <section class="year-section mb-20">
-              
               <div class="flex items-center mb-10 text-button">
-                  <h2 class="text-6xl md:text-8xl font-titulo font-bold text-primary opacity-20 mr-6">{year}</h2>
-                  <div class="h-px  flex-grow"></div>
+                  <h2 class="text-6xl md:text-8xl font-titulo font-bold text-button opacity-20 mr-6">{year}</h2>
+                  <div class="h-px flex-grow bg-primary/20"></div>
               </div>
-
               <div class="space-y-16">
-                  {postsByYear[year].map((item, index) => (
+                  {postsByYear[year].map((item: any, index: number) => (
                       <div class={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                           <div class="w-full md:w-1/2">
                               <div class="aspect-[4/5] w-full relative overflow-hidden shadow-lg group rounded-sm">
@@ -93,9 +91,9 @@ const sortedYears = Object.keys(postsByYear).sort();
 
   <div id="immersive-view-container">
       
-      <div id="year-sticky-wrapper" class="sticky top-0 z-40 w-full bg-theme transition-[top] duration-500 ease-in-out overflow-hidden shadow-sm border-b border-theme hidden">
+      <div id="year-sticky-wrapper" class="sticky top-0 z-50 w-full bg-[#1c1c2e] shadow-lg border-b border-white/10 hidden">
         <div class="container mx-auto max-w-7xl flex justify-center items-center py-2 h-20 md:h-24">
-            <div id="year-counter-container" class="h-16 md:h-20 w-auto relative flex justify-center gap-0.5 md:gap-0.5">
+            <div id="year-counter-container" class="h-16 md:h-20 w-max relative flex justify-center gap-0.5 md:gap-0.5 px-4">
                 {digitColumns.map((colData, index) => (
                     <div class="h-16 md:h-20 overflow-hidden relative w-[28px] md:w-[36px] flex justify-center">
                         <div class="digit-strip flex flex-col items-center transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
@@ -103,27 +101,27 @@ const sortedYears = Object.keys(postsByYear).sort();
                              data-col-index={index}>
                             {colData.strip.map((digit) => (
                                 <div class="h-16 md:h-20 flex items-center justify-center flex-shrink-0">
-                                    <span class="text-4xl md:text-5xl font-titulo font-bold text-button tracking-tight drop-shadow-sm leading-none">{digit}</span>
+                                    <span class="text-4xl md:text-5xl font-titulo font-bold text-white tracking-tight drop-shadow-sm leading-none">{digit}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
                 ))}
-                <div class="absolute bottom-2 md:bottom-2 left-1/2 transform -translate-x-1/2 w-28 md:w-36 h-1 md:h-1.5 bg-[#8b9e8d] rounded-full opacity-90 z-10"></div>
+                <div class="absolute bottom-2 md:bottom-2 left-0 right-0 mx-auto w-full max-w-[90%] h-1 md:h-1.5 bg-[#8b9e8d] rounded-full opacity-90 z-10"></div>
             </div>
         </div>
       </div>
 
       <div class="relative z-10 pt-4">
-        {NEWS_ITEMS.map((item, index) => (
-            <article class="news-article-wrapper border-b border-theme last:border-0" data-description={item.description} data-year={item.year}>
+        {NEWS_ITEMS.map((item: any, index: number) => (
+            <article class="news-article-wrapper border-b border-white/5 last:border-0" data-description={item.description} data-year={item.year}>
                 <div class="immersive-view relative h-[120vh] md:h-[150vh]">
                     <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme">
                         <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                             <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-4 md:py-0">
                                 <h3 class="immersive-title text-2xl sm:text-3xl lg:text-5xl font-titulo font-bold text-button mb-3 md:mb-6 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight">{item.title}</h3>
                                 <div class="relative h-auto w-full">
-                                    <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-themeInverted p-2 md:p-4 rounded-r-lg"></div>
+                                    <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-white/5 p-2 md:p-4 rounded-r-lg"></div>
                                 </div>
                                 <div class="immersive-btn mt-4 md:mt-8 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start">
                                     <button class="bg-action text-white px-8 py-3 hover:bg-[#8b9e8d] transition-colors duration-300 flex items-center gap-3 uppercase tracking-widest text-[10px] md:text-sm font-bold shadow-lg rounded-full">Ver Detalles</button>
@@ -147,39 +145,29 @@ const sortedYears = Object.keys(postsByYear).sort();
 <script define:vars={{ uniqueYears: UNIQUE_YEARS_FLAT, clientMappings }}>
   const btn = document.getElementById('mode-toggle-btn');
   const btnText = document.getElementById('mode-text');
-  
-  // Elementos principales de cada vista
   const standardContainer = document.getElementById('standard-view-container');
   const immersiveContainer = document.getElementById('immersive-view-container');
-  
-  // Elementos de la vista inmersiva
   const yearWrapper = document.getElementById('year-sticky-wrapper');
   const digitStrips = document.querySelectorAll('.digit-strip');
   
   let YEAR_HEIGHT = 80; 
-  let NAV_HEIGHT = '96px';
 
   function updateDimensions() {
+    // Solo ajustamos la altura de desplazamiento de los números, no el nav
     if (window.innerWidth < 768) {
         YEAR_HEIGHT = 64; 
-        NAV_HEIGHT = '80px'; 
     } else {
         YEAR_HEIGHT = 80; 
-        NAV_HEIGHT = '96px'; 
     }
   }
 
   let isImmersiveMode = true;
   let isAnimating = false;
-  let lastScrollTop = 0;
 
   function checkMode() {
     if (isImmersiveMode) {
-      // Ocultar estándar, mostrar inmersivo
       if(standardContainer) standardContainer.classList.add('hidden');
       if(immersiveContainer) immersiveContainer.classList.remove('hidden');
-      
-      // Mostrar sticky wrapper
       if(yearWrapper) {
           yearWrapper.classList.remove('hidden');
           yearWrapper.style.display = 'block'; 
@@ -187,11 +175,8 @@ const sortedYears = Object.keys(postsByYear).sort();
       if(btnText) btnText.innerText = "Modo Inmersivo";
       setupLines();
     } else {
-      // Mostrar estándar, ocultar inmersivo
       if(standardContainer) standardContainer.classList.remove('hidden');
       if(immersiveContainer) immersiveContainer.classList.add('hidden');
-      
-      // Ocultar sticky wrapper
       if(yearWrapper) {
           yearWrapper.classList.add('hidden');
           yearWrapper.style.display = 'none';
@@ -242,21 +227,21 @@ const sortedYears = Object.keys(postsByYear).sort();
   checkMode(); 
 
   window.addEventListener('scroll', () => {
-    // Si no estamos en modo inmersivo, no ejecutamos nada de la lógica pesada
     if (!isImmersiveMode) return;
-
-    const currentScroll = window.scrollY || document.documentElement.scrollTop;
     
-    // 1. DETECTAR AÑO
+    // NOTA: Eliminamos la lógica de 'Smart Sticky' (cambiar top con JS) 
+    // para evitar el comportamiento errático en móvil.
+
+    const windowHeight = window.innerHeight;
     let activeYearIndex = 0;
     let maxVisibility = 0;
-    const windowHeight = window.innerHeight;
 
     articles.forEach((article) => {
         const immersiveContainer = article.querySelector('.immersive-view');
         if (!immersiveContainer) return;
 
         const rect = immersiveContainer.getBoundingClientRect();
+        // Cálculo de visibilidad para determinar el año activo
         const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
         const visibility = Math.max(0, visibleHeight / windowHeight);
 
@@ -266,10 +251,13 @@ const sortedYears = Object.keys(postsByYear).sort();
             activeYearIndex = uniqueYears.indexOf(currentYear);
         }
         
+        // Animaciones internas del artículo (opacidad, blur, etc.)
         if (rect.bottom < 0 || rect.top > windowHeight) return;
+        
         const containerHeight = immersiveContainer.offsetHeight;
         const totalScrollableDistance = containerHeight - windowHeight;
         const scrolledDistance = -rect.top;
+        
         let progress = scrolledDistance / totalScrollableDistance;
         progress = Math.max(0, Math.min(1, progress));
 
@@ -302,22 +290,14 @@ const sortedYears = Object.keys(postsByYear).sort();
         if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
     });
 
-    // 2. SMART STICKY
-    if (yearWrapper) {
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-            yearWrapper.style.top = '0px';
-        } else {
-            yearWrapper.style.top = NAV_HEIGHT;
-        }
-    }
-    
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-
-    // 3. ACTUALIZAR CINTAS
+    // 3. ACTUALIZAR CINTAS DE NÚMEROS
     if (activeYearIndex !== -1 && digitStrips.length > 0) {
         digitStrips.forEach((strip, colIndex) => {
-            const targetStripIndex = clientMappings[colIndex][activeYearIndex];
-            strip.style.transform = `translateY(-${targetStripIndex * YEAR_HEIGHT}px)`;
+            // Verificamos que exista el mapping para evitar errores
+            if(clientMappings[colIndex] && clientMappings[colIndex][activeYearIndex] !== undefined) {
+                const targetStripIndex = clientMappings[colIndex][activeYearIndex];
+                strip.style.transform = `translateY(-${targetStripIndex * YEAR_HEIGHT}px)`;
+            }
         });
     }
   });
