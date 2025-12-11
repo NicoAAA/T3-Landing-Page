@@ -87,9 +87,7 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
 
   <div id="immersive-view-container">
       
-      {/* HEADER AÑO: Sticky top-0 permanente y z-60 para tapar el navbar original.
-         Ya no tiene transiciones de top porque no se mueve.
-      */}
+      {/* HEADER AÑO */}
       <div id="year-sticky-wrapper" class="sticky top-0 z-[60] w-full bg-theme shadow-xl border-b border-white/10 hidden">
         <div class="container mx-auto max-w-7xl flex justify-center items-center py-2 h-20 md:h-24">
             <div id="year-counter-container" class="h-16 md:h-20 w-max relative flex justify-center gap-0.5 md:gap-0.5 px-4">
@@ -111,14 +109,18 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
         </div>
       </div>
 
-      {/* CONTENEDOR DE ARTÍCULOS: 
-         Padding top fijo (pt-20/pt-24) para compensar la altura del header del año.
-      */}
-      <div id="immersive-content-layer" class="relative z-0 pt-20 md:pt-24">
+      {/* CONTENEDOR DE ARTÍCULOS */}
+      <div id="immersive-content-layer" class="relative z-0 pt-0 md:pt-24">
         {NEWS_ITEMS.map((item: any, index: number) => (
             <article class="news-article-wrapper border-b border-white/5 last:border-0" data-description={item.description} data-year={item.year}>
                 <div class="immersive-view relative h-[120vh] md:h-[150vh]">
-                    <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme">
+                    
+                    {/* CORRECCIÓN APLICADA AQUÍ: pt-32 md:pt-0 
+                        Esto empuja el contenido hacia abajo SOLO en móviles para que la barra 
+                        del año no le corte la cabeza a la modelo.
+                    */}
+                    <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme pt-32 md:pt-0">
+                        
                         <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                             
                             <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-2 md:py-0">
@@ -130,7 +132,7 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
                             </div>
 
                             <div class="w-full md:w-1/2 relative flex items-center justify-center order-1 md:order-2">
-                                <div class="immersive-image-wrapper relative w-full h-auto aspect-[4/5] md:aspect-auto md:h-[60vh] overflow-hidden shadow-2xl  transition-transform duration-100 ease-out rounded-sm border">
+                                <div class="immersive-image-wrapper relative w-full h-auto aspect-[4/5] md:aspect-auto md:h-[60vh] overflow-hidden shadow-2xl  transition-all duration-300 ease-out rounded-sm border-secondTheme">
                                     <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
                                 </div>
                             </div>
@@ -145,7 +147,6 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
 </div>
 
 <script define:vars={{ uniqueYears: UNIQUE_YEARS_FLAT, clientMappings }}>
-  // Referencias DOM
   const btn = document.getElementById('mode-toggle-btn');
   const btnText = document.getElementById('mode-text');
   const standardContainer = document.getElementById('standard-view-container');
@@ -154,8 +155,6 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
   const digitStrips = document.querySelectorAll('.digit-strip');
   const articles = document.querySelectorAll('.news-article-wrapper');
   
-  // INTENTA LOCALIZAR TU NAVBAR PRINCIPAL AQUÍ
-  // Usamos una selección genérica. Si tu navbar tiene ID, cámbialo a document.getElementById('tu-id')
   const mainNavbar = document.querySelector('header') || document.querySelector('nav');
   
   let YEAR_HEIGHT = 80; 
@@ -168,23 +167,37 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
     }
   }
 
-  // --- NUEVA LÓGICA DE CONTROL DEL NAVBAR ---
   let isImmersiveMode = true;
   let isAnimating = false;
 
+  // --- LÓGICA CORREGIDA DEL NAVBAR ---
   function manageNavbarVisibility() {
       if (!mainNavbar) return;
 
-      if (isImmersiveMode) {
-          // Ocultar Navbar principal hacia arriba
-          mainNavbar.style.transform = 'translateY(-100%)';
-          mainNavbar.style.transition = 'transform 0.3s ease-out';
-          // Desactivar clics en el navbar invisible
-          mainNavbar.style.pointerEvents = 'none';
-      } else {
-          // Restaurar Navbar
+      if (!isImmersiveMode) {
           mainNavbar.style.transform = 'translateY(0)';
           mainNavbar.style.pointerEvents = 'auto';
+          return;
+      }
+
+      // AQUÍ ESTÁ EL CAMBIO CLAVE:
+      // En lugar de mirar si el scroll es > 50, miramos dónde está la barra de años.
+      if (yearWrapper) {
+          const rect = yearWrapper.getBoundingClientRect();
+          
+          // rect.top nos dice a cuántos píxeles está la barra de años del borde superior.
+          // Si es <= 0 (o cerca, ej: 1px), significa que ya se pegó arriba ("sticky").
+          // Solo ahí ocultamos el menú. Mientras esté bajando por el Hero, el menú se queda.
+          
+          if (rect.top <= 1) {
+              // LA BARRA YA TOCÓ EL TECHO: OCULTAR MENÚ
+              mainNavbar.style.transform = 'translateY(-100%)';
+              mainNavbar.style.pointerEvents = 'none';
+          } else {
+              // AÚN ESTAMOS EN EL HERO: MOSTRAR MENÚ
+              mainNavbar.style.transform = 'translateY(0)';
+              mainNavbar.style.pointerEvents = 'auto';
+          }
       }
   }
 
@@ -198,11 +211,6 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
       }
       if(btnText) btnText.innerText = "Modo Inmersivo";
       setupLines();
-      
-      // OCULTAR NAVBAR PRINCIPAL
-      manageNavbarVisibility();
-      
-      setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
     } else {
       if(standardContainer) standardContainer.classList.remove('hidden');
       if(immersiveContainer) immersiveContainer.classList.add('hidden');
@@ -211,10 +219,8 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
           yearWrapper.style.display = 'none';
       }
       if(btnText) btnText.innerText = "Modo Estándar";
-      
-      // MOSTRAR NAVBAR PRINCIPAL
-      manageNavbarVisibility();
     }
+    manageNavbarVisibility();
   }
 
   if (btn) {
@@ -256,14 +262,11 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
   setupLines();
   checkMode(); 
 
-  // Listener para las animaciones internas del post (imagen, texto, contador)
   window.addEventListener('scroll', () => {
+    // EJECUTAR SIEMPRE LA VISIBILIDAD DEL NAVBAR
+    manageNavbarVisibility();
+
     if (!isImmersiveMode) return;
-    
-    // REFUERZO: Asegurar que el navbar siga oculto al hacer scroll
-    if (mainNavbar && mainNavbar.style.transform !== 'translateY(-100%)') {
-        mainNavbar.style.transform = 'translateY(-100%)';
-    }
     
     const windowHeight = window.innerHeight;
     let activeYearIndex = 0;
@@ -312,7 +315,7 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
             }
         }
         if (imgWrapper) {
-            const imageOpacity = Math.min(1, progress * 5);
+            const imageOpacity = Math.min(1, progress * 2.5);
             imgWrapper.style.opacity = imageOpacity;
             imgWrapper.style.filter = `blur(${(1 - imageOpacity) * 5}px) grayscale(${(1 - imageOpacity) * 100}%)`;
             imgWrapper.style.transform = `scale(${0.9 + (imageOpacity * 0.1)})`;
