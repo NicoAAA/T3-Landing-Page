@@ -61,9 +61,30 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
   <div id="standard-view-container" class="hidden pt-24 pb-20 container mx-auto px-4 md:px-6 max-w-7xl">
       {sortedYears.map((year) => (
           <section class="year-section mb-24 border-b border-white/5 pb-10 last:border-0">
+              
               <div class="flex flex-col items-center justify-center mb-16 relative">
-                  <h2 class="text-6xl md:text-8xl font-titulo font-bold text-button tracking-tight">{year}</h2>
-                  <div class="w-24 md:w-32 h-1.5 bg-[#8b9e8d] rounded-full mt-4 opacity-90 shadow-sm"></div>
+                  
+                  {/* --- NUEVO WRAPPER: w-max --- */}
+                  {/* Esto obliga al div a tener el ancho exacto de los dígitos, ni un pixel más */}
+                  <div class="flex flex-col items-center w-max">
+                      
+                      {/* Dígitos */}
+                      <div class="flex justify-center gap-0.5 md:gap-0.5">
+                          {year.toString().split('').map((digit) => (
+                              <div class="w-[28px] md:w-[36px] flex justify-center">
+                                  <span class="text-4xl md:text-5xl font-titulo font-bold text-button tracking-tight drop-shadow-sm leading-none">
+                                      {digit}
+                                  </span>
+                              </div>
+                          ))}
+                      </div>
+
+                      {/* Línea Verde */}
+                      {/* Ahora usamos w-full y max-w-[90%] igual que en el inmersivo */}
+                      <div class="w-full max-w-[90%] h-1 md:h-1.5 bg-[#8b9e8d] rounded-full mt-2 opacity-90 shadow-sm"></div>
+                  </div>
+                  {/* --- FIN WRAPPER --- */}
+
               </div>
 
               <div class="space-y-20">
@@ -115,10 +136,6 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
             <article class="news-article-wrapper border-b border-white/5 last:border-0" data-description={item.description} data-year={item.year}>
                 <div class="immersive-view relative h-[120vh] md:h-[150vh]">
                     
-                    {/* CORRECCIÓN APLICADA AQUÍ: pt-32 md:pt-0 
-                        Esto empuja el contenido hacia abajo SOLO en móviles para que la barra 
-                        del año no le corte la cabeza a la modelo.
-                    */}
                     <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme pt-32 md:pt-0">
                         
                         <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
