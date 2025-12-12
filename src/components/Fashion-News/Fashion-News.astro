@@ -135,21 +135,29 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
         {NEWS_ITEMS.map((item: any, index: number) => (
             <article class="news-article-wrapper border-b border-white/5 last:border-0" data-description={item.description} data-year={item.year}>
                 <div class="immersive-view relative h-[120vh] md:h-[150vh]">
-                    
-                    <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme pt-32 md:pt-0">
+                    <div class="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center bg-theme pt-16 sm:pt-0">
                         
-                        <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                        <div class={`container mx-auto px-4 md:px-6 max-w-7xl h-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 md:gap-16 ${index % 2 !== 0 ? 'sm:flex-row-reverse' : ''}`}>
                             
-                            <div class="w-full md:w-1/2 flex flex-col justify-center z-10 order-2 md:order-1 h-auto py-2 md:py-0">
-                                <h3 class="immersive-title text-3xl md:text-5xl font-titulo font-bold text-button mb-4 md:mb-8 opacity-0 transition-opacity duration-300 text-center md:text-left leading-tight drop-shadow-md">{item.title}</h3>
-                                <div class="relative h-auto w-full max-w-xl mx-auto md:mx-0">
-                                    <div class="line-reveal-container text-sm sm:text-base lg:text-xl text-primary leading-relaxed font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-white/5 p-3 md:p-6 rounded-r-lg backdrop-blur-sm"></div>
+                            <div class="w-full sm:w-1/2 flex flex-col justify-center z-10 order-2 sm:order-1 h-auto relative shrink-0">
+                                <h3 class="immersive-title text-3xl sm:text-3xl md:text-5xl font-titulo font-bold text-button mb-3 sm:mb-4 md:mb-8 opacity-0 transition-opacity duration-300 text-center sm:text-left leading-tight drop-shadow-md">
+                                    {item.title}
+                                </h3>
+                                
+                                <div class="relative h-auto w-full max-w-xl mx-auto sm:mx-0">
+                                    
+                                    <div class="line-reveal-container text-sm sm:text-sm md:text-xl text-primary leading-snug font-body border-l-2 md:border-l-4 border-[#A5BBA7] pl-3 md:pl-6 bg-white/5 p-3 md:p-6 rounded-r-lg backdrop-blur-sm max-h-[20vh] sm:max-h-none overflow-y-auto sm:overflow-visible scrollbar-hide">
+                                        
+                                    </div>
                                 </div>
-                                <div class="immersive-btn mt-6 md:mt-10 opacity-0 transition-opacity duration-500 flex justify-center md:justify-start"></div>
+                                
+                                <div class="immersive-btn mt-4 md:mt-10 opacity-0 transition-opacity duration-500 flex justify-center sm:justify-start">
+                                </div>
                             </div>
 
-                            <div class="w-full md:w-1/2 relative flex items-center justify-center order-1 md:order-2">
-                                <div class="immersive-image-wrapper relative w-full h-auto aspect-[4/5] md:aspect-auto md:h-[60vh] overflow-hidden shadow-2xl  transition-all duration-300 ease-out rounded-sm border-secondTheme">
+                            
+                            <div class="w-full sm:w-1/2 relative flex items-center justify-center order-1 sm:order-2">
+                                <div class="immersive-image-wrapper relative h-[55vh] w-auto aspect-[3/4] sm:aspect-auto sm:h-[60vh] sm:w-full overflow-hidden shadow-2xl transition-all duration-300 ease-out rounded-sm border-secondTheme mx-auto sm:mx-0">
                                     <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
                                 </div>
                             </div>
