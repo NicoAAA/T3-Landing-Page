@@ -1,0 +1,55 @@
+---
+// src/components/Fashion-News/StandardView.astro
+interface Props {
+  sortedYears: string[];
+  postsByYear: any;
+}
+const { sortedYears, postsByYear } = Astro.props;
+---
+<div id="standard-view-container" class="hidden pt-24 pb-20 container mx-auto px-4 md:px-6 max-w-7xl">
+      {sortedYears.map((year) => (
+          <section class="year-section mb-24 border-b border-white/5 pb-10 last:border-0">
+              
+              <div class="flex flex-col items-center justify-center mb-16 relative">
+                  
+                  {/* --- NUEVO WRAPPER: w-max --- */}
+                  {/* Esto obliga al div a tener el ancho exacto de los dígitos, ni un pixel más */}
+                  <div class="flex flex-col items-center w-max">
+                      
+                      {/* Dígitos */}
+                      <div class="flex justify-center gap-0.5 md:gap-0.5">
+                          {year.toString().split('').map((digit) => (
+                              <div class="w-[28px] md:w-[36px] flex justify-center">
+                                  <span class="text-4xl md:text-5xl font-titulo font-bold text-button tracking-tight drop-shadow-sm leading-none">
+                                      {digit}
+                                  </span>
+                              </div>
+                          ))}
+                      </div>
+
+                      {/* Línea Verde */}
+                      {/* Ahora usamos w-full y max-w-[90%] igual que en el inmersivo */}
+                      <div class="w-full max-w-[90%] h-1 md:h-1.5 bg-[#8b9e8d] rounded-full mt-2 opacity-90 shadow-sm"></div>
+                  </div>
+                  {/* --- FIN WRAPPER --- */}
+
+              </div>
+
+              <div class="space-y-20">
+                  {postsByYear[year].map((item: any, index: number) => (
+                      <div class={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                          <div class="w-full md:w-1/2">
+                              <div class="aspect-[4/5] w-full relative overflow-hidden shadow-2xl group rounded-sm bg-[#1c1c2e]">
+                                  <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" />
+                              </div>
+                          </div>
+                          <div class="w-full md:w-1/2 text-center md:text-left">
+                              <h3 class="text-3xl md:text-5xl font-titulo font-bold text-button mb-6 leading-tight">{item.title}</h3>
+                              <p class="text-base md:text-xl text-primary leading-relaxed font-body mb-8 max-w-lg mx-auto md:mx-0">{item.description}</p>
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </section>
+      ))}
+  </div>

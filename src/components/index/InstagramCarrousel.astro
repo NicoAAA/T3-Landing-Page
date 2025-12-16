@@ -1,0 +1,197 @@
+---
+// InstagramCarousel.astro
+// ... (Toda la parte superior de imports e interfaces se mantiene IGUAL) ...
+
+// DATOS LOCALES (MOCK DATA)
+interface InstagramPost {
+  image: string;
+  description: string;
+}
+
+interface Props {
+  posts?: InstagramPost[];
+}
+
+const LOCAL_POSTS: InstagramPost[] = [
+  {
+    image: "/images/Fashion-one.jpg", 
+    description: "Nuestros nuevos diseños..."
+  },
+  {
+    image: "/images/Fashion-two.jpg",
+    description: "La calidad se siente..."
+  },
+  {
+    image: "/images/Fashion-three.jpg",
+    description: "Colores que inspiran..."
+  },
+  {
+    image: "/images/Fashion-four.jpg",
+    description: "Innovación y tradición..."
+  }
+];
+
+const { posts: propPosts } = Astro.props;
+const posts = (propPosts && propPosts.length > 0) ? propPosts : LOCAL_POSTS;
+
+function truncateText(text: string, maxLength: number): string {
+  if (!text) return "";
+  if (text.length <= maxLength) return text;
+  let subString = text.substring(0, maxLength);
+  return subString.substring(0, subString.lastIndexOf(" ")) + "...";
+}
+---
+
+<div class="w-full overflow-hidden relative py-16 bg-theme cursor-grab active:cursor-grabbing select-none group/container" id="carouselContainer">
+  
+  <div 
+    id="instaTrack" 
+    class="flex gap-6 w-max will-change-transform"
+  >
+    {posts.map((post) => (
+      <article class="
+        carousel-item
+        group relative
+        flex-shrink-0 flex flex-col 
+        bg-second-theme rounded-2xl shadow-md overflow-hidden 
+        w-[85vw] max-w-[400px] md:w-[320px] lg:w-[360px]
+        transition-all duration-500 ease-out
+        hover:scale-110 hover:shadow-2xl hover:z-50 hover:brightness-110
+      ">
+        <div class="relative w-full aspect-square overflow-hidden">
+          <img 
+            src={post.image} 
+            alt="Instagram Post" 
+            loading="lazy" 
+            draggable="false" 
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
+        <div class="flex-grow p-5 flex flex-col bg-surface">
+          <p class="text-muted text-sm leading-relaxed font-normal break-words">
+            {truncateText(post.description, 120)} 
+          </p>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Esperamos a que todo cargue (incluyendo imágenes) para calcular anchos correctamente
+  window.addEventListener('load', () => {
+    const track = document.getElementById('instaTrack') as HTMLElement;
+    const container = document.getElementById('carouselContainer') as HTMLElement;
+    
+    if (!track || !container) return;
+
+    // 1. OBTENER DIMENSIONES DEL SET ORIGINAL
+    const originalItems = Array.from(track.children) as HTMLElement[];
+    if (originalItems.length === 0) return;
+
+    // Calculamos el ancho de un solo item + el gap (24px viene de gap-6 en Tailwind)
+    // Usamos el primer item como referencia
+    const itemWidth = originalItems[0].offsetWidth;
+    const gap = 24; 
+    const singleItemTotalWidth = itemWidth + gap;
+    
+    // El ancho total del set original
+    const originalSetWidth = singleItemTotalWidth * originalItems.length;
+
+    // 2. DUPLICACIÓN INTELIGENTE (FIX DEL HUECO)
+    // Duplicamos los items suficientes veces para asegurar que cubran 
+    // al menos 3 veces el ancho de la pantalla. Esto evita el hueco negro.
+    const screenWidth = window.innerWidth;
+    const neededSets = Math.ceil((screenWidth * 3) / originalSetWidth) + 1;
+
+    for (let i = 0; i < neededSets; i++) {
+        originalItems.forEach(item => {
+            const clone = item.cloneNode(true) as HTMLElement;
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+        });
+    }
+
+    // Variables de Estado
+    let currentX = 0;
+    let baseSpeed = 1.0; // Velocidad base
+    let isHovering = false;
+    let isDragging = false;
+    let startX = 0;
+    let lastDragX = 0;
+    let momentum = 0;
+
+    // LOOP DE ANIMACIÓN
+    const animate = () => {
+      if (!isDragging) {
+        // Reducir velocidad si hay hover
+        const targetSpeed = isHovering ? 0 : baseSpeed;
+        
+        // Momentum o velocidad constante
+        if (Math.abs(momentum) > 0.1) {
+            currentX -= momentum;
+            momentum *= 0.95; 
+        } else {
+            currentX -= targetSpeed;
+        }
+      }
+
+      // 3. LÓGICA DE INFINITO CORREGIDA
+      // En lugar de usar track.scrollWidth / 2, usamos el ancho del set original.
+      // Cuando nos hemos movido lo suficiente para ocultar el set original completo,
+      // reseteamos la posición sumando ese ancho. Visualmente es idéntico.
+      
+      // Reset hacia la izquierda (Scroll normal)
+      if (currentX <= -originalSetWidth) {
+        currentX += originalSetWidth;
+      }
+      // Reset hacia la derecha (Si el usuario arrastra al revés)
+      else if (currentX > 0) {
+        currentX -= originalSetWidth;
+      }
+
+      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+
+    // EVENTOS (Drag & Drop igual que antes)
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    carouselItems.forEach(item => {
+        item.addEventListener('mouseenter', () => isHovering = true);
+        item.addEventListener('mouseleave', () => isHovering = false);
+    });
+
+    const startDrag = (e: MouseEvent | TouchEvent) => {
+        isDragging = true;
+        isHovering = true; 
+        startX = (e as MouseEvent).pageX || (e as TouchEvent).touches[0].pageX;
+        lastDragX = startX;
+        momentum = 0; 
+        container.style.cursor = 'grabbing';
+    };
+
+    const moveDrag = (e: MouseEvent | TouchEvent) => {
+        if (!isDragging) return;
+        const x = (e as MouseEvent).pageX || (e as TouchEvent).touches[0].pageX;
+        const diff = x - lastDragX;
+        currentX += diff; 
+        lastDragX = x; 
+        momentum = -diff * 1.5; 
+    };
+
+    const endDrag = () => {
+        isDragging = false;
+        isHovering = false; 
+        container.style.cursor = 'grab';
+    };
+
+    container.addEventListener('mousedown', startDrag);
+    container.addEventListener('touchstart', startDrag, { passive: true });
+    window.addEventListener('mousemove', moveDrag);
+    window.addEventListener('touchmove', moveDrag, { passive: true });
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+  });
+</script>
