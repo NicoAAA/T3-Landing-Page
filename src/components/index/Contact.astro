@@ -12,101 +12,90 @@
             max-[425px]:shadow-none overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
 
       {/* Columna Izquierda (SIN CAMBIOS) */}
-      <div class="relative w-full lg:w-5/12 text-white 
-                  p-10 lg:p-12 
-                  max-[374px]:p-5  
-                  flex flex-col justify-between">
-        
+      <div class="relative w-full lg:w-5/12 text-white p-10 lg:p-12 max-[374px]:p-5 flex flex-col justify-between">
         <div class="absolute inset-0 z-0">
-            <img src="/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/75"></div> 
+          <img src="/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover" loading="eager" decoding="async">
+          <div class="absolute inset-0 bg-black/75"></div> 
         </div>
 
         <div class="relative z-10 h-full flex flex-col justify-center space-y-10 max-[374px]:space-y-6">
+          <div>
+            <h2 class="text-3xl font-titulo font-bold mb-2 text-white max-[374px]:text-2xl">Información de Contacto</h2>
+            <p class="text-gray-200 font-body text-base max-[374px]:hidden">Estamos aquí para asesorarte.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 max-[374px]:gap-6 font-body">
             
-            <div>
-                <h2 class="text-3xl font-titulo font-bold mb-2 text-white max-[374px]:text-2xl">Información de Contacto</h2>
-                <p class="text-gray-200 font-body text-base max-[374px]:hidden">
-                    Estamos aquí para asesorarte.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 max-[374px]:gap-6 font-body">
-              
-              <div class="flex items-start group md:col-start-1 md:row-start-1 lg:col-auto lg:row-auto">
-                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="ml-5 max-[374px]:ml-3">
-                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Dirección</h3>
-                  <a href="https://www.google.com/maps/place/Parque+Industrial+Terrapuerto/@4.7369609,-74.1464883,17z/data=!4m6!3m5!1s0x8e3f836cc7cb4ca7:0x6311da93e8df5cda!8m2!3d4.7348403!4d-74.1469011!16s%2Fg%2F11c49_f_d2?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff] transition-colors leading-relaxed block">
-                    Entrada Vía Parque La Florida Km 1.1 <br> Vía Siberia-Bogotá <br>
-                    Terrapuerto Bodega 30, Cota.
-                  </a>
-                </div>
+            <div class="flex items-start group md:col-start-1 md:row-start-1 lg:col-auto lg:row-auto">
+              <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center group-hover:bg-[#8b9e8d] transition-colors">
+                <svg class="w-5 h-5 max-[374px]:w-4 max-[374px]:h-4 fill-current" viewBox="0 0 384 512">
+                  <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/>
+                </svg>
               </div>
-
-              <div class="flex items-start group md:col-start-1 md:row-start-2 lg:col-auto lg:row-auto">
-                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
-                  <i class="fas fa-phone-alt"></i>
-                </div>
-                <div class="ml-5 max-[374px]:ml-3">
-                  <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Teléfonos</h3>
-                  <div class="flex flex-col space-y-1">
-                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
-                        +57 316 301 6821
-                      </a>
-                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
-                        +57 318 586 4340
-                      </a>
-                      <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors"> 
-                        +57 315 394 4402
-                      </a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-start group md:col-start-2 md:row-start-2 lg:col-auto lg:row-auto">
-                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
-                  <i class="fas fa-envelope"></i>
-                </div>
-                <div class="ml-5 max-[374px]:ml-3 w-full"> 
-                   <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Correos</h3>
-                   <div class="flex flex-col space-y-2">
-                      <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">
-                        coordinadoradmin@t3textiles.com.co
-                      </p>
-                      <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">
-                        cliente@t3textiles.com.co
-                      </p>
-                   </div>
-                </div>
-              </div>
-
-              <div class="flex items-start group md:col-start-2 md:row-start-1 lg:col-auto lg:row-auto">
-                <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center text-lg max-[374px]:text-sm group-hover:bg-[#8b9e8d] transition-colors">
-                  <i class="fas fa-clock"></i>
-                </div>
-                <div class="ml-5 max-[374px]:ml-3">
-                  <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Horario</h3>
-                  <p class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff]">Lunes - Viernes: <br class="hidden md:block lg:hidden"/> 7:00 AM - 4:45 PM</p>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="pt-4">
-              <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-widest">Síguenos</h3>
-              <div class="flex space-x-4">
-                <a target="_blank" href="https://www.instagram.com/t3textiles/?hl=es" class="w-10 h-10 bg-white/10 text-white border border-transparent rounded-full flex items-center justify-center hover:bg-[#8b9e8d] transition-all duration-300">
-                  <i class="fab fa-instagram text-lg"></i>
-                </a>
-                <a target="_blank" href="https://co.linkedin.com/company/t3-textiles" class="w-10 h-10 bg-white/10 text-white border border-transparent rounded-full flex items-center justify-center hover:bg-[#8b9e8d] transition-all duration-300">
-                  <i class="fab fa-linkedin-in text-lg"></i>
+              <div class="ml-5 max-[374px]:ml-3">
+                <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Dirección</h3>
+                <a href="https://www.google.com/maps/place/Parque+Industrial+Terrapuerto/@4.7369609,-74.1464883,17z/data=!4m6!3m5!1s0x8e3f836cc7cb4ca7:0x6311da93e8df5cda!8m2!3d4.7348403!4d-74.1469011!16s%2Fg%2F11c49_f_d2?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff] transition-colors leading-relaxed block">
+                  Entrada Vía Parque La Florida Km 1.1 <br> Vía Siberia-Bogotá <br>
+                  Terrapuerto Bodega 30, Cota.
                 </a>
               </div>
             </div>
 
+            <div class="flex items-start group md:col-start-1 md:row-start-2 lg:col-auto lg:row-auto">
+              <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center group-hover:bg-[#8b9e8d] transition-colors">
+                <svg class="w-5 h-5 max-[374px]:w-4 max-[374px]:h-4 fill-current" viewBox="0 0 512 512">
+                  <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+                </svg>
+              </div>
+              <div class="ml-5 max-[374px]:ml-3">
+                <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Teléfonos</h3>
+                <div class="flex flex-col space-y-1">
+                    <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors">+57 316 301 6821</a>
+                    <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors">+57 318 586 4340</a>
+                    <a href="https://wa.me/message/MYPAUYWKS4SDJ1" class="text-slate-300 hover:text-gray-400 leading-snug text-sm max-[374px]:text-xs transition-colors">+57 315 394 4402</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start group md:col-start-2 md:row-start-2 lg:col-auto lg:row-auto">
+              <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center group-hover:bg-[#8b9e8d] transition-colors">
+                <svg class="w-5 h-5 max-[374px]:w-4 max-[374px]:h-4 fill-current" viewBox="0 0 512 512">
+                  <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                </svg>
+              </div>
+              <div class="ml-5 max-[374px]:ml-3 w-full"> 
+                <h3 class="text-lg font-bold text-white mb-2 max-[374px]:text-base">Correos</h3>
+                <div class="flex flex-col space-y-2">
+                    <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">coordinadoradmin@t3textiles.com.co</p>
+                    <p class="text-gray-300 text-sm max-[374px]:text-xs break-all hover:text-[#ffffff] transition-colors">cliente@t3textiles.com.co</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start group md:col-start-2 md:row-start-1 lg:col-auto lg:row-auto">
+              <div class="flex-shrink-0 w-10 h-10 max-[374px]:w-8 max-[374px]:h-8 bg-white/10 text-white rounded-full flex items-center justify-center group-hover:bg-[#8b9e8d] transition-colors">
+                <svg class="w-5 h-5 max-[374px]:w-4 max-[374px]:h-4 fill-current" viewBox="0 0 512 512">
+                  <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/>
+                </svg>
+              </div>
+              <div class="ml-5 max-[374px]:ml-3">
+                <h3 class="text-lg font-bold text-white mb-1 max-[374px]:text-base">Horario</h3>
+                <p class="text-gray-300 text-sm max-[374px]:text-xs hover:text-[#ffffff]">Lunes - Viernes: <br class="hidden md:block lg:hidden"/> 7:00 AM - 4:45 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <h3 class="text-sm font-bold text-white mb-4 uppercase tracking-widest">Síguenos</h3>
+            <div class="flex space-x-4">
+              <a target="_blank" href="https://www.instagram.com/t3textiles/?hl=es" class="w-10 h-10 bg-white/10 text-white border border-transparent rounded-full flex items-center justify-center hover:bg-[#8b9e8d] transition-all duration-300">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+              </a>
+              <a target="_blank" href="https://co.linkedin.com/company/t3-textiles" class="w-10 h-10 bg-white/10 text-white border border-transparent rounded-full flex items-center justify-center hover:bg-[#8b9e8d] transition-all duration-300">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

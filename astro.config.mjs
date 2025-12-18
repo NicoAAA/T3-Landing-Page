@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind"; // <-- El import CORRECTO
+import tailwind from "@astrojs/tailwind"; 
 
 import sanity from "@sanity/astro";
 
@@ -17,6 +17,10 @@ export default defineConfig({
       useCdn: false,
     })
   ],
+
+  build: {
+    inlineStylesheets: 'always',
+  },
 
   vite: {
     server:{

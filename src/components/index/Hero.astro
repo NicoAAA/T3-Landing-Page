@@ -1,30 +1,33 @@
 ---
-// src/components/Hero.astro
+// src/components/index/Hero.astro
+import { Image } from 'astro:assets';
+// Importamos la imagen usando la ruta relativa desde este componente
+import heroImage from '../../assets/index/heroPeople.png';
 ---
-<section 
-  class="relative w-full h-[100vh] flex items-center justify-center bg-cover bg-center"
-  style="background-image: url('/images/heroPeople.png');"
->
-    <div class="absolute inset-0 bg-black/60"></div>
 
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-white">
-        <h1 class="text-4xl md:text-6xl font-titulo font-bold mb-6 tracking-tight">
-            UN MUNDO DE TELAS A TU ALCANCE
-        </h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 font-body font-light">
-            Bienvenido a tu destino definitivo para la creatividad textil. Calidad inigualable 
-            para transformar tus ideas en realidad.
-        </p>
-        <a href="#contact" class="w-full sm:w-auto 
-                               px-10 py-4 
-                               max-[374px]:px-2 max-[374px]:py-3 
-                               bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg 
-                               hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 
-                               uppercase 
-                               tracking-widest max-[374px]:tracking-wider
-                               text-sm max-[374px]:text-xs
-                               whitespace-nowrap">
-            Empecemos
-        </a>
-    </div>
+<section class="relative w-full h-[100vh] flex items-center justify-center overflow-hidden bg-surface">
+  <Image 
+    src={heroImage} 
+    alt="Personal de T3 Textiles trabajando en bodega" 
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    loading="eager" 
+    fetchpriority="high"
+    widths={[640, 1024, 1920, heroImage.width]}
+    sizes="100vw"
+  />
+
+  <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+  <div class="relative z-20 text-center px-4 max-w-4xl mx-auto text-white">
+    <h1 class="text-4xl md:text-6xl font-titulo font-bold mb-6 tracking-tight">
+        UN MUNDO DE TELAS A TU ALCANCE
+    </h1>
+    <p class="text-lg md:text-xl text-gray-200 mb-8 font-body font-light">
+        Bienvenido a tu destino definitivo para la creatividad textil. Calidad inigualable 
+        para transformar tus ideas en realidad.
+    </p>
+    <a href="#contact" class="inline-block w-full sm:w-auto px-10 py-4 bg-[#8b9e8d] text-white font-titulo font-bold rounded-lg hover:bg-[#69826c] shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm whitespace-nowrap">
+        Empecemos
+    </a>
+  </div>
 </section>
