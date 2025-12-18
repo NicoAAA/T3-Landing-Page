@@ -6,7 +6,17 @@ import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import FashionNews from '../components/Fashion-News/Fashion-News.astro';
 import Hero from '../components/Fashion-News/Hero-fn.astro';
 
+// 1. Estilos globales
 import '../styles/global.css';
+
+// 2. Fuentes optimizadas (Astro las procesará localmente, ¡mucho más rápido!)
+import '@fontsource/lato/300.css';
+import '@fontsource/lato/400.css';
+import '@fontsource/lato/700.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
 ---
 
 <html lang="es">
@@ -14,23 +24,18 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/images/LOGOT3.svg" />
-    <link rel="image" href="/images/TelaNosotros.png" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <title>Novedades | T3 Textiles</title>
-</head>
-<body class="bg-theme text-[#1f2937]"> 
-    <div class="fixed top-0 left-0 w-full z-50">
-        <Navbar />
-    </div>
+    <meta name="description" content="Explora las últimas tendencias y noticias de moda en T3 Textiles.">
 
-    <main class="w-full">
-        <Hero />
+    </head>
+<body class="bg-theme text-[#1f2937] antialiased"> 
+    <header class="fixed top-0 left-0 w-full z-50">
+        <Navbar />
+    </header>
+
+    <main class="w-full pt-[navbar-height]"> <Hero />
+        
         <div class="h-24 bg-theme"></div>
 
         <FashionNews/>
