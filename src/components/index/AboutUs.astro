@@ -1,5 +1,11 @@
 ---
 // src/components/AboutUs.astro
+import { Image } from 'astro:assets';
+// Importamos la imagen usando la ruta relativa desde este componente
+import legacyImage from '../../assets/index/Telas_70.jpg';
+import coloresImg from '../../assets/index/ColoresTelas.jpg';
+import apretonImg from '../../assets/index/apreton.png';
+
 ---
 <section id="historia" class="bg-theme py-16 lg:py-24 overflow-hidden">
   <div class="container mx-auto px-6 max-w-7xl">
@@ -36,9 +42,15 @@
       </div>
       
       <div class="relative h-96 lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl group">
-        <img src="/images/Telas_70.jpg" 
-             alt="Telas antiguas" 
-             class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+        <Image 
+          src={legacyImage} 
+          alt="Telas antiguas de T3 Textiles" 
+          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+          loading="lazy" 
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         <p class="absolute bottom-8 left-8 text-white text-2xl font-bold font-titulo tracking-wide">Legado que inspira</p>
       </div>
@@ -46,9 +58,15 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 lg:mb-32">
       <div class="order-2 lg:order-1 relative h-96 lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl group">
-        <img src="/images/ColoresTelas.jpg" 
-             alt="Rollos de tela coloridos" 
-             class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+        <Image 
+          src={coloresImg} 
+          alt="Retazos de tela coloridos de T3 Textiles" 
+          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+          loading="lazy"
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-gradient-to-t from-[#183153]/70 to-transparent"></div>
         <p class="absolute bottom-8 left-8 text-white text-2xl font-bold font-titulo tracking-wide">Explosión de color</p>
       </div>
@@ -118,9 +136,15 @@
       </div>
       
       <div class="relative h-96 lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl group">
-        <img src="/images/apreton.png" 
-             alt="Cintas de color" 
-             class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+        <Image 
+          src={apretonImg} 
+          alt="Valores de T3 Textiles - Apreton de manos" 
+          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 800px"
+          loading="lazy" 
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-gradient-to-t  to-transparent"></div>
         <p class="absolute bottom-8 left-8 text-white text-2xl font-bold font-titulo tracking-wide">Valores que perduran</p>
       </div>
