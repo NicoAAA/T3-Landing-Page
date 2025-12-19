@@ -1,19 +1,24 @@
 ---
 // src/components/Fashion-News/ImmersiveView.astro
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from '@sanity/image-url';
 
-// 1. Definimos la estructura de una columna para que TS entienda el .map
+// 1. Configuramos el builder para transformar los objetos de Sanity en URLs
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source: any) {
+  return builder.image(source);
+}
+
 interface DigitColumn {
   strip: string[];
   mapping: number[];
 }
 
 interface Props {
-  // En lugar de any[], usamos la interfaz que creamos arriba
   digitColumns: DigitColumn[]; 
-  newsItems: any[]; // Puedes dejar este en any[] o definir una interfaz Article si quieres ser más estricto
+  newsItems: any[]; 
 }
 
-// 2. Aquí recibimos las props (fíjate que es 'newsItems' en minúscula)
 const { newsItems, digitColumns } = Astro.props;
 ---
 
@@ -66,7 +71,17 @@ const { newsItems, digitColumns } = Astro.props;
 
                             <div class="w-full sm:w-1/2 relative flex items-center justify-center order-1 sm:order-2">
                                 <div class="immersive-image-wrapper relative h-[55vh] w-auto aspect-[3/4] sm:aspect-auto sm:h-[60vh] sm:w-full overflow-hidden shadow-2xl transition-all duration-300 ease-out rounded-sm border-secondTheme mx-auto sm:mx-0">
-                                    <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+                                    {/* ESTA ES LA CORRECCIÓN CLAVE:
+                                        Usamos urlFor para convertir el objeto 'item.image' en una URL real.
+                                        Optimizamos ancho a 800px y formato WebP para el reporte de Lighthouse.
+                                    */}
+                                    <img 
+                                        src={urlFor(item.image).width(800).format('webp').url()} 
+                                        alt={item.title} 
+                                        class="w-full h-full object-cover" 
+                                        loading={index === 0 ? "eager" : "lazy"}
+                                        decoding="async"
+                                    />
                                 </div>
                             </div>
 

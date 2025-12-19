@@ -1,5 +1,9 @@
 ---
 // src/components/Contact.astro
+import { Image } from 'astro:assets';
+
+// Ajusta la cantidad de ../ según la profundidad de tu carpeta
+import bodegaImg from '../../assets/index/Telas_Bodega.jpg';
 ---
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -14,7 +18,15 @@
       {/* Columna Izquierda (SIN CAMBIOS) */}
       <div class="relative w-full lg:w-5/12 text-white p-10 lg:p-12 max-[374px]:p-5 flex flex-col justify-between">
         <div class="absolute inset-0 z-0">
-          <img src="/images/Telas_Bodega.jpg" alt="Telas en Bodega" class="w-full h-full object-cover" loading="eager" decoding="async">
+          <Image 
+            src={bodegaImg} 
+            alt="Rollos de telas almacenados en la bodega de T3 Textiles" 
+            class="w-full h-full object-cover"
+            loading="eager" 
+            decoding="async"
+            widths={[400, 800, 1200, bodegaImg.width]}
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
           <div class="absolute inset-0 bg-black/75"></div> 
         </div>
 

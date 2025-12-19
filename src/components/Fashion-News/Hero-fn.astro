@@ -1,34 +1,49 @@
 ---
 // src/components/Fashion-News/Hero-fn.astro
 
+import { Image } from 'astro:assets';
+
+// Importamos las imágenes (subimos dos niveles para llegar a src/assets)
+import fashionOne from "../../assets/novedades/Fashion-one.jpg";
+import fashionTwo from "../../assets/novedades/Fashion-two.jpg";
+import fashionThree from "../../assets/novedades/Fashion-three.jpg";
+import fashionFour from "../../assets/novedades/Fashion-four.jpg";
+
 const slides = [
   {
-    img: '/images/Fashion-one.jpg',
-    credit: 'Foto de <a href="https://unsplash.com/es/@ahmed_assem?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ahmed Assem</a> en <a href="https://unsplash.com/es/fotos/un-par-de-mujeres-de-pie-una-al-lado-de-la-otra-SMhA_38B4aA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
-   
+    img: fashionOne,
+    credit: 'Foto de <a href="...">Ahmed Assem</a> en Unsplash'
   },
   {
-    img: '/images/Fashion-two.jpg',
-     credit: 'Foto de <a href="https://unsplash.com/es/@smartins20" target="_blank" class="underline hover:text-white">Sergio Martins</a> en Unsplash'
+    img: fashionTwo,
+    credit: 'Foto de <a href="...">Sergio Martins</a> en Unsplash'
   },
   {
-    img: '/images/Fashion-three.jpg',
-    credit: 'Foto de <a href="https://unsplash.com/es/@thevoncomplex?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mike Von</a> en <a href="https://unsplash.com/es/fotos/mujer-sosteniendo-sus-gafas-de-sol-bWUOx0SaSAk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
+    img: fashionThree,
+    credit: 'Foto de <a href="...">Mike Von</a> en Unsplash'
   },
-    {
-        img: '/images/Fashion-four.jpg',
-        credit: 'Foto de <a href="https://unsplash.com/es/@smartins20?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergio Martins</a> en <a href="https://unsplash.com/es/fotos/modelo-mostrando-un-conjunto-de-moda-moderna-en-una-pasarela-mt7D979QkcE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
-    }
+  {
+    img: fashionFour,
+    credit: 'Foto de <a href="...">Sergio Martins</a> en Unsplash'
+  }
 ];
 ---
-
 <section class="relative w-full h-[100vh] flex items-center justify-center overflow-hidden bg-black" id="hero-carousel">
     
     {slides.map((slide, index) => (
         <div
-            class={`carousel-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
-            style={`background-image: url('${slide.img}');`}
-        ></div>
+            class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-0' : 'opacity-0 -z-10'}`}
+        >
+            <Image 
+                src={slide.img} 
+                alt="Tendencias de moda T3 Textiles" 
+                class="w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
+                widths={[640, 1024, 1920, slide.img.width]}
+                sizes="100vw"
+            />
+        </div>
     ))}
     
     <div class="absolute inset-0 bg-black/50 z-10 pointer-events-none"></div>
@@ -38,7 +53,7 @@ const slides = [
         <p class="text-lg md:text-xl text-gray-200 mb-8 font-light">
             Bienvenido a tu destino definitivo para la creatividad textil.
         </p>
-        <a href="#fashion-news-container" class="bg-[#8b9e8d] text-white font-semibold px-8 py-4 max-[374px]:px-6 max-[374px]:py-3 rounded-lg hover:bg-[#69826c] transition-colors duration-300 uppercase tracking-widest text-sm">
+        <a href="#fashion-news-container" class="bg-[#8b9e8d] text-white font-semibold px-8 py-4 rounded-lg hover:bg-[#69826c] transition-colors duration-300 uppercase tracking-widest text-sm">
             Empecemos
         </a>
     </div>
@@ -57,7 +72,6 @@ const slides = [
     <button id="next-btn" class="absolute right-0 top-0 h-full w-1/6 z-20 cursor-pointer group flex justify-end items-center" aria-label="Siguiente">
         <span class="hidden group-hover:block text-white text-4xl mr-4 opacity-70">›</span>
     </button>
-
 </section>
 
 <script>

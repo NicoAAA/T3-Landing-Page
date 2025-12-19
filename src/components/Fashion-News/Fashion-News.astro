@@ -4,11 +4,17 @@ import { sanityClient } from "sanity:client";
 import { processFashionData } from "../../utils/fashion-math.js";
 import StandardView from "./StandardView.astro";
 import ImmersiveView from "./ImmersiveView.astro";
+import imageUrlBuilder from '@sanity/image-url';
+
+const builder = imageUrlBuilder(sanityClient);
+function urlFor(source) {
+  return builder.image(source);
+}
 
 // 1. Obtener Datos
 const data = await sanityClient.fetch(`
   *[_type == "articulo"] | order(year desc) {
-    year, title, description, "image": image.asset->url
+    year, title, description, image // Quitamos el "->url" para tener el objeto optimizable
   }
 `);
 const NEWS_ITEMS = data || [];
