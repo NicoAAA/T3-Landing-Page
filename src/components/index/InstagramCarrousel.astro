@@ -1,88 +1,44 @@
 ---
-// InstagramCarousel.astro
+// src/components/index/InstagramCarrousel.astro
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
-// DATOS LOCALES (MOCK DATA)
 import fashionOneImg from '../../assets/novedades/Fashion-one.jpg';
 import fashionTwoImg from '../../assets/novedades/Fashion-two.jpg';
 import fashionThreeImg from '../../assets/novedades/Fashion-three.jpg';
 import fashionFourImg from '../../assets/novedades/Fashion-four.jpg';
 
-// DATOS LOCALES (MOCK DATA)
-interface InstagramPost {
-  // 3. Actualizamos el tipo: ya no es string, es el metadato de la imagen importada
-  image: ImageMetadata; 
-  description: string;
-}
-
-interface Props {
-  posts?: InstagramPost[];
-}
-
-const LOCAL_POSTS: InstagramPost[] = [
-  {
-    // 4. Usamos la variable importada en lugar del string
-    image: fashionOneImg, 
-    description: "Nuestros nuevos diseños..."
-  },
-  {
-    image: fashionTwoImg,
-    description: "La calidad se siente..."
-  },
-  {
-    image: fashionThreeImg,
-    description: "Colores que inspiran..."
-  },
-  {
-    image: fashionFourImg,
-    description: "Innovación y tradición..."
-  }
+const LOCAL_POSTS = [
+  { image: fashionOneImg, description: "Nuestros nuevos diseños..." },
+  { image: fashionTwoImg, description: "La calidad se siente..." },
+  { image: fashionThreeImg, description: "Colores que inspiran..." },
+  { image: fashionFourImg, description: "Innovación y tradición..." }
 ];
 
-const { posts: propPosts } = Astro.props;
-const posts = (propPosts && propPosts.length > 0) ? propPosts : LOCAL_POSTS;
+const { posts = LOCAL_POSTS } = Astro.props;
 
-function truncateText(text: string, maxLength: number): string {
-  if (!text) return "";
-  if (text.length <= maxLength) return text;
-  let subString = text.substring(0, maxLength);
-  return subString.substring(0, subString.lastIndexOf(" ")) + "...";
+function truncateText(text, maxLength) {
+  if (!text || text.length <= maxLength) return text;
+  return text.substring(0, text.lastIndexOf(" ", maxLength)) + "...";
 }
 ---
 
-<div class="w-full overflow-hidden relative py-16 bg-theme cursor-grab active:cursor-grabbing select-none group/container" id="carouselContainer">
-  
-  <div 
-    id="instaTrack" 
-    class="flex gap-6 w-max will-change-transform"
-  >
-    {posts.map((post) => (
-      <article class="
-        carousel-item
-        group relative
-        flex-shrink-0 flex flex-col 
-        bg-second-theme rounded-2xl shadow-md overflow-hidden 
-        w-[85vw] max-w-[400px] md:w-[320px] lg:w-[360px]
-        transition-all duration-500 ease-out
-        hover:scale-110 hover:shadow-2xl hover:z-50 hover:brightness-110
-      ">
+<div class="w-full overflow-hidden relative py-16 bg-theme cursor-grab active:cursor-grabbing select-none" id="carouselContainer">
+  <div id="instaTrack" class="flex gap-6 w-max will-change-transform">
+    {/* 1. DUPLICACIÓN EN SERVIDOR: Renderizamos dos veces para el efecto infinito sin JS pesado */}
+    {[...posts, ...posts].map((post) => (
+      <article class="carousel-item group relative flex-shrink-0 flex flex-col bg-second-theme rounded-2xl shadow-md overflow-hidden w-[85vw] max-w-[400px] md:w-[320px] lg:w-[360px] transition-all duration-500 hover:scale-105">
         <div class="relative w-full aspect-square overflow-hidden">
           <Image 
             src={post.image} 
             alt="Instagram Post" 
             loading="lazy" 
+            draggable="false"
             decoding="async"
-            draggable="false" 
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            widths={[300, 400, 600]}
-            sizes="(max-width: 768px) 85vw, (max-width: 1024px) 320px, 360px"
+            class="w-full h-full object-cover"
+            widths={[300, 400]}
           />
         </div>
-        <div class="flex-grow p-5 flex flex-col bg-surface">
-          <p class="text-muted text-sm leading-relaxed font-normal break-words">
-            {truncateText(post.description, 120)} 
-          </p>
+        <div class="p-5 flex-grow bg-surface">
+          <p class="text-muted text-sm leading-relaxed">{truncateText(post.description, 120)}</p>
         </div>
       </article>
     ))}
@@ -90,120 +46,68 @@ function truncateText(text: string, maxLength: number): string {
 </div>
 
 <script>
-  // Esperamos a que todo cargue (incluyendo imágenes) para calcular anchos correctamente
-  window.addEventListener('load', () => {
-    const track = document.getElementById('instaTrack') as HTMLElement;
-    const container = document.getElementById('carouselContainer') as HTMLElement;
-    
-    if (!track || !container) return;
-
-    // 1. OBTENER DIMENSIONES DEL SET ORIGINAL
-    const originalItems = Array.from(track.children) as HTMLElement[];
-    if (originalItems.length === 0) return;
-
-    // Calculamos el ancho de un solo item + el gap (24px viene de gap-6 en Tailwind)
-    // Usamos el primer item como referencia
-    const itemWidth = originalItems[0].offsetWidth;
-    const gap = 24; 
-    const singleItemTotalWidth = itemWidth + gap;
-    
-    // El ancho total del set original
-    const originalSetWidth = singleItemTotalWidth * originalItems.length;
-
-    // 2. DUPLICACIÓN INTELIGENTE (FIX DEL HUECO)
-    // Duplicamos los items suficientes veces para asegurar que cubran 
-    // al menos 3 veces el ancho de la pantalla. Esto evita el hueco negro.
-    const screenWidth = window.innerWidth;
-    const neededSets = Math.ceil((screenWidth * 3) / originalSetWidth) + 1;
-
-    for (let i = 0; i < neededSets; i++) {
-        originalItems.forEach(item => {
-            const clone = item.cloneNode(true) as HTMLElement;
-            clone.setAttribute('aria-hidden', 'true');
-            track.appendChild(clone);
-        });
-    }
-
-    // Variables de Estado
+  // Eliminamos window.addEventListener('load') para que se ejecute de inmediato de forma optimizada
+  const track = document.getElementById('instaTrack');
+  const container = document.getElementById('carouselContainer');
+  
+  if (track && container) {
     let currentX = 0;
-    let baseSpeed = 1.0; // Velocidad base
-    let isHovering = false;
+    const baseSpeed = 0.8; 
     let isDragging = false;
+    let isVisible = false;
     let startX = 0;
-    let lastDragX = 0;
-    let momentum = 0;
+    let lastX = 0;
 
-    // LOOP DE ANIMACIÓN
+    // 2. INTERSECTION OBSERVER: Solo anima si el carrusel es visible
+    const observer = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+    }, { threshold: 0.1 });
+    
+    observer.observe(container);
+
     const animate = () => {
-      if (!isDragging) {
-        // Reducir velocidad si hay hover
-        const targetSpeed = isHovering ? 0 : baseSpeed;
+      if (!isDragging && isVisible) {
+        currentX -= baseSpeed;
         
-        // Momentum o velocidad constante
-        if (Math.abs(momentum) > 0.1) {
-            currentX -= momentum;
-            momentum *= 0.95; 
-        } else {
-            currentX -= targetSpeed;
+        // Reinicio suave usando la mitad del ancho (ya que duplicamos los posts)
+        const halfWidth = track.scrollWidth / 2;
+        if (Math.abs(currentX) >= halfWidth) {
+          currentX = 0;
         }
+        
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
       }
-
-      // 3. LÓGICA DE INFINITO CORREGIDA
-      // En lugar de usar track.scrollWidth / 2, usamos el ancho del set original.
-      // Cuando nos hemos movido lo suficiente para ocultar el set original completo,
-      // reseteamos la posición sumando ese ancho. Visualmente es idéntico.
-      
-      // Reset hacia la izquierda (Scroll normal)
-      if (currentX <= -originalSetWidth) {
-        currentX += originalSetWidth;
-      }
-      // Reset hacia la derecha (Si el usuario arrastra al revés)
-      else if (currentX > 0) {
-        currentX -= originalSetWidth;
-      }
-
-      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
       requestAnimationFrame(animate);
     };
 
+    // DRAG LOGIC (Simplificada)
+    const onStart = (e) => {
+      isDragging = true;
+      startX = e.pageX || e.touches[0].pageX;
+      lastX = currentX;
+      container.style.cursor = 'grabbing';
+    };
+
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const x = e.pageX || e.touches[0].pageX;
+      const walk = x - startX;
+      currentX = lastX + walk;
+      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+    };
+
+    const onEnd = () => {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    };
+
+    container.addEventListener('mousedown', onStart);
+    container.addEventListener('touchstart', onStart, { passive: true });
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchend', onEnd);
+
     requestAnimationFrame(animate);
-
-    // EVENTOS (Drag & Drop igual que antes)
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    carouselItems.forEach(item => {
-        item.addEventListener('mouseenter', () => isHovering = true);
-        item.addEventListener('mouseleave', () => isHovering = false);
-    });
-
-    const startDrag = (e: MouseEvent | TouchEvent) => {
-        isDragging = true;
-        isHovering = true; 
-        startX = (e as MouseEvent).pageX || (e as TouchEvent).touches[0].pageX;
-        lastDragX = startX;
-        momentum = 0; 
-        container.style.cursor = 'grabbing';
-    };
-
-    const moveDrag = (e: MouseEvent | TouchEvent) => {
-        if (!isDragging) return;
-        const x = (e as MouseEvent).pageX || (e as TouchEvent).touches[0].pageX;
-        const diff = x - lastDragX;
-        currentX += diff; 
-        lastDragX = x; 
-        momentum = -diff * 1.5; 
-    };
-
-    const endDrag = () => {
-        isDragging = false;
-        isHovering = false; 
-        container.style.cursor = 'grab';
-    };
-
-    container.addEventListener('mousedown', startDrag);
-    container.addEventListener('touchstart', startDrag, { passive: true });
-    window.addEventListener('mousemove', moveDrag);
-    window.addEventListener('touchmove', moveDrag, { passive: true });
-    window.addEventListener('mouseup', endDrag);
-    window.addEventListener('touchend', endDrag);
-  });
+  }
 </script>

@@ -1,19 +1,18 @@
 // src/scripts/Fashion-News/controller.js
 
 export function initFashionPage({ uniqueYears, clientMappings }) {
-  // --- 1. NORMALIZACIÓN DE DATOS (LA CLAVE DEL ARREGLO) ---
-  // Convertimos todos los años a String para evitar errores de comparación (2024 vs "2024")
+  // --- 1. NORMALIZACIÓN DE DATOS ---
   const uniqueYearsString = uniqueYears.map(y => String(y));
-  
   console.log("🏁 initFashionPage iniciado");
-  console.log("📅 Años detectados (String):", uniqueYearsString);
 
   // 2. SELECTORES
+  const container = document.getElementById('fashion-news-container'); 
   const btn = document.getElementById('mode-toggle-btn');
   const btnText = document.getElementById('mode-text');
   const standardContainer = document.getElementById('standard-view-container');
   const immersiveContainer = document.getElementById('immersive-view-container');
   const yearWrapper = document.getElementById('year-sticky-wrapper');
+  const scrollHint = document.getElementById('scroll-hint');
   
   const digitStrips = document.querySelectorAll('.digit-strip');
   const articles = document.querySelectorAll('.news-article-wrapper');
@@ -57,6 +56,8 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
           yearWrapper.style.display = 'block'; 
       }
       if(btnText) btnText.innerText = "Modo Inmersivo";
+      
+      checkScrollHint(); 
       setupLines();
     } else {
       if(standardContainer) standardContainer.classList.remove('hidden');
@@ -66,8 +67,32 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
           yearWrapper.style.display = 'none';
       }
       if(btnText) btnText.innerText = "Modo Estándar";
+
+      if(scrollHint) scrollHint.classList.add('opacity-0');
     }
     manageNavbarVisibility();
+  }
+
+  // --- NUEVA LÓGICA DEL INDICADOR DE SCROLL (ACTUALIZADA) ---
+  function checkScrollHint() {
+      if (!scrollHint || !container) return;
+
+      const rect = container.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // 1. ¿El usuario está viendo la sección? (La parte superior ya pasó o está en pantalla)
+      // Usamos viewportHeight * 0.9 para que aparezca un poquito antes de que el contenedor ocupe toda la pantalla.
+      const isVisible = rect.top < (viewportHeight * 0.9);
+
+      // 2. ¿Todavía queda contenido? (La parte inferior del contenedor sigue por debajo del final de la pantalla)
+      // Si rect.bottom es menor que la altura de la ventana, significa que ya vimos el final (y el footer está entrando).
+      const hasContentLeft = rect.bottom > viewportHeight;
+
+      if (isImmersiveMode && isVisible && hasContentLeft) {
+          scrollHint.classList.remove('opacity-0');
+      } else {
+          scrollHint.classList.add('opacity-0');
+      }
   }
 
   function setupLines() {
@@ -94,7 +119,6 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
       isImmersiveMode = !isImmersiveMode;
       checkMode();
       
-      // Animación botón
       btn.style.width = "210px";
       if(btnText) btnText.style.opacity = "1";
       
@@ -116,7 +140,6 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
     });
   }
 
-  // Inicialización
   updateDimensions();
   window.addEventListener('resize', () => {
       updateDimensions();
@@ -129,11 +152,12 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
   // --- SCROLL PRINCIPAL ---
   window.addEventListener('scroll', () => {
     manageNavbarVisibility();
+    checkScrollHint(); // Verificamos constantemente
 
     if (!isImmersiveMode) return;
     
     const windowHeight = window.innerHeight;
-    let activeYearIndex = -1; // Empezamos en -1
+    let activeYearIndex = -1; 
     let maxVisibility = 0;
 
     articles.forEach((article) => {
@@ -150,9 +174,6 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
         if (visibility > maxVisibility) {
             maxVisibility = visibility;
             const currentYear = article.dataset.year;
-            
-            // CORRECCIÓN PRINCIPAL: Usamos String() para asegurar que coincida con el array normalizado
-            // Además usamos uniqueYearsString que definimos al inicio
             activeYearIndex = uniqueYearsString.indexOf(String(currentYear));
         }
         
@@ -166,7 +187,6 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
         let progress = scrolledDistance / totalScrollableDistance;
         progress = Math.max(0, Math.min(1, progress));
 
-        // Animaciones internas (Opacidad, Blur, Texto)
         const imgWrapper = article.querySelector('.immersive-image-wrapper');
         const title = article.querySelector('.immersive-title');
         const btnElement = article.querySelector('.immersive-btn');
@@ -197,12 +217,7 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
         if (btnElement) btnElement.style.opacity = (progress > 0.1 ? 1 : 0).toString();
     });
 
-    // --- ANIMACIÓN DE NÚMEROS (AÑOS) ---
-    // Si activeYearIndex sigue siendo -1, significa que no encontró coincidencia.
     if (activeYearIndex !== -1 && digitStrips.length > 0) {
-        // Log de debug para confirmar que detecta el cambio
-        // console.log("🎯 Año activo índice:", activeYearIndex); 
-
         digitStrips.forEach((strip, colIndex) => {
             if(clientMappings[colIndex] && clientMappings[colIndex][activeYearIndex] !== undefined) {
                 const targetStripIndex = clientMappings[colIndex][activeYearIndex];
@@ -212,7 +227,6 @@ export function initFashionPage({ uniqueYears, clientMappings }) {
     }
   });
 
-  // Disparamos un scroll inicial para acomodar todo
   setTimeout(() => {
      window.dispatchEvent(new Event('scroll'));
   }, 100);

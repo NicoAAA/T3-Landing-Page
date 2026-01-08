@@ -14,7 +14,7 @@ function urlFor(source) {
 // 1. Obtener Datos
 const data = await sanityClient.fetch(`
   *[_type == "articulo"] | order(year desc) {
-    year, title, description, image // Quitamos el "->url" para tener el objeto optimizable
+    year, title, description, image
   }
 `);
 const NEWS_ITEMS = data || [];
@@ -43,40 +43,49 @@ const { uniqueYears, digitColumns, clientMappings, postsByYear, sortedYears } = 
   <StandardView sortedYears={sortedYears} postsByYear={postsByYear} />
   <ImmersiveView newsItems={NEWS_ITEMS} digitColumns={digitColumns} />
 
+  {/* --- SOMBRA E INDICADOR DE SCROLL --- */}
+  {/* Usamos 'fixed' para que se pegue a la pantalla, pero lo controlamos por JS para ocultarlo si salimos de la sección */}
+  <div 
+      id="scroll-hint" 
+      class="fixed bottom-0 left-0 w-full h-80 z-[40] pointer-events-none transition-opacity duration-700 opacity-0"
+  >
+      {/* Gradiente suave que no corta bruscamente */}
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      
+      <div class="absolute bottom-8 w-full text-center flex flex-col items-center gap-2 animate-bounce">
+          <span class="uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold text-white drop-shadow-lg">
+              Deslice hacia abajo
+          </span>
+          <svg class="w-6 h-6 text-white opacity-90 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+      </div>
+  </div>
+
 </div>
 
 <script>
   import { initFashionPage } from "../../scripts/Fashion-News/controller.js";
 
   const startLogic = () => {
-    // 1. Buscamos el contenedor principal
     const container = document.getElementById('fashion-news-container');
     
     if (container) {
       try {
-        // 2. Leemos los atributos data (dataset)
-        // El navegador maneja el parseo básico, pero usamos JSON.parse para convertir string a array
         const uniqueYears = JSON.parse(container.dataset.uniqueYears);
         const clientMappings = JSON.parse(container.dataset.clientMappings);
-
         console.log("✅ Datos cargados:", uniqueYears);
-
-        // 3. Iniciamos el controlador
         initFashionPage({ uniqueYears, clientMappings });
-
       } catch (e) {
         console.error("❌ Error leyendo datos del DOM:", e);
       }
     }
   };
 
-  // Ejecución segura
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', startLogic);
   } else {
     startLogic();
   }
-  
-  // Soporte para Astro View Transitions (si lo usas en el futuro)
   document.addEventListener('astro:page-load', startLogic);
 </script>
